@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - قنوات ومواقع علمية موثوقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .dark-mode {
+            --olive-green: #1E261C;
+            --gold: #E5C158;
+            --pure-white: #1A2118;
+            --bg-offwhite: #121710;
+            --text-dark: #E4E8E3;
+            --text-gray: #A0A89F;
+            --card-bg: #1A2118;
+            --shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 90px;
+        }
+
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .app-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn-header {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--pure-white);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            padding: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .page-header-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* لافتة ترحيبية بالقسم */
+        .help-intro-banner {
+            background: linear-gradient(135deg, var(--olive-green), #2A3725);
+            color: var(--pure-white);
+            border-radius: 18px;
+            padding: 1.3rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 20px rgba(56, 74, 52, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .help-intro-banner h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.15rem;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+
+        .help-intro-banner p {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        /* بطاقات القنوات والمواقع */
+        .resource-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 74, 52, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .resource-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: var(--bg-offwhite);
+            color: #FF0000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .resource-icon.web {
+            color: var(--olive-green);
+            border-color: rgba(56, 74, 52, 0.2);
+        }
+
+        .resource-title-group h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--olive-green);
+        }
+
+        .resource-title-group span {
+            font-size: 0.75rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .resource-desc {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* زر زيارة الرابط */
+        .visit-btn {
+            background-color: #FF0000;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            align-self: flex-start;
+            box-shadow: 0 3px 10px rgba(255, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            margin-top: 4px;
+        }
+
+        .visit-btn.web-btn {
+            background-color: var(--olive-green);
+            box-shadow: 0 3px 10px rgba(56, 74, 52, 0.2);
+        }
+
+        .visit-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* شريط التنقل السفلي للأقسام الثلاثة */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.7rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-right">
+            <a href="index.html" title="العودة للرئيسية"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="header-controls">
+            <button class="control-btn-header" onclick="toggleDarkMode()">
+                <i class="fas fa-moon" id="darkModeIcon"></i> <span id="darkModeText">الليلي</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="page-header-box">
+            <div class="page-title">
+                <i class="fas fa-folder-open"></i> ملفات مساعدة ومواقع موثوقة
+            </div>
+        </div>
+
+        <!-- لافتة ترحيبية -->
+        <div class="help-intro-banner">
+            <h3>المواقع وقنوات اليوتيوب الموصى بها</h3>
+            <p>روابط ومصادر مختارة لتعلم القرآن الكريم، القراءات، والعلوم الشرعية.</p>
+        </div>
+
+        <!-- 1. مقراة الجزائر -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon web"><i class="fas fa-globe"></i></div>
+                <div class="resource-title-group">
+                    <h4>موقع مقراة الجزائر</h4>
+                    <span>تعليم القرآن الكريم وعلومه</span>
+                </div>
+            </div>
+            <p class="resource-desc">منصة قرآنية مباركة تهدف لتعليم كتاب الله وتصحيح التلاوة والإقراء.</p>
+            <a href="https://maqraa.dz/" target="_blank" class="visit-btn web-btn">
+                <i class="fas fa-external-link-alt"></i> مقراة الجزائر
+            </a>
+        </div>
+
+        <!-- 2. أكاديمية الراجحي -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon web"><i class="fas fa-graduation-cap"></i></div>
+                <div class="resource-title-group">
+                    <h4>أكاديمية الراجحي</h4>
+                    <span>التعليم الشرعي وتأهيل طلاب العلم</span>
+                </div>
+            </div>
+            <p class="resource-desc">منصة تعليمية متقدمة لتقديم البرامج الشرعية والعلمية الرصينة.</p>
+            <a href="https://alrajhiacademy.com/ar" target="_blank" class="visit-btn web-btn">
+                <i class="fas fa-external-link-alt"></i> أكاديمية الراجحي
+            </a>
+        </div>
+
+        <!-- 3. موقع تحفيز القرآن -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon web"><i class="fas fa-book-reader"></i></div>
+                <div class="resource-title-group">
+                    <h4>موقع تحفيز القرآن</h4>
+                    <span>برامج ووسائل حفظ وتثبيت القرآن الكريم</span>
+                </div>
+            </div>
+            <p class="resource-desc">موقع مفيد يساهم في مساعدة الحفاظ على حفظ القرآن وتسهيل مراجعته.</p>
+            <a href="https://tahfez.net/" target="_blank" class="visit-btn web-btn">
+                <i class="fas fa-external-link-alt"></i> موقع تحفيز القرآن
+            </a>
+        </div>
+
+        <!-- 4. موقع نبراس القرآن -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon web"><i class="fas fa-star-and-crescent"></i></div>
+                <div class="resource-title-group">
+                    <h4>موقع نبراس القرآن</h4>
+                    <span>خدمات وبرامج قرآنية متنوعة</span>
+                </div>
+            </div>
+            <p class="resource-desc">منصة قرآنية هادفة تدعم حفظ وتلاوة كتاب الله عز وجل.</p>
+            <a href="https://nbquran.net/" target="_blank" class="visit-btn web-btn">
+                <i class="fas fa-external-link-alt"></i> موقع نبراس القرآن
+            </a>
+        </div>
+
+        <!-- 5. قناة تبسيط أحكام ورش -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                <div class="resource-title-group">
+                    <h4>قناة تبسيط أحكام ورش</h4>
+                    <span>تعليم وتجويد القرآن الكريم برواية ورش</span>
+                </div>
+            </div>
+            <p class="resource-desc">قناة مخصصة لتبسيط وتسهيل أحكام التلاوة والتجويد برواية ورش عن نافع.</p>
+            <a href="https://youtube.com/@tabssit_ahkam_warsh?si=7IQ1-KFIpoGLp9tZ" target="_blank" class="visit-btn">
+                <i class="fab fa-youtube"></i> تبسيط أحكام ورش
+            </a>
+        </div>
+
+        <!-- 6. قناة فارس أنتر (الأولى) -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                <div class="resource-title-group">
+                    <h4>قناة فارس أنتر (Faris Antar)</h4>
+                    <span>تلاوات وبرامج قرآنية</span>
+                </div>
+            </div>
+            <p class="resource-desc">قناة الشيخ فارس أنتر للتلاوات العطرة والدروس والفوائد القرآنية.</p>
+            <a href="https://youtube.com/@farisantar?si=yC-OKYFEIISqY8MO" target="_blank" class="visit-btn">
+                <i class="fab fa-youtube"></i> فارس أنتر
+            </a>
+        </div>
+
+        <!-- 7. قناة فارس أنتر (الثانية) -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                <div class="resource-title-group">
+                    <h4>قناة فارس أنتر (إصدارات إضافية)</h4>
+                    <span>محتوى مرئي وقرآني متنوع</span>
+                </div>
+            </div>
+            <p class="resource-desc">المزيد من المقاطع والبرامج والتلاوات المميزة لفضيلة الشيخ فارس أنتر.</p>
+            <a href="https://youtube.com/@farisantar?si=IwaTYRZKcHkEr5Mm" target="_blank" class="visit-btn">
+                <i class="fab fa-youtube"></i> فارس أنتر (رابط إضافي)
+            </a>
+        </div>
+
+        <!-- 8. قناة زاد الراحيل -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                <div class="resource-title-group">
+                    <h4>قناة زاد الراحيل (Zad Al Rahiel)</h4>
+                    <span>دروس وإيمانيات</span>
+                </div>
+            </div>
+            <p class="resource-desc">محتوى إيماني وتربوي راقٍ يغذي الروح ويعين على طريق الاستقامة.</p>
+            <a href="https://youtube.com/@zadalrahiel?si=z3G-VwDj6ra3R4pd" target="_blank" class="visit-btn">
+                <i class="fab fa-youtube"></i> زاد الراحيل
+            </a>
+        </div>
+
+        <!-- 9. قناة إعتدال للقرآن الكريم برواية ورش -->
+        <div class="resource-card">
+            <div class="resource-header">
+                <div class="resource-icon"><i class="fab fa-youtube"></i></div>
+                <div class="resource-title-group">
+                    <h4>قناة إعتدال للقرآن الكريم برواية ورش</h4>
+                    <span>تلاوات خاشعة برواية ورش عن نافع</span>
+                </div>
+            </div>
+            <p class="resource-desc">تلاوات قرآنية نقية ومباركة برواية ورش لتستمع وتتدبر آيات الذكر الحكيم.</p>
+            <a href="https://youtube.com/@etidal-holy-quran-warsh-2022?si=SLPnmRwYHuCgwEGI" target="_blank" class="visit-btn">
+                <i class="fab fa-youtube"></i> إعتدال للقرآن الكريم برواية ورش
+            </a>
+        </div>
+
+    </div>
+
+    <!-- شريط التنقل السفلي للأقسام الثلاثة -->
+    <nav class="bottom-nav">
+        <a href="memorization.html" class="nav-item">
+            <i class="fas fa-lightbulb"></i>
+            نصائح وإرشادات
+        </a>
+        <a href="memorization-plans.html" class="nav-item">
+            <i class="fas fa-calendar-check"></i>
+            مخططات وبرامج
+        </a>
+        <a href="memorization-help.html" class="nav-item active">
+            <i class="fas fa-folder-open"></i>
+            ملفات مساعدة
+        </a>
+    </nav>
+
+    <script>
+        // دالة الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            let isDark = document.body.classList.contains('dark-mode');
+            let icon = document.getElementById('darkModeIcon');
+            let text = document.getElementById('darkModeText');
+            
+            if(isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                text.innerText = 'النهاري';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                text.innerText = 'الليلي';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - رزنامة الصيام</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 100px;
+        }
+
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-left a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .app-logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            padding: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* عنوان الصفحة */
+        .page-title-box {
+            text-align: center;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Amiri', serif;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* بطاقة الرزنامة */
+        .calendar-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 74, 52, 0.08);
+        }
+
+        /* شريط التنقل بين الشهور */
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav button {
+            background-color: var(--bg-offwhite);
+            border: 1px solid rgba(56, 74, 52, 0.2);
+            color: var(--olive-green);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .calendar-nav button:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+        }
+
+        .calendar-month-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+        }
+
+        /* أيام الأسبوع */
+        .weekdays-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 0.8rem;
+        }
+
+        /* شبكة الأيام */
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            background-color: var(--bg-offwhite);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.02);
+            user-select: none;
+        }
+
+        .day-cell:hover {
+            border-color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .day-cell.empty {
+            background-color: transparent;
+            cursor: default;
+            border: none;
+        }
+
+        /* تنسيق يوم الصيام المسجل */
+        .day-cell.fasted {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            box-shadow: 0 4px 10px rgba(56, 74, 52, 0.3);
+            border-color: var(--gold);
+        }
+
+        .day-cell.fasted::after {
+            content: ' ✓';
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-right: 2px;
+        }
+
+        /* إحصائية سريعة */
+        .stats-box {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(56, 74, 52, 0.08);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--olive-green);
+        }
+
+        .stats-box span {
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="fasting.html" title="العودة للصيام النشط"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="menu-icon"><i class="fas fa-calendar-alt" style="color: var(--gold);"></i></div>
+    </header>
+
+    <div class="container">
+
+        <!-- عنوان الصفحة -->
+        <div class="page-title-box">
+            <h2 class="page-title">
+                <i class="fas fa-calendar-check"></i> رزنامة أيام الصيام
+            </h2>
+        </div>
+
+        <!-- بطاقة التقويم التفاعلي -->
+        <div class="calendar-card">
+            <div class="calendar-nav">
+                <button onclick="changeMonth(1)" title="الشهر التالي"><i class="fas fa-chevron-right"></i></button>
+                <div class="calendar-month-title" id="monthYearDisplay">الشهر والسنة</div>
+                <button onclick="changeMonth(-1)" title="الشهر السابق"><i class="fas fa-chevron-left"></i></button>
+            </div>
+
+            <div class="weekdays-grid">
+                <div>سَب</div>
+                <div>حَد</div>
+                <div>اثْن</div>
+                <div>ثُل</div>
+                <div>أَرْب</div>
+                <div>خَم</div>
+                <div>جُم</div>
+            </div>
+
+            <div class="days-grid" id="daysGrid">
+                <!-- يتم تعبئة الأيام ديناميكياً عبر الجافاسكريبت -->
+            </div>
+        </div>
+
+        <!-- لوحة ملخص الصيام لهذا الشهر -->
+        <div class="stats-box">
+            إجمالي الأيام المسجلة صائماً هذا الشهر: <span id="monthlyCount">0</span> أيام
+        </div>
+
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="active-day.html" class="nav-item">
+            <i class="fas fa-star"></i>
+            اليوم النشط
+        </a>
+        <a href="calendar.html" class="nav-item active">
+            <i class="fas fa-calendar-alt"></i>
+            الرزنامة
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            الرئيسية
+        </a>
+    </nav>
+
+    <script>
+        const monthNames = [
+            "جانفي (يناير)", "فيفري (فبراير)", "مارس", "أفريل (أبريل)", 
+            "ماي (مايو)", "جوان (يونيو)", "جولية (يوليو)", "أوت (أغسطس)", 
+            "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+        ];
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        window.onload = function() {
+            renderCalendar();
+        };
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const titleDisplay = document.getElementById('monthYearDisplay');
+            const daysGrid = document.getElementById('daysGrid');
+            
+            titleDisplay.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // حساب أول يوم في الشهر وعدد الأيام الإجمالي
+            let firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+            // تعديل مؤشر بداية الأسبوع ليبدأ من السبت (أو الأحد حسب الرغبة، هنا السبت = 6 / الأحد = 0)
+            // لتتوافق مع ترتيب شبكة (سَب، حد، اثن...)
+            firstDayIndex = (firstDayIndex + 1) % 7; 
+
+            let totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            let html = "";
+            let fastedDaysCount = 0;
+
+            // جلب الأيام المسجلة من الذاكرة المحلية لهذا الشهر والسنة
+            let storageKey = `ayoub_shop_fast_calendar_${currentYear}_${currentMonth}`;
+            let savedFastedDays = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+            // خانات فارغة لأيام الشهر السابق
+            for (let i = 0; i < firstDayIndex; i++) {
+                html += `<div class="day-cell empty"></div>`;
+            }
+
+            // أيام الشهر الحالي
+            for (let day = 1; day <= totalDays; day++) {
+                let isFasted = savedFastedDays[day] === true;
+                if (isFasted) fastedDaysCount++;
+
+                let cellClass = isFasted ? "day-cell fasted" : "day-cell";
+                html += `<div class="${cellClass}" onclick="toggleFastDay(${day})">${day}</div>`;
+            }
+
+            daysGrid.innerHTML = html;
+            document.getElementById('monthlyCount').innerText = fastedDaysCount;
+        }
+
+        // تفاعل الضغط على اليوم لتسجيله أو إلغائه، والحفظ في الذاكرة (localStorage)
+        function toggleFastDay(day) {
+            let storageKey = `ayoub_shop_calendar_fast_${currentYear}_${currentMonth}`;
+            // استخدام مفتاح بصيغة مبسطة ومناسبة
+            let realKey = `ayoub_shop_fast_cal_${currentYear}_${currentMonth}`;
+            let savedFastedDays = JSON.parse(localStorage.getItem(realKey)) || {};
+
+            // تبديل الحالة
+            savedFastedDays[day] = !savedFastedDays[day];
+
+            // حفظ في الذاكرة المحلية للمستخدم
+            localStorage.setItem(realKey, JSON.stringify(savedFastedDays));
+
+            // تحديث العرض فوراً
+            renderCalendar();
+        }
+
+        // تحديث دالة قراءة التخزين للتعامل مع المفتاح الصحيح
+        function renderCalendar() {
+            const titleDisplay = document.getElementById('monthYearDisplay');
+            const daysGrid = document.getElementById('daysGrid');
+            
+            titleDisplay.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            let firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+            firstDayIndex = (firstDayIndex + 1) % 7; 
+
+            let totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            let html = "";
+            let fastedDaysCount = 0;
+
+            let realKey = `ayoub_shop_fast_cal_${currentYear}_${currentMonth}`;
+            let savedFastedDays = JSON.parse(localStorage.getItem(realKey)) || {};
+
+            for (let i = 0; i < firstDayIndex; i++) {
+                html += `<div class="day-cell empty"></div>`;
+            }
+
+            for (let day = 1; day <= totalDays; day++) {
+                let isFasted = savedFastedDays[day] === true;
+                if (isFasted) fastedDaysCount++;
+
+                let cellClass = isFasted ? "day-cell fasted" : "day-cell";
+                html += `<div class="${cellClass}" onclick="toggleFastDay(${day})">${day}</div>`;
+            }
+
+            daysGrid.innerHTML = html;
+            document.getElementById('monthlyCount').innerText = fastedDaysCount;
+        }
+    </script>
+
+</body>
+</html>

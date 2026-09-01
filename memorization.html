@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - الحفظ والمراجعة الذكية للقرآن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .dark-mode {
+            --olive-green: #1E261C;
+            --gold: #E5C158;
+            --pure-white: #1A2118;
+            --bg-offwhite: #121710;
+            --text-dark: #E4E8E3;
+            --text-gray: #A0A89F;
+            --card-bg: #1A2118;
+            --shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 90px;
+        }
+
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .app-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn-header {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--pure-white);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            padding: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .page-header-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem 0;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* لافتة المقدمة والتحفيز */
+        .intro-banner {
+            background: linear-gradient(135deg, var(--olive-green), #2A3725);
+            color: var(--pure-white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 20px rgba(56, 74, 52, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .intro-banner h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.35rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .intro-banner p {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        /* بطاقات البرامج والمستويات */
+        .card-box {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 74, 52, 0.1);
+        }
+
+        .section-title-card {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--bg-offwhite);
+            padding-bottom: 8px;
+        }
+
+        .section-title-card i {
+            color: var(--gold);
+        }
+
+        /* بطاقات مستويات المراجعة */
+        .level-card {
+            background-color: var(--bg-offwhite);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-right: 5px solid var(--gold);
+            border-left: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .level-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            margin-bottom: 6px;
+            font-family: 'Amiri', serif;
+        }
+
+        .level-detail {
+            font-size: 0.88rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 4px;
+        }
+
+        .level-detail strong {
+            color: var(--text-dark);
+        }
+
+        /* عداد التثبيت الذكي */
+        .counter-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 74, 52, 0.1);
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .counter-btn-main {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            border: none;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(56, 74, 52, 0.3);
+            transition: transform 0.1s ease;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-btn-main:active {
+            transform: scale(0.92);
+        }
+
+        .counter-actions-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .small-action-btn {
+            background: var(--bg-offwhite);
+            border: 1px solid rgba(56, 74, 52, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        /* بطاقة الخاتمة والرسالة التحفيزية الختامية */
+        .conclusion-card {
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-offwhite));
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+        }
+
+        .conclusion-card i.fa-leaf {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .conclusion-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.05rem;
+            line-height: 2.2;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        /* شريط التنقل السفلي للأقسام الثلاثة */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.7rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-right">
+            <a href="index.html" title="العودة للرئيسية"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="header-controls">
+            <button class="control-btn-header" onclick="toggleDarkMode()">
+                <i class="fas fa-moon" id="darkModeIcon"></i> <span id="darkModeText">الليلي</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="page-header-box">
+            <div class="page-title">
+                <i class="fas fa-book-reader"></i> الحفظ والمراجعة الذكية للقرآن
+            </div>
+        </div>
+
+        <div class="intro-banner">
+            <h3>طريقك إلى إتقان كتاب الله 🌟</h3>
+            <p>
+                اتقان حفظ القرآن حلم يراود الكثيرين، والأمر سيكون سهلاً عندما يكون لديك برنامج وخطة مدروسة ومنظمة تعتني بالحفظ والمراجعة والربط والتكرار والتثبيت.<br>
+                <strong>📌 سنكون عونا لك على الاتقان بخطة متكاملة وبرامج مدروسة بفضل الله تعالى...</strong>
+            </p>
+        </div>
+
+        <div class="card-box">
+            <div class="section-title-card"><i class="fas fa-sync-alt"></i> برامج المراجعة المعتمدة على مستوى التقدم</div>
+            <p style="font-size: 0.88rem; color: var(--text-gray); margin-bottom: 1.2rem;">برامج مراجعة وتثبيت القرآن الكريم مبنية بدقة على مستوى التقدم ومقدار الحفظ الحالي:</p>
+
+            <div class="level-card">
+                <div class="level-title">المستوى الأول: لمن حفظ 5 أحزاب (ربع القرآن تقريباً)</div>
+                <div class="level-detail"><strong>الورد اليومي:</strong> ربع حزب إلى نصف حزب (من صفحتين إلى 4 صفحات).</div>
+                <div class="level-detail"><strong>طريقة المراجعة:</strong> قراءة ربع حزب من المحفوظ القديم يومياً لربطه بالجديد. تخصيص يوم الجمعة لمراجعة الأحزاب الخمسة كاملة (تقسيمها على الصلوات أو الجلسات) لضمان عدم تفلت البدايات.</div>
+                <div class="level-detail"><strong>دورة الختم الشاملة:</strong> من 10 إلى 20 يوماً لكل دورة مراجعة كاملة.</div>
+            </div>
+
+            <div class="level-card">
+                <div class="level-title">المستوى الثاني: لمن حفظ 10 أحزاب (ثلث القرآن)</div>
+                <div class="level-detail"><strong>الورد اليومي:</strong> حزب كامل (5 صفحات تقريباً أو ما يعادل ربعين).</div>
+                <div class="level-detail"><strong>طريقة المراجعة:</strong> تقسيم الحزب اليومي: نصف حزب من الحفظ القريب (آخر ما حفظت)، ونصف حزب من الحفظ القديم (البدايات). تثبيت قاعدة "المراجعة الدائرية" بحيث يمر عليك حفظك كاملاً خلال فترة قصيرة لا تتجاوز 10 أيام.</div>
+                <div class="level-detail"><strong>دورة الختم الشاملة:</strong> 10 أيام (مراجعة العشرة أحزاب كاملة بثلاثة أجزاء يومياً تقريباً).</div>
+            </div>
+
+            <div class="level-card">
+                <div class="level-title">المستوى الثالث: لمن حفظ 15 حزباً (نصف القرآن)</div>
+                <div class="level-detail"><strong>الورد اليومي:</strong> حزب ونصف إلى حزبين (من 7 إلى 10 صفحات).</div>
+                <div class="level-detail"><strong>طريقة المراجعة:</strong> تقسيم الورد لقسمين: مراجعة قريبة (آخر 5 أحزاب، ربعان يومياً) ومراجعة عميقة (العشرة أحزاب الأولى، حزب يومياً). ربط الآيات المتشابهة في النصف الأول ووضع علامات واضحة لها.</div>
+                <div class="level-detail"><strong>دورة الختم الشاملة:</strong> أسبوع إلى 10 أيام للمنظومة كاملة.</div>
+            </div>
+
+            <div class="level-card">
+                <div class="level-title">المستوى الرابع: لمن حفظ 20 حزباً (ثلثا القرآن)</div>
+                <div class="level-detail"><strong>الورد اليومي:</strong> حزبان إلى 3 أحزاب (من 10 إلى 15 صفحة).</div>
+                <div class="level-detail"><strong>طريقة المراجعة:</strong> اعتماد جدول الثلاثة أجزاء يومياً: (جزء للمراجعة القريبة، وجزء للمراجعة المتوسطة، وجزء للربط والماضي). التركيز على الأماكن التي يتفلت فيها الحفظ غالباً (أواسط الأجزاء وأواخرها).</div>
+                <div class="level-detail"><strong>دورة الختم الشاملة:</strong> أسبوع واحد (كل 7 أيام يمر عليك حفظك كاملاً).</div>
+            </div>
+
+            <div class="level-card" style="border-right-color: var(--olive-green);">
+                <div class="level-title">المستويات المتقدمة (25 إلى 30 حزباً / القرآن كاملاً)</div>
+                <div class="level-detail"><strong>الورد اليومي:</strong> ثلاثة أجزاء إلى خمسة أجزاء يومياً (حسب التفرغ).</div>
+                <div class="level-detail"><strong>برنامج الخمسة أجزاء (ختمة التثبيت):</strong> قراءة 5 أجزاء يومياً، وبذلك يُراجع القرآن كاملاً في 6 أيام بالضبط.</div>
+                <div class="level-detail"><strong>برنامج الحزبين المكثف:</strong> حزبين يومياً لمن لديهم ارتباطات، وبذلك يُراجع القرآن في شهر كامل (كل 15 يوماً نصف القرآن). الاعتماد الكلي على السرد غيباً (الظهر، الفجر، أو قيام الليل) واختبار المتشابهات أسبوعياً.</div>
+            </div>
+        </div>
+
+        <div class="counter-card">
+            <div class="section-title-card" style="border:none; margin-bottom:0.2rem;"><i class="fas fa-redo"></i> عداد تثبيت التكرار الذكي</div>
+            <p style="font-size: 0.8rem; color: var(--text-gray); margin-bottom: 0.5rem;">اضغط لتكرار الآية أو الربع الحالي أثناء الحفظ والمراجعة</p>
+            <div class="counter-display" id="counterDisplay">0</div>
+            <button class="counter-btn-main" onclick="incrementCounter()">اضغط للتكرار</button>
+            <div class="counter-actions-row">
+                <button class="small-action-btn" onclick="resetCounter()">إعادة الصفر</button>
+                <button class="small-action-btn" onclick="setTargetCount()">تحديد هدف (10)</button>
+            </div>
+        </div>
+
+        <div class="conclusion-card">
+            <i class="fas fa-leaf"></i>
+            <div class="conclusion-text">
+                هذا ما تيسّر جمعه وبيانه في هذه المنصة،<br>
+                نسأل الله تعالى أن يجعلها خالصةً لوجهه الكريم، نافعةً لعباده، وأن يرزقنا وإياكم العلم النافع والعمل الصالح.<br><br>
+                سائلين الله أن يبارك في هذا الجهد، وأن يجعل القرآن العظيم نور قلوبنا، ورفعةً لنا في الدنيا والآخرة.<br><br>
+                فما كان فيها من صواب فمن الله وحده، وما كان من تقصير فمن أنفسنا،<br>
+                والله أعلم، والعلم عنده أتم وأحكم.<br><br>
+                <strong>والحمد لله رب العالمين 🌿</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="memorization.html" class="nav-item active">
+            <i class="fas fa-lightbulb"></i>
+            نصائح وإرشادات
+        </a>
+        <a href="memorization-plans.html" class="nav-item">
+            <i class="fas fa-calendar-check"></i>
+            مخططات وبرامج
+        </a>
+        <a href="memorization-help.html" class="nav-item">
+            <i class="fas fa-folder-open"></i>
+            ملفات مساعدة
+        </a>
+    </nav>
+
+    <script>
+        window.onload = function() {
+            loadCounter();
+        };
+
+        // عداد التكرار
+        let countValue = 0;
+        let targetLimit = 10;
+
+        function incrementCounter() {
+            countValue++;
+            document.getElementById('counterDisplay').innerText = countValue;
+            localStorage.setItem('ayoub_shop_counter_val', countValue);
+            
+            if(countValue === targetLimit) {
+                if (navigator.vibrate) navigator.vibrate(100);
+            }
+        }
+
+        function resetCounter() {
+            countValue = 0;
+            document.getElementById('counterDisplay').innerText = countValue;
+            localStorage.setItem('ayoub_shop_counter_val', countValue);
+        }
+
+        function setTargetCount() {
+            let val = prompt("أدخل عدد التكرارات المستهدف لتثبيت الحفظ:", targetLimit);
+            if(val && !isNaN(val)) {
+                targetLimit = parseInt(val);
+                alert("تم تحديد الهدف بـ " + targetLimit + " مرات تكرار.");
+            }
+        }
+
+        function loadCounter() {
+            let savedCount = localStorage.getItem('ayoub_shop_counter_val');
+            if(savedCount) {
+                countValue = parseInt(savedCount);
+                document.getElementById('counterDisplay').innerText = countValue;
+            }
+        }
+
+        // دالة الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            let isDark = document.body.classList.contains('dark-mode');
+            let icon = document.getElementById('darkModeIcon');
+            let text = document.getElementById('darkModeText');
+            
+            if(isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                text.innerText = 'النهاري';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                text.innerText = 'الليلي';
+            }
+        }
+    </script>
+
+</body>
+</html>

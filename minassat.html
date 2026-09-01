@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصات تعليمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-offwhite); color: var(--text-dark); padding: 1.5rem; }
+        .section-header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .section-header-title h2 { color: var(--olive-green); font-size: 1.3rem; }
+        .section-header-title span { color: var(--gold); font-size: 0.9rem; font-weight: 600; }
+        .list-container { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto; }
+        .link-card { background-color: var(--pure-white); border-radius: 15px; padding: 1.2rem; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease; border: 1px solid rgba(0,0,0,0.02); }
+        .link-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(56, 74, 52, 0.1); }
+        .link-info { display: flex; align-items: center; gap: 1rem; }
+        .link-info i { font-size: 1.5rem; color: var(--gold); background: var(--bg-offwhite); padding: 0.8rem; border-radius: 12px; }
+        .link-text h5 { font-size: 1.05rem; font-weight: 700; color: var(--olive-green); margin-bottom: 0.2rem; }
+        .link-text p { font-size: 0.85rem; color: var(--text-gray); }
+        .external-icon { color: var(--text-gray); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="section-header-title" style="margin-top: 1rem;">
+        <h2 data-i18n="platformsTitle">منصات تعليمية</h2>
+        <span>روابط مباشرة</span>
+    </div>
+
+    <div class="list-container">
+        <a href="https://sharh.qm.edu.sa/" target="_blank" class="link-card">
+            <div class="link-info">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="link-text">
+                    <h5>منصة متون طالب العلم</h5>
+                    <p>شروح وتأصيل علمي متكامل</p>
+                </div>
+            </div>
+            <i class="fas fa-external-link-alt external-icon"></i>
+        </a>
+
+        <a href="https://hdith.com/" target="_blank" class="link-card">
+            <div class="link-info">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="link-text">
+                    <h5>منصة حديث</h5>
+                    <p>موسوعة الأحاديث النبوية والتحقق منها</p>
+                </div>
+            </div>
+            <i class="fas fa-external-link-alt external-icon"></i>
+        </a>
+
+        <a href="https://zad-academy.com/" target="_blank" class="link-card">
+            <div class="link-info">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="link-text">
+                    <h5>أكاديمية زاد</h5>
+                    <p>برنامج إعدادي لترسيخ العلم الشرعي</p>
+                </div>
+            </div>
+            <i class="fas fa-external-link-alt external-icon"></i>
+        </a>
+
+        <a href="https://dorar.net/?hl=ar-EG/" target="_blank" class="link-card">
+            <div class="link-info">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="link-text">
+                    <h5>منصة الدرر السنية</h5>
+                    <p>المرجع الشامل والأبرز للبحث في السنة النبوية، العقيدة، الفقه، والتاريخ الإسلامي</p>
+                </div>
+            </div>
+            <i class="fas fa-external-link-alt external-icon"></i>
+        </a>
+    </div>
+
+</body>
+</html>

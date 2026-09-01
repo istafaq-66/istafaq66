@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>اصطفاك - العداد التفاعلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* الهيدر */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .app-header a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .app-header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* منطقة العداد */
+        .counter-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .dhikr-title-box {
+            background: var(--pure-white);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 400px;
+            border-right: 5px solid var(--gold);
+        }
+
+        .dhikr-title-box h3 {
+            font-size: 1.1rem;
+            color: var(--olive-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .dhikr-title-box p {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        /* زر العداد الدائري الكبير */
+        .big-counter-btn {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, var(--olive-green), #243021);
+            color: var(--pure-white);
+            border: 6px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(56, 74, 52, 0.25);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            outline: none;
+            user-select: none;
+            position: relative;
+        }
+
+        .big-counter-btn:active {
+            transform: scale(0.93);
+            box-shadow: 0 5px 15px rgba(56, 74, 52, 0.3);
+        }
+
+        .counter-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .counter-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 5px;
+        }
+
+        /* أزرار التحكم الجانبية */
+        .controls-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background-color: var(--pure-white);
+            color: var(--olive-green);
+            border: 1px solid rgba(56, 74, 52, 0.2);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+        }
+
+        .reset-btn {
+            color: #d9534f;
+            border-color: rgba(217, 83, 79, 0.3);
+        }
+
+        .reset-btn:hover {
+            background-color: #d9534f;
+            color: var(--pure-white);
+        }
+
+        /* تأثير الاكتمال */
+        .completed-alert {
+            margin-top: 1rem;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.95rem;
+            height: 25px;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر مع زر العودة -->
+    <header class="app-header">
+        <a href="fortress.html"><i class="fas fa-arrow-right"></i></a>
+        <h1>العداد التفاعلي</h1>
+        <i class="fas fa-redo-alt" style="color: var(--gold); font-size: 1.3rem;"></i>
+    </header>
+
+    <!-- منطقة العداد -->
+    <div class="counter-container">
+        
+        <div class="dhikr-title-box">
+            <h3 id="dhikrName">سبحان الله وبحمده</h3>
+            <p>اضغط في أي مكان على الدائرة أدناه للتسبيح</p>
+        </div>
+
+        <!-- زر التسبيح الرئيسي -->
+        <button class="big-counter-btn" id="countBtn" onclick="incrementCounter()">
+            <span class="counter-number" id="counterValue">0</span>
+            <span class="counter-label">التسبيحات</span>
+        </button>
+
+        <div class="completed-alert" id="alertMsg"></div>
+
+        <!-- أزرار التحكم -->
+        <div class="controls-row">
+            <button class="control-btn" onclick="changeDhikr()">
+                <i class="fas fa-exchange-alt"></i> تغيير الذكر
+            </button>
+            <button class="control-btn reset-btn" onclick="resetCounter()">
+                <i class="fas fa-trash-alt"></i> تصفير
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        let count = 0;
+        let dhikrIndex = 0;
+        const dhikrs = [
+            { name: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", target: 33 },
+            { name: "الْحَمْدُ لِلَّهِ", target: 33 },
+            { name: "اللَّهُ أَكْبَرُ", target: 33 },
+            { name: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ", target: 100 },
+            { name: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", target: 100 }
+        ];
+
+        function incrementCounter() {
+            count++;
+            document.getElementById('counterValue').innerText = count;
+            
+            // اهتزاز خفيف للهاتف إن كان مدعوماً
+            if (navigator.vibrate) {
+                navigator.vibrate(40);
+            }
+
+            // التحقق من اكتمال العدد المستهدف للذكر الحالي
+            let currentTarget = dhikrs[dhikrIndex].target;
+            if (count === currentTarget) {
+                document.getElementById('alertMsg').innerText = "✨ أحسنت! أتممت العدد المستهدف بنجاح ✨";
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+            } else if (count > currentTarget) {
+                document.getElementById('alertMsg').innerText = "";
+            }
+        }
+
+        function resetCounter() {
+            count = 0;
+            document.getElementById('counterValue').innerText = count;
+            document.getElementById('alertMsg').innerText = "";
+        }
+
+        function changeDhikr() {
+            dhikrIndex = (dhikrIndex + 1) % dhikrs.length;
+            count = 0;
+            document.getElementById('counterValue').innerText = count;
+            document.getElementById('dhikrName').innerText = dhikrs[dhikrIndex].name;
+            document.getElementById('alertMsg').innerText = "";
+        }
+    </script>
+
+</body>
+</html>

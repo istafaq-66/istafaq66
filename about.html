@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اصطفاك - عن التطبيق ومطوره</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-offwhite); color: var(--text-dark); padding: 1.5rem; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+        .header a { color: var(--olive-green); font-size: 1.2rem; text-decoration: none; }
+        .header h1 { font-size: 1.4rem; color: var(--olive-green); }
+        .card { background: var(--pure-white); padding: 2rem; border-radius: 18px; box-shadow: var(--shadow); margin-bottom: 1.5rem; text-align: center; }
+        .card i { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
+        .card h3 { color: var(--olive-green); margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; text-align: right; margin-top: 1rem; }
+        .social-links { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+        .social-btn { background-color: var(--olive-green); color: var(--pure-white); padding: 0.6rem 1.2rem; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: background 0.3s; }
+        .social-btn:hover { background-color: var(--gold); color: var(--text-dark); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html"><i class="fas fa-arrow-right"></i></a>
+        <h1>عن التطبيق ومطوره</h1>
+        <i class="fas fa-info-circle" style="color: var(--gold); font-size: 1.5rem;"></i>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-user-tie"></i>
+        <h3>مرحباً بكم، أنا مطور التطبيق</h3>
+        <p>
+            أنا أيوب، صاحب ومؤسس <strong>Ayoub Shop</strong> والمهتم بتطوير المنصات الرقمية وتصميم الواجهات التقنية. لقد تم تصميم وبرمجة تطبيق "اصطفاك" ليكون رفيقاً يومياً لكل مسلم يستهويه تنظيم عباداته، ورده اليومي، وتزكية نفسه، وهو منصة مجانية بالكامل نسأل الله أن يكتب بها النفع والفائدة.
+        </p>
+    </div>
+
+    <div class="card" style="text-align: right;">
+        <h3 style="text-align: center; color: var(--olive-green); margin-bottom: 1rem;">أهداف منصة اصطفاك</h3>
+        <p><strong>1. التيسير والتحفيز:</strong> تقديم أدوات رقمية ميسرة تساعد على الالتزام بالورد اليومي والمراجعة.</p>
+        <p style="margin-top: 0.5rem;"><strong>2. تجربة استخدام مريحة:</strong> تصميم عصري وسلس يتوافق مع الهواتف الذكية لتصفح سريع وخالي من التعقيد.</p>
+        
+        <div class="social-links">
+            <!-- يمكنك استبدال الرابط أدناه برابط صفحتك أو حسابك الشخصي -->
+            <a href="#" class="social-btn"><i class="fas fa-globe"></i> موقعنا / متجرنا</a>
+            <a href="#" class="social-btn"><i class="fab fa-telegram"></i> تواصل معنا</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق إصطفاك - مخططات ختمات القرآن الكريم</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 2px 12px rgba(51, 68, 46, 0.06)',
+                        card: '0 4px 24px rgba(51, 68, 46, 0.08)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; }
+        body { background-color: #f7f8f6; color: #33442e; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useCallback } = React;
+
+        const JUZ_TOTAL = 30;
+
+        function buildSchedule(days) {
+            const schedule = [];
+            let juzCursor = 1;
+            const basePerDay = Math.floor(JUZ_TOTAL / days);
+            let remainder = JUZ_TOTAL % days;
+            for (let d = 1; d <= days; d++) {
+                const count = basePerDay + (remainder > 0 ? 1 : 0);
+                if (remainder > 0) remainder--;
+                const juzs = [];
+                for (let j = 0; j < count; j++) {
+                    const juzNum = Math.min(juzCursor, JUZ_TOTAL);
+                    juzs.push({ id: juzNum, label: `الجزء ${juzNum}` });
+                    juzCursor++;
+                }
+                schedule.push({ day: d, juzs });
+            }
+            return schedule;
+        }
+
+        const PLANS = {
+            '3days': {
+                id: '3days',
+                title: 'ختمة 3 أيام',
+                subtitle: 'ختمة مكثفة في ثلاثة أيام',
+                icon: 'fa-bolt',
+                days: 3,
+                juzPerDay: 10,
+                schedule: buildSchedule(3),
+                description: 'خطة مكثفة لختم القرآن الكريم في ثلاثة أيام، بمعدل 10 أجزاء يومياً.',
+            },
+            week: {
+                id: 'week',
+                title: 'ختمة الأسبوع',
+                subtitle: 'ختمة في سبعة أيام',
+                icon: 'fa-calendar-week',
+                days: 7,
+                juzPerDay: 4.3,
+                schedule: buildSchedule(7),
+                description: 'خطة متوازنة لختم القرآن الكريم خلال أسبوع كامل.',
+            },
+            month: {
+                id: 'month',
+                title: 'ختمة الشهر',
+                subtitle: 'ختمة في ثلاثين يوماً',
+                icon: 'fa-moon',
+                days: 30,
+                juzPerDay: 1,
+                schedule: buildSchedule(30),
+                description: 'خطة يومية مريحة لختم القرآن الكريم في شهر كامل، جزء واحد كل يوم.',
+            },
+        };
+
+        const PLAN_LIST = Object.values(PLANS);
+
+        function useProgress(planId) {
+            const [done, setDone] = useState(() => {
+                try {
+                    const raw = localStorage.getItem('khatma_progress_' + planId);
+                    return raw ? JSON.parse(raw) : {};
+                } catch { return {}; }
+            });
+
+            useEffect(() => {
+                try {
+                    const raw = localStorage.getItem('khatma_progress_' + planId);
+                    setDone(raw ? JSON.parse(raw) : {});
+                } catch { setDone({}); }
+            }, [planId]);
+
+            const toggleJuz = useCallback((key) => {
+                setDone(prev => {
+                    const next = { ...prev, [key]: !prev[key] };
+                    try { localStorage.setItem('khatma_progress_' + planId, JSON.stringify(next)); } catch {}
+                    return next;
+                });
+            }, [planId]);
+
+            const resetAll = useCallback(() => {
+                setDone({});
+                try { localStorage.removeItem('khatma_progress_' + planId); } catch {}
+            }, [planId]);
+
+            return { done, toggleJuz, resetAll };
+        }
+
+        function useReminder(planId) {
+            const [reminder, setReminder] = useState(() => {
+                try {
+                    const raw = localStorage.getItem('khatma_reminder_' + planId);
+                    return raw ? JSON.parse(raw) : { time: '20:00', enabled: false };
+                } catch { return { time: '20:00', enabled: false }; }
+            });
+            const [showAlert, setShowAlert] = useState(false);
+
+            useEffect(() => {
+                try {
+                    const raw = localStorage.getItem('khatma_reminder_' + planId);
+                    setReminder(raw ? JSON.parse(raw) : { time: '20:00', enabled: false });
+                } catch { setReminder({ time: '20:00', enabled: false }); }
+            }, [planId]);
+
+            const updateReminder = (patch) => {
+                setReminder(prev => {
+                    const next = { ...prev, ...patch };
+                    try { localStorage.setItem('khatma_reminder_' + planId, JSON.stringify(next)); } catch {}
+                    return next;
+                });
+            };
+
+            useEffect(() => {
+                if (!reminder.enabled) return;
+                const checkTime = () => {
+                    const now = new Date();
+                    const hh = String(now.getHours()).padStart(2, '0');
+                    const mm = String(now.getMinutes()).padStart(2, '0');
+                    const nowStr = `${hh}:${mm}`;
+                    if (nowStr === reminder.time) {
+                        setShowAlert(true);
+                    }
+                };
+                const interval = setInterval(checkTime, 30000);
+                return () => clearInterval(interval);
+            }, [reminder]);
+
+            return { reminder, updateReminder, showAlert, setShowAlert };
+        }
+
+        function ProgressRing({ percent, size = 140, strokeWidth = 12, label }) {
+            const clamped = Math.max(0, Math.min(100, percent));
+            const radius = (size - strokeWidth) / 2;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (clamped / 100) * circumference;
+
+            return (
+                <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+                    <svg width={size} height={size} className="-rotate-90">
+                        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#E8EDE5" strokeWidth={strokeWidth} />
+                        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#D4AF37" strokeWidth={strokeWidth} strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" className="transition-all duration-700 ease-out" />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-3xl font-bold text-olive-500">{Math.round(clamped)}%</span>
+                        {label && <span className="mt-1 text-xs text-olive-300">{label}</span>}
+                    </div>
+                </div>
+            );
+        }
+
+        function DayCard({ day, done, onToggle }) {
+            const keys = day.juzs.map(j => `${day.day}-${j.id}`);
+            const completedCount = keys.filter(k => done[k]).length;
+            const isComplete = completedCount === day.juzs.length;
+            const isPartial = completedCount > 0 && !isComplete;
+
+            return (
+                <div className={`rounded-2xl border p-5 transition-all duration-300 ${isComplete ? 'border-olive-300 bg-olive-50 shadow-soft' : isPartial ? 'border-gold-200 bg-gold-50/40 shadow-soft' : 'border-olive-100 bg-white shadow-soft'}`}>
+                    <div className="mb-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className={`flex h-11 w-11 items-center justify-center rounded-xl text-lg font-bold transition-colors ${isComplete ? 'bg-olive-500 text-white' : isPartial ? 'bg-gold-400 text-white' : 'bg-olive-50 text-olive-400'}`}>
+                                {isComplete ? <i className="fa-solid fa-check" /> : day.day}
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-olive-600">اليوم {day.day}</h3>
+                                <p className="text-xs text-olive-300">{completedCount} / {day.juzs.length} أجزاء</p>
+                            </div>
+                        </div>
+                        {isComplete && (
+                            <span className="rounded-full bg-olive-100 px-3 py-1 text-xs font-semibold text-olive-500">
+                                <i className="fa-solid fa-circle-check ml-1" /> مكتمل
+                            </span>
+                        )}
+                    </div>
+                    <div className="space-y-2">
+                        {day.juzs.map(juz => {
+                            const key = `${day.day}-${juz.id}`;
+                            const checked = !!done[key];
+                            return (
+                                <button key={key} onClick={() => onToggle(key)} className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-right transition-all duration-200 hover:shadow-soft ${checked ? 'border-olive-200 bg-olive-50/60' : 'border-olive-100 bg-cream hover:bg-olive-50/30'}`}>
+                                    <span className="flex items-center gap-3">
+                                        <i className={`fa-solid fa-book-quran text-lg ${checked ? 'text-olive-400' : 'text-olive-200'}`} />
+                                        <span className={`font-medium ${checked ? 'text-olive-500' : 'text-olive-400'}`}>{juz.label}</span>
+                                    </span>
+                                    <span className={`flex h-6 w-6 items-center justify-center rounded-md border-2 transition-all duration-200 ${checked ? 'border-olive-500 bg-olive-500 text-white' : 'border-olive-200 bg-white text-transparent'}`}>
+                                        <i className="fa-solid fa-check text-xs" />
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        }
+
+        function KhatmaPage({ planId, onBack }) {
+            const plan = PLANS[planId];
+            const { done, toggleJuz, resetAll } = useProgress(planId);
+            const { reminder, updateReminder, showAlert, setShowAlert } = useReminder(planId);
+            const [showReminderModal, setShowReminderModal] = useState(false);
+
+            const totalJuzs = 30;
+            const realCompleted = useMemo(() => Object.values(done).filter(Boolean).length, [done]);
+            const percent = totalJuzs > 0 ? (realCompleted / totalJuzs) * 100 : 0;
+
+            const completedDays = useMemo(() => {
+                let count = 0;
+                for (const day of plan.schedule) {
+                    if (day.juzs.every(j => done[`${day.day}-${j.id}`])) count++;
+                }
+                return count;
+            }, [done, plan.schedule]);
+
+            return (
+                <div className="min-h-screen pb-12 animate-fade-in relative">
+                    {/* نافذة التنبيه عند حلول الوقت */}
+                    {showAlert && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+                            <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-card text-center animate-bounce">
+                                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold-400 text-white shadow-gold">
+                                    <i className="fa-solid fa-bell text-2xl" />
+                                </div>
+                                <h3 className="text-lg font-bold text-olive-600 mb-2">وقت ورد القرآن!</h3>
+                                <p className="text-sm text-olive-300 mb-6">حان الآن موعد قراءتك اليومية لـ {plan.title}. تقبل الله طاعتك.</p>
+                                <button onClick={() => setShowAlert(false)} className="w-full rounded-xl bg-olive-500 py-3 text-sm font-semibold text-white shadow">
+                                    حسناً، سأقرأ الآن
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    <header className="sticky top-0 z-30 border-b border-olive-100 bg-cream/90 backdrop-blur-md">
+                        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
+                            <button onClick={onBack} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm font-medium text-olive-500 shadow-soft transition-all hover:bg-olive-50">
+                                <i className="fa-solid fa-arrow-right" />
+                                <span>العودة</span>
+                            </button>
+                            <h1 className="font-bold text-olive-600">{plan.title}</h1>
+                            <div className="flex items-center gap-2">
+                                <button onClick={() => setShowReminderModal(true)} className="flex items-center gap-1.5 rounded-xl bg-gold-50 px-3 py-2 text-xs font-semibold text-gold-600 border border-gold-200 shadow-soft hover:bg-gold-100">
+                                    <i className="fa-solid fa-bell" />
+                                    <span>{reminder.enabled ? reminder.time : 'ضبط منبه'}</span>
+                                </button>
+                                <button onClick={() => { if(confirm('هل تريد إعادة تعيين الختمة؟')) resetAll(); }} className="text-xs font-semibold text-red-500 hover:text-red-600 p-2">
+                                    <i className="fa-solid fa-rotate-right" />
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* نافذة ضبط المنبه */}
+                    {showReminderModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+                            <div className="w-full max-w-sm rounded-3xl bg-white p-6 shadow-card">
+                                <h3 className="text-lg font-bold text-olive-600 mb-4">إنشاء تنبيه لقراءة الورد</h3>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-olive-500 mb-1">وقت التنبيه اليومي</label>
+                                    <input 
+                                        type="time" 
+                                        defaultValue={reminder.time} 
+                                        id="reminderTimeInput"
+                                        className="w-full rounded-xl border border-olive-100 bg-cream px-4 py-3 text-lg font-bold text-olive-600 outline-none focus:border-gold-400"
+                                    />
+                                </div>
+                                <div className="flex gap-3">
+                                    <button onClick={() => {
+                                        const timeVal = document.getElementById('reminderTimeInput').value;
+                                        updateReminder({ time: timeVal, enabled: true });
+                                        setShowReminderModal(false);
+                                    }} className="flex-1 rounded-xl bg-gold-400 py-3 text-sm font-semibold text-white shadow-gold">
+                                        تفعيل المنبه
+                                    </button>
+                                    {reminder.enabled && (
+                                        <button onClick={() => {
+                                            updateReminder({ enabled: false });
+                                            setShowReminderModal(false);
+                                        }} className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-500 border border-red-200">
+                                            إيقاف
+                                        </button>
+                                    )}
+                                    <button onClick={() => setShowReminderModal(false)} className="rounded-xl bg-cream px-4 py-3 text-sm font-semibold text-olive-400">
+                                        إلغاء
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <main className="mx-auto max-w-4xl px-4 pt-6 sm:px-6">
+                        <div className="mb-8 rounded-3xl bg-white p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center gap-6 justify-around">
+                            <ProgressRing percent={percent} label="نسبة الختم" />
+                            <div className="space-y-2 text-center sm:text-right">
+                                <h2 className="text-xl font-bold text-olive-600">{plan.subtitle}</h2>
+                                <p className="text-sm text-olive-300">{plan.description}</p>
+                                <div className="flex gap-4 pt-2 justify-center sm:justify-start">
+                                    <div className="rounded-xl bg-cream px-3 py-2 text-center">
+                                        <span className="block text-lg font-bold text-olive-500">{realCompleted}</span>
+                                        <span className="text-xs text-olive-300">جزء ختمت</span>
+                                    </div>
+                                    <div className="rounded-xl bg-cream px-3 py-2 text-center">
+                                        <span className="block text-lg font-bold text-olive-500">{completedDays} / {plan.days}</span>
+                                        <span className="text-xs text-olive-300">أيام منجزة</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            {plan.schedule.map(day => (
+                                <DayCard key={day.day} day={day} done={done} onToggle={toggleJuz} />
+                            ))}
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        function App() {
+            const [selectedPlan, setSelectedPlan] = useState(null);
+
+            if (selectedPlan) {
+                return <KhatmaPage planId={selectedPlan} onBack={() => setSelectedPlan(null)} />;
+            }
+
+            return (
+                <div className="min-h-screen pb-12">
+                    <header className="border-b border-olive-100 bg-white py-6 shadow-soft">
+                        <div className="mx-auto max-w-4xl px-4 text-center">
+                            <a href="index.html" className="inline-block mb-2 text-sm font-semibold text-olive-400 hover:text-olive-600">
+                                <i className="fa-solid fa-arrow-right ml-1" /> الرئيسية
+                            </a>
+                            <h1 className="text-2xl font-bold text-olive-600 font-serif">مخططات ختمات القرآن الكريم</h1>
+                            <p className="text-sm text-olive-300 mt-1">اختر الخطة المناسبة لوردك اليومي وانطلق في ختم القرآن بكل سهولة</p>
+                        </div>
+                    </header>
+
+                    <main className="mx-auto max-w-4xl px-4 pt-8 sm:px-6">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                            {PLAN_LIST.map(plan => (
+                                <div key={plan.id} className="rounded-3xl bg-white p-6 shadow-card border border-olive-100 flex flex-col justify-between transition-all hover:-translate-y-1">
+                                    <div>
+                                        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold">
+                                            <i className={`fa-solid ${plan.icon} text-xl`} />
+                                        </div>
+                                        <h3 className="text-lg font-bold text-olive-600">{plan.title}</h3>
+                                        <p className="mt-1 text-xs font-semibold text-gold-500">{plan.subtitle}</p>
+                                        <p className="mt-3 text-sm text-olive-300">{plan.description}</p>
+                                    </div>
+                                    <button onClick={() => setSelectedPlan(plan.id)} className="mt-6 w-full rounded-xl bg-olive-500 py-3 text-sm font-semibold text-white shadow transition-all hover:bg-olive-600">
+                                        بدء الخطة
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

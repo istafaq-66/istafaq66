@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - الصيام والتنبيهات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 100px;
+        }
+
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-left a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .app-logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        .menu-icon {
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--pure-white);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            padding: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* عنوان الصفحة */
+        .page-title-box {
+            text-align: center;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Amiri', serif;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* بطاقات الأقسام الأساسية */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 74, 52, 0.08);
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.2rem;
+        }
+
+        /* مواقيت الصيام اليوم */
+        .timings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .timing-item {
+            background-color: var(--bg-offwhite);
+            border-radius: 14px;
+            padding: 1rem 0.5rem;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .timing-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .timing-val {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+            display: block;
+        }
+
+        /* حالة الصيام */
+        .fasting-status-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.2rem;
+        }
+
+        .action-btn {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            border: none;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(56, 74, 52, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        /* بطاقات أنواع الصيام المطابقة للصورة */
+        .fasting-type-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 74, 52, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .fasting-type-info {
+            text-align: right;
+        }
+
+        .fasting-type-info h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-family: 'Amiri', serif;
+        }
+
+        .fasting-type-info p {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+
+        /* زر التفعيل التفاعلي الدائري المطابق للصورة */
+        .status-toggle-btn {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            border: 2px solid var(--gold);
+            padding: 0.6rem 1.6rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 105px;
+            text-align: center;
+        }
+
+        .status-toggle-btn.active {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            border-color: var(--olive-green);
+            box-shadow: 0 4px 12px rgba(56, 74, 52, 0.25);
+        }
+
+        .status-toggle-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="index.html" title="الرجوع للرئيسية"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="menu-icon"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <div class="container">
+
+        <!-- عنوان الصفحة -->
+        <div class="page-title-box">
+            <h2 class="page-title">
+                <i class="fas fa-moon"></i> الصيام النشط اليوم
+            </h2>
+        </div>
+
+        <!-- مواقيت الصيام اليوم -->
+        <div class="card">
+            <h3 class="card-title">مواقيت الصيام اليوم</h3>
+            <div class="timings-grid">
+                <div class="timing-item">
+                    <span class="timing-label">السحور</span>
+                    <span class="timing-val">03:45 ص</span>
+                </div>
+                <div class="timing-item">
+                    <span class="timing-label">الإمساك</span>
+                    <span class="timing-val">04:15 ص</span>
+                </div>
+                <div class="timing-item">
+                    <span class="timing-label">الإفطار</span>
+                    <span class="timing-val">07:10 م</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- حالة تسجيل الصيام -->
+        <div class="card">
+            <div class="fasting-status-text" id="statusText">لست مسجلاً صائماً اليوم</div>
+            <button class="action-btn" id="fastingBtn" onclick="toggleTodayFast()">علم الصيام</button>
+        </div>
+
+        <!-- أنواع الصيام والتنبيهات (المطابقة للصورة مع الذاكرة وتأثيرات التفعيل) -->
+        
+        <!-- 1. صيام الإثنين والخميس -->
+        <div class="fasting-type-card">
+            <div class="fasting-type-info">
+                <h4>صيام الإثنين والخميس</h4>
+                <p>سنة مؤكدة ترفع فيها الأعمال</p>
+            </div>
+            <button class="status-toggle-btn" id="btn-monday" onclick="toggleFastType('monday', this)">تفعيل</button>
+        </div>
+
+        <!-- 2. صيام الأيام البيض -->
+        <div class="fasting-type-card">
+            <div class="fasting-type-info">
+                <h4>صيام الأيام البيض</h4>
+                <p>13، 14، 15 من كل شهر هجري</p>
+            </div>
+            <button class="status-toggle-btn" id="btn-beid" onclick="toggleFastType('beid', this)">تفعيل</button>
+        </div>
+
+        <!-- 3. صيام القضاء -->
+        <div class="fasting-type-card">
+            <div class="fasting-type-info">
+                <h4>صيام القضاء</h4>
+                <p>قضاء أيام رمضان الفائتة</p>
+            </div>
+            <button class="status-toggle-btn" id="btn-qada" onclick="toggleFastType('qada', this)">تفعيل</button>
+        </div>
+
+        <!-- 4. صيام التطوع المطلق -->
+        <div class="fasting-type-card">
+            <div class="fasting-type-info">
+                <h4>صيام التطوع المطلق</h4>
+                <p>أيام متفرقة تقرباً لله</p>
+            </div>
+            <button class="status-toggle-btn" id="btn-tatawo" onclick="toggleFastType('tatawo', this)">تفعيل</button>
+        </div>
+
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="active-day.html" class="nav-item">
+            <i class="fas fa-star"></i>
+            اليوم النشط
+        </a>
+        <a href="calendar.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            الرزنامة
+        </a>
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            الرئيسية
+        </a>
+    </nav>
+
+    <script>
+        // تحميل الحالة المحفوظة مسبقاً من الذاكرة الداخلية للمتصفح (localStorage) عند فتح الصفحة
+        window.onload = function() {
+            // صيام اليوم
+            let savedTodayFast = localStorage.getItem('ayoub_shop_today_fast');
+            if(savedTodayFast === 'true') {
+                setTodayFastUI(true);
+            }
+
+            // أنواع الصيام الأربعة
+            const types = ['monday', 'beid', 'qada', 'tatawo'];
+            types.forEach(type => {
+                let state = localStorage.getItem('ayoub_shop_fast_' + type);
+                let btn = document.getElementById('btn-' + type);
+                if(state === 'true') {
+                    btn.classList.add('active');
+                    btn.innerText = (type === 'monday') ? "مشترك" : "مفعل";
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerText = "تفعيل";
+                }
+            });
+        };
+
+        // دالة تبديل صيام اليوم مع حفظ الحالة
+        let isTodayFast = false;
+        function toggleTodayFast() {
+            isTodayFast = !isTodayFast;
+            localStorage.setItem('ayoub_shop_today_fast', isTodayFast);
+            setTodayFastUI(isTodayFast);
+        }
+
+        function setTodayFastUI(active) {
+            isTodayFast = active;
+            let statusText = document.getElementById('statusText');
+            let btn = document.getElementById('fastingBtn');
+            
+            if(active) {
+                statusText.innerText = "أنت صائم اليوم، تقبل الله طاعتك";
+                statusText.style.color = "#2E7D32";
+                btn.innerText = "إلغاء الصيام";
+                btn.style.backgroundColor = "#D4AF37";
+                btn.style.color = "#2C352A";
+            } else {
+                statusText.innerText = "لست مسجلاً صائماً اليوم";
+                statusText.style.color = "#2C352A";
+                btn.innerText = "علم الصيام";
+                btn.style.backgroundColor = "#384A34";
+                btn.style.color = "#FFFFFF";
+            }
+        }
+
+        // دالة تبديل أنواع الصيام مع تأثيرات التفعيل وحفظ الحالة في الذاكرة
+        function toggleFastType(type, btn) {
+            btn.classList.toggle('active');
+            let isActive = btn.classList.contains('active');
+            
+            // تخصيص النص حسب الزر (مشترك لصيام الإثنين والخميس أو مفعل للبقية)
+            if(type === 'monday') {
+                btn.innerText = isActive ? "مشترك" : "تفعيل";
+            } else {
+                btn.innerText = isActive ? "مفعل" : "تفعيل";
+            }
+
+            // حفظ الحالة في الذاكرة الداخلية للمتصفح
+            localStorage.setItem('ayoub_shop_fast_' + type, isActive);
+        }
+    </script>
+
+</body>
+</html>

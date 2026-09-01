@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق اصطفاك - القرآن الكريم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            /* زيادة مساحة الحشو السفلي لضمان رؤية آخر سورة بشكل كامل وعدم حجبها بواسطة شاشة الهاتف */
+            padding-bottom: 120px;
+        }
+
+        /* الهيدر */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .app-header a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .app-header h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        /* زر دعاء ختم القرآن في الأعلى على اليمين */
+        .dua-btn {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dua-btn:hover {
+            background-color: var(--pure-white);
+            color: var(--olive-green);
+        }
+
+        /* شريط البحث */
+        .search-container {
+            padding: 1.5rem 1rem 1rem 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 2.8rem 0.8rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(56, 74, 52, 0.2);
+            background-color: var(--pure-white);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            box-shadow: var(--shadow);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 1.2rem;
+            color: var(--olive-green);
+            font-size: 1.1rem;
+        }
+
+        /* قائمة السور */
+        .surah-list {
+            padding: 0.5rem 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .surah-item {
+            background-color: var(--pure-white);
+            border-radius: 15px;
+            padding: 1rem 1.2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: all 0.25s ease;
+        }
+
+        .surah-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 20px rgba(56, 74, 52, 0.1);
+        }
+
+        .surah-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .surah-number {
+            width: 35px;
+            height: 35px;
+            background-color: var(--bg-offwhite);
+            color: var(--olive-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid rgba(56, 74, 52, 0.1);
+        }
+
+        .surah-name {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--olive-green);
+        }
+
+        .surah-meta {
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        .surah-type {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* دعاء أسفل الصفحة */
+        .page-footer-dua {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 1rem;
+            color: var(--olive-green);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-top: 1px dashed rgba(56, 74, 52, 0.2);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر مع زر دعاء ختم القرآن على اليمين وزر العودة على اليسار -->
+    <header class="app-header">
+        <a href="index.html"><i class="fas fa-arrow-right"></i></a>
+        <h1>القرآن الكريم</h1>
+        <!-- زر دعاء ختم القرآن -->
+        <a href="khatma-dua.html" class="dua-btn">
+            <i class="fas fa-hands-praying"></i> دعاء الختم
+        </a>
+    </header>
+
+    <!-- خانة البحث الفوري -->
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن اسم السورة..." onkeyup="searchSurah()">
+        </div>
+    </div>
+
+    <!-- قائمة السور الـ 114 -->
+    <div class="surah-list" id="surahList">
+        
+        <!-- 1 -->
+        <a href="surah-1.html" class="surah-item" data-name="الفاتحة">
+            <div class="surah-info">
+                <div class="surah-number">1</div>
+                <div class="surah-name">سُورَةُ ٱلْفَاتِحَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 7 آيات
+            </div>
+        </a>
+
+        <!-- 2 -->
+        <a href="https://www.ayat.org/surah/albaqara.html" class="surah-item" data-name="البقرة">
+            <div class="surah-info">
+                <div class="surah-number">2</div>
+                <div class="surah-name">سُورَةُ ٱلْبَقَرَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 286 آية
+            </div>
+        </a>
+
+        <!-- 3 -->
+        <a href="https://www.ayat.org/surah/ali-imran.html" class="surah-item" data-name="آل عمران">
+            <div class="surah-info">
+                <div class="surah-number">3</div>
+                <div class="surah-name">سُورَةُ ءَالِ عِمْرَانَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 200 آية
+            </div>
+        </a>
+
+        <!-- 4 -->
+        <a href="https://www.ayat.org/surah/an-nisa.html" class="surah-item" data-name="النساء">
+            <div class="surah-info">
+                <div class="surah-number">4</div>
+                <div class="surah-name">سُورَةُ ٱلنِّسَاءِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 176 آية
+            </div>
+        </a>
+
+        <!-- 5 -->
+        <a href="https://www.ayat.org/surah/al-maidah.html" class="surah-item" data-name="المائدة">
+            <div class="surah-info">
+                <div class="surah-number">5</div>
+                <div class="surah-name">سُورَةُ ٱلْمَائِدَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 120 آية
+            </div>
+        </a>
+
+        <!-- 6 -->
+        <a href="https://www.ayat.org/surah/al-anam.html" class="surah-item" data-name="الأنعام">
+            <div class="surah-info">
+                <div class="surah-number">6</div>
+                <div class="surah-name">سُورَةُ ٱلْأَنْعَامِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 165 آية
+            </div>
+        </a>
+
+        <!-- 7 -->
+        <a href="https://www.ayat.org/surah/al-araf.html" class="surah-item" data-name="الأعراف">
+            <div class="surah-info">
+                <div class="surah-number">7</div>
+                <div class="surah-name">سُورَةُ ٱلْأَعْرَافِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 206 آية
+            </div>
+        </a>
+
+        <!-- 8 -->
+        <a href="https://www.ayat.org/surah/al-anfal.html" class="surah-item" data-name="الأنفال">
+            <div class="surah-info">
+                <div class="surah-number">8</div>
+                <div class="surah-name">سُورَةُ ٱلْأَنْفَالِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 75 آية
+            </div>
+        </a>
+
+        <!-- 9 -->
+        <a href="https://www.ayat.org/surah/at-tawbah.html" class="surah-item" data-name="التوبة">
+            <div class="surah-info">
+                <div class="surah-number">9</div>
+                <div class="surah-name">سُورَةُ ٱلتَّوْبَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 129 آية
+            </div>
+        </a>
+
+        <!-- 10 -->
+        <a href="https://www.ayat.org/surah/yunus.html" class="surah-item" data-name="يونس">
+            <div class="surah-info">
+                <div class="surah-number">10</div>
+                <div class="surah-name">سُورَةُ يُونُسَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 109 آية
+            </div>
+        </a>
+
+        <!-- 11 -->
+        <a href="https://www.ayat.org/surah/hud.html" class="surah-item" data-name="هود">
+            <div class="surah-info">
+                <div class="surah-number">11</div>
+                <div class="surah-name">سُورَةُ هُودٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 123 آية
+            </div>
+        </a>
+
+        <!-- 12 -->
+        <a href="https://www.ayat.org/surah/yusuf.html" class="surah-item" data-name="يوسف">
+            <div class="surah-info">
+                <div class="surah-number">12</div>
+                <div class="surah-name">سُورَةُ يُوسُفَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 111 آية
+            </div>
+        </a>
+
+        <!-- 13 -->
+        <a href="https://www.ayat.org/surah/ar-raad.html" class="surah-item" data-name="الرعد">
+            <div class="surah-info">
+                <div class="surah-number">13</div>
+                <div class="surah-name">سُورَةُ ٱلرَّعْدِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 43 آية
+            </div>
+        </a>
+
+        <!-- 14 -->
+        <a href="https://www.ayat.org/surah/ibrahim.html" class="surah-item" data-name="إبراهيم">
+            <div class="surah-info">
+                <div class="surah-number">14</div>
+                <div class="surah-name">سُورَةُ إِبْرَاهِيمَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 52 آية
+            </div>
+        </a>
+
+        <!-- 15 -->
+        <a href="https://www.ayat.org/surah/al-hijr.html" class="surah-item" data-name="الحجر">
+            <div class="surah-info">
+                <div class="surah-number">15</div>
+                <div class="surah-name">سُورَةُ ٱلْحِجْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 99 آية
+            </div>
+        </a>
+
+        <!-- 16 -->
+        <a href="https://www.ayat.org/surah/al-nahl.html" class="surah-item" data-name="النحل">
+            <div class="surah-info">
+                <div class="surah-number">16</div>
+                <div class="surah-name">سُورَةُ ٱلنَّحْلِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 128 آية
+            </div>
+        </a>
+
+        <!-- 17 -->
+        <a href="https://www.ayat.org/surah/al-isra.html" class="surah-item" data-name="الإسراء">
+            <div class="surah-info">
+                <div class="surah-number">17</div>
+                <div class="surah-name">سُورَةُ ٱلْإِسْرَاءِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 111 آية
+            </div>
+        </a>
+
+        <!-- 18 -->
+        <a href="https://www.ayat.org/surah/al-kahf.html" class="surah-item" data-name="الكهف">
+            <div class="surah-info">
+                <div class="surah-number">18</div>
+                <div class="surah-name">سُورَةُ ٱلْكَهْفِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 110 آية
+            </div>
+        </a>
+
+        <!-- 19 -->
+        <a href="https://www.ayat.org/surah/maryam.html" class="surah-item" data-name="مريم">
+            <div class="surah-info">
+                <div class="surah-number">19</div>
+                <div class="surah-name">سُورَةُ مَرْيَمَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 98 آية
+            </div>
+        </a>
+
+        <!-- 20 -->
+        <a href="https://www.ayat.org/surah/taha.html" class="surah-item" data-name="طه">
+            <div class="surah-info">
+                <div class="surah-number">20</div>
+                <div class="surah-name">سُورَةُ طَهَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 135 آية
+            </div>
+        </a>
+
+        <!-- 21 -->
+        <a href="https://www.ayat.org/surah/al-anbiya.html" class="surah-item" data-name="الأنبياء">
+            <div class="surah-info">
+                <div class="surah-number">21</div>
+                <div class="surah-name">سُورَةُ ٱلْأَنْبِيَاءِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 112 آية
+            </div>
+        </a>
+
+        <!-- 22 -->
+        <a href="https://www.ayat.org/surah/al-hajj.html" class="surah-item" data-name="الحج">
+            <div class="surah-info">
+                <div class="surah-number">22</div>
+                <div class="surah-name">سُورَةُ ٱلْحَجِّ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 78 آية
+            </div>
+        </a>
+
+        <!-- 23 -->
+        <a href="https://www.ayat.org/surah/al-muminun.html" class="surah-item" data-name="المؤمنون">
+            <div class="surah-info">
+                <div class="surah-number">23</div>
+                <div class="surah-name">سُورَةُ ٱلْمُؤْمِنُونَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 118 آية
+            </div>
+        </a>
+
+        <!-- 24 -->
+        <a href="https://www.ayat.org/surah/an-nur.html" class="surah-item" data-name="النور">
+            <div class="surah-info">
+                <div class="surah-number">24</div>
+                <div class="surah-name">سُورَةُ ٱلنُّورِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 64 آية
+            </div>
+        </a>
+
+        <!-- 25 -->
+        <a href="https://www.ayat.org/surah/al-furqan.html" class="surah-item" data-name="الفرقان">
+            <div class="surah-info">
+                <div class="surah-number">25</div>
+                <div class="surah-name">سُورَةُ ٱلْفُرْقَانِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 77 آية
+            </div>
+        </a>
+
+        <!-- 26 -->
+        <a href="https://www.ayat.org/surah/ash-shuara.html" class="surah-item" data-name="الشعراء">
+            <div class="surah-info">
+                <div class="surah-number">26</div>
+                <div class="surah-name">سُورَةُ ٱلشُّعَرَاءِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 227 آية
+            </div>
+        </a>
+
+        <!-- 27 -->
+        <a href="https://www.ayat.org/surah/an-naml.html" class="surah-item" data-name="النمل">
+            <div class="surah-info">
+                <div class="surah-number">27</div>
+                <div class="surah-name">سُورَةُ ٱلنَّمْلِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 93 آية
+            </div>
+        </a>
+
+        <!-- 28 -->
+        <a href="https://www.ayat.org/surah/al-qasas.html" class="surah-item" data-name="القصص">
+            <div class="surah-info">
+                <div class="surah-number">28</div>
+                <div class="surah-name">سُورَةُ ٱلْقَصَصِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 88 آية
+            </div>
+        </a>
+
+        <!-- 29 -->
+        <a href="https://www.ayat.org/surah/al-ankabut.html" class="surah-item" data-name="العنكبوت">
+            <div class="surah-info">
+                <div class="surah-number">29</div>
+                <div class="surah-name">سُورَةُ ٱلْعَنْكَبُوتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 69 آية
+            </div>
+        </a>
+
+        <!-- 30 -->
+        <a href="https://www.ayat.org/surah/ar-rum.html" class="surah-item" data-name="الروم">
+            <div class="surah-info">
+                <div class="surah-number">30</div>
+                <div class="surah-name">سُورَةُ ٱلرُّومِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 60 آية
+            </div>
+        </a>
+
+        <!-- 31 -->
+        <a href="https://www.ayat.org/surah/luqman.html" class="surah-item" data-name="لقمان">
+            <div class="surah-info">
+                <div class="surah-number">31</div>
+                <div class="surah-name">سُورَةُ لُقْمَانَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 34 آية
+            </div>
+        </a>
+
+        <!-- 32 -->
+        <a href="https://www.ayat.org/surah/al-sajdah.html" class="surah-item" data-name="السجدة">
+            <div class="surah-info">
+                <div class="surah-number">32</div>
+                <div class="surah-name">سُورَةُ ٱلسَّجْدَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 30 آية
+            </div>
+        </a>
+
+        <!-- 33 -->
+        <a href="https://www.ayat.org/surah/al-ahzab.html" class="surah-item" data-name="الأحزاب">
+            <div class="surah-info">
+                <div class="surah-number">33</div>
+                <div class="surah-name">سُورَةُ ٱلْأَحْزَابِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 73 آية
+            </div>
+        </a>
+
+        <!-- 34 -->
+        <a href="https://www.ayat.org/surah/saba.html" class="surah-item" data-name="سبأ">
+            <div class="surah-info">
+                <div class="surah-number">34</div>
+                <div class="surah-name">سُورَةُ سَبَإٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 54 آية
+            </div>
+        </a>
+
+        <!-- 35 -->
+        <a href="https://www.ayat.org/surah/fatir.html" class="surah-item" data-name="فاطر">
+            <div class="surah-info">
+                <div class="surah-number">35</div>
+                <div class="surah-name">سُورَةُ فَاطِرٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 45 آية
+            </div>
+        </a>
+
+        <!-- 36 -->
+        <a href="https://www.ayat.org/surah/ya-sin.html" class="surah-item" data-name="يس">
+            <div class="surah-info">
+                <div class="surah-number">36</div>
+                <div class="surah-name">سُورَةُ يس</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 83 آية
+            </div>
+        </a>
+
+        <!-- 37 -->
+        <a href="https://www.ayat.org/surah/al-safat.html" class="surah-item" data-name="الصافات">
+            <div class="surah-info">
+                <div class="surah-number">37</div>
+                <div class="surah-name">سُورَةُ ٱلصَّافَّاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 182 آية
+            </div>
+        </a>
+
+        <!-- 38 -->
+        <a href="https://www.ayat.org/surah/sad.html" class="surah-item" data-name="ص">
+            <div class="surah-info">
+                <div class="surah-number">38</div>
+                <div class="surah-name">سُورَةُ ص</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 88 آية
+            </div>
+        </a>
+
+        <!-- 39 -->
+        <a href="https://www.ayat.org/surah/az-zumar.html" class="surah-item" data-name="الزمر">
+            <div class="surah-info">
+                <div class="surah-number">39</div>
+                <div class="surah-name">سُورَةُ ٱلزُّمَرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 75 آية
+            </div>
+        </a>
+
+        <!-- 40 -->
+        <a href="https://www.ayat.org/surah/ghafir.html" class="surah-item" data-name="غافر">
+            <div class="surah-info">
+                <div class="surah-number">40</div>
+                <div class="surah-name">سُورَةُ غَافِرٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 85 آية
+            </div>
+        </a>
+
+        <!-- 41 -->
+        <a href="https://www.ayat.org/surah/fussilat.html" class="surah-item" data-name="فصلت">
+            <div class="surah-info">
+                <div class="surah-number">41</div>
+                <div class="surah-name">سُورَةُ فُصِّلَتْ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 54 آية
+            </div>
+        </a>
+
+        <!-- 42 -->
+        <a href="https://www.ayat.org/surah/ash-shura.html" class="surah-item" data-name="الشورى">
+            <div class="surah-info">
+                <div class="surah-number">42</div>
+                <div class="surah-name">سُورَةُ ٱلشُّورَىٰ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 53 آية
+            </div>
+        </a>
+
+        <!-- 43 -->
+        <a href="https://www.ayat.org/surah/az-zukhruf.html" class="surah-item" data-name="الزخرف">
+            <div class="surah-info">
+                <div class="surah-number">43</div>
+                <div class="surah-name">سُورَةُ ٱلزُّخْرُفِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 89 آية
+            </div>
+        </a>
+
+        <!-- 44 -->
+        <a href="https://www.ayat.org/surah/ad-dukhan.html" class="surah-item" data-name="الدخان">
+            <div class="surah-info">
+                <div class="surah-number">44</div>
+                <div class="surah-name">سُورَةُ ٱلدُّخَانِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 59 آية
+            </div>
+        </a>
+
+        <!-- 45 -->
+        <a href="https://www.ayat.org/surah/al-jathiyah.html" class="surah-item" data-name="الجاثية">
+            <div class="surah-info">
+                <div class="surah-number">45</div>
+                <div class="surah-name">سُورَةُ ٱلْجَاثِيَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 37 آية
+            </div>
+        </a>
+
+        <!-- 46 -->
+        <a href="https://www.ayat.org/surah/al-ahqaf.html" class="surah-item" data-name="الأحقاف">
+            <div class="surah-info">
+                <div class="surah-number">46</div>
+                <div class="surah-name">سُورَةُ ٱلْأَحْقَافِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 35 آية
+            </div>
+        </a>
+
+        <!-- 47 -->
+        <a href="surah-47.html" class="surah-item" data-name="محمد">
+            <div class="surah-info">
+                <div class="surah-number">47</div>
+                <div class="surah-name">سُورَةُ مُحَمَّدٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 38 آية
+            </div>
+        </a>
+
+        <!-- 48 -->
+        <a href="surah-48.html" class="surah-item" data-name="الفتح">
+            <div class="surah-info">
+                <div class="surah-number">48</div>
+                <div class="surah-name">سُورَةُ ٱلْفَتْحِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 29 آية
+            </div>
+        </a>
+
+        <!-- 49 -->
+        <a href="surah-49.html" class="surah-item" data-name="الحجرات">
+            <div class="surah-info">
+                <div class="surah-number">49</div>
+                <div class="surah-name">سُورَةُ ٱلْحُجُرَاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 18 آية
+            </div>
+        </a>
+
+        <!-- 50 -->
+        <a href="surah-50.html" class="surah-item" data-name="ق">
+            <div class="surah-info">
+                <div class="surah-number">50</div>
+                <div class="surah-name">سُورَةُ ق</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 45 آية
+            </div>
+        </a>
+
+        <!-- 51 -->
+        <a href="surah-51.html" class="surah-item" data-name="الذاريات">
+            <div class="surah-info">
+                <div class="surah-number">51</div>
+                <div class="surah-name">سُورَةُ ٱلذَّارِيَاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 60 آية
+            </div>
+        </a>
+
+        <!-- 52 -->
+        <a href="surah-52.html" class="surah-item" data-name="الطور">
+            <div class="surah-info">
+                <div class="surah-number">52</div>
+                <div class="surah-name">سُورَةُ ٱلطُّورِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 49 آية
+            </div>
+        </a>
+
+        <!-- 53 -->
+        <a href="surah-53.html" class="surah-item" data-name="النجم">
+            <div class="surah-info">
+                <div class="surah-number">53</div>
+                <div class="surah-name">سُورَةُ ٱلنَّجْمِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 62 آية
+            </div>
+        </a>
+
+        <!-- 54 -->
+        <a href="surah-54.html" class="surah-item" data-name="القمر">
+            <div class="surah-info">
+                <div class="surah-number">54</div>
+                <div class="surah-name">سُورَةُ ٱلْقَمَرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 55 آية
+            </div>
+        </a>
+
+        <!-- 55 -->
+        <a href="surah-55.html" class="surah-item" data-name="الرحمن">
+            <div class="surah-info">
+                <div class="surah-number">55</div>
+                <div class="surah-name">سُورَةُ ٱلرَّحْمَٰنِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 78 آية
+            </div>
+        </a>
+
+        <!-- 56 -->
+        <a href="surah-56.html" class="surah-item" data-name="الواقعة">
+            <div class="surah-info">
+                <div class="surah-number">56</div>
+                <div class="surah-name">سُورَةُ ٱلْوَاقِعَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 96 آية
+            </div>
+        </a>
+
+        <!-- 57 -->
+        <a href="surah-57.html" class="surah-item" data-name="الحديد">
+            <div class="surah-info">
+                <div class="surah-number">57</div>
+                <div class="surah-name">سُورَةُ ٱلْحَدِيدِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 29 آية
+            </div>
+        </a>
+
+        <!-- 58 -->
+        <a href="surah-58.html" class="surah-item" data-name="المجادلة">
+            <div class="surah-info">
+                <div class="surah-number">58</div>
+                <div class="surah-name">سُورَةُ ٱلْمُجَادَلَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 22 آية
+            </div>
+        </a>
+
+        <!-- 59 -->
+        <a href="surah-59.html" class="surah-item" data-name="الحشر">
+            <div class="surah-info">
+                <div class="surah-number">59</div>
+                <div class="surah-name">سُورَةُ ٱلْحَشْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 24 آية
+            </div>
+        </a>
+
+        <!-- 60 -->
+        <a href="surah-60.html" class="surah-item" data-name="الممتحنة">
+            <div class="surah-info">
+                <div class="surah-number">60</div>
+                <div class="surah-name">سُورَةُ ٱلْمُمْتَحَنَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 13 آية
+            </div>
+        </a>
+
+        <!-- 61 -->
+        <a href="surah-61.html" class="surah-item" data-name="الصف">
+            <div class="surah-info">
+                <div class="surah-number">61</div>
+                <div class="surah-name">سُورَةُ ٱلصَّفِّ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 14 آية
+            </div>
+        </a>
+
+        <!-- 62 -->
+        <a href="surah-62.html" class="surah-item" data-name="الجمعة">
+            <div class="surah-info">
+                <div class="surah-number">62</div>
+                <div class="surah-name">سُورَةُ ٱلْجُمُعَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 11 آية
+            </div>
+        </a>
+
+        <!-- 63 -->
+        <a href="surah-63.html" class="surah-item" data-name="المنافقون">
+            <div class="surah-info">
+                <div class="surah-number">63</div>
+                <div class="surah-name">سُورَةُ ٱلْمُنَافِقُونَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 11 آية
+            </div>
+        </a>
+
+        <!-- 64 -->
+        <a href="surah-64.html" class="surah-item" data-name="التغابن">
+            <div class="surah-info">
+                <div class="surah-number">64</div>
+                <div class="surah-name">سُورَةُ ٱلتَّغَابُنِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 18 آية
+            </div>
+        </a>
+
+        <!-- 65 -->
+        <a href="surah-65.html" class="surah-item" data-name="الطلاق">
+            <div class="surah-info">
+                <div class="surah-number">65</div>
+                <div class="surah-name">سُورَةُ ٱلطَّلَاقِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 12 آية
+            </div>
+        </a>
+
+        <!-- 66 -->
+        <a href="surah-66.html" class="surah-item" data-name="التحريم">
+            <div class="surah-info">
+                <div class="surah-number">66</div>
+                <div class="surah-name">سُورَةُ ٱلتَّحْرِيمِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 12 آية
+            </div>
+        </a>
+
+        <!-- 67 -->
+        <a href="surah-67.html" class="surah-item" data-name="الملك">
+            <div class="surah-info">
+                <div class="surah-number">67</div>
+                <div class="surah-name">سُورَةُ ٱلْمُلْكِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 30 آية
+            </div>
+        </a>
+
+        <!-- 68 -->
+        <a href="surah-68.html" class="surah-item" data-name="القلم">
+            <div class="surah-info">
+                <div class="surah-number">68</div>
+                <div class="surah-name">سُورَةُ ٱلْقَلَمِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 52 آية
+            </div>
+        </a>
+
+        <!-- 69 -->
+        <a href="surah-69.html" class="surah-item" data-name="الحاقة">
+            <div class="surah-info">
+                <div class="surah-number">69</div>
+                <div class="surah-name">سُورَةُ ٱلْحَاقَّةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 52 آية
+            </div>
+        </a>
+
+        <!-- 70 -->
+        <a href="surah-70.html" class="surah-item" data-name="المعارج">
+            <div class="surah-info">
+                <div class="surah-number">70</div>
+                <div class="surah-name">سُورَةُ ٱلْمَعَارِجِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 44 آية
+            </div>
+        </a>
+
+        <!-- 71 -->
+        <a href="surah-71.html" class="surah-item" data-name="نوح">
+            <div class="surah-info">
+                <div class="surah-number">71</div>
+                <div class="surah-name">سُورَةُ نُوحٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 28 آية
+            </div>
+        </a>
+
+        <!-- 72 -->
+        <a href="surah-72.html" class="surah-item" data-name="الجن">
+            <div class="surah-info">
+                <div class="surah-number">72</div>
+                <div class="surah-name">سُورَةُ ٱلْجِنِّ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 28 آية
+            </div>
+        </a>
+
+        <!-- 73 -->
+        <a href="surah-73.html" class="surah-item" data-name="المزمل">
+            <div class="surah-info">
+                <div class="surah-number">73</div>
+                <div class="surah-name">سُورَةُ ٱلْمُزَّمِّلِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 20 آية
+            </div>
+        </a>
+
+        <!-- 74 -->
+        <a href="surah-74.html" class="surah-item" data-name="المدثر">
+            <div class="surah-info">
+                <div class="surah-number">74</div>
+                <div class="surah-name">سُورَةُ ٱلْمُدَّثِّرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 56 آية
+            </div>
+        </a>
+
+        <!-- 75 -->
+        <a href="surah-75.html" class="surah-item" data-name="القيامة">
+            <div class="surah-info">
+                <div class="surah-number">75</div>
+                <div class="surah-name">سُورَةُ ٱلْقِيَامَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 40 آية
+            </div>
+        </a>
+
+        <!-- 76 -->
+        <a href="surah-76.html" class="surah-item" data-name="الإنسان">
+            <div class="surah-info">
+                <div class="surah-number">76</div>
+                <div class="surah-name">سُورَةُ ٱلْإِنْسَانِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 31 آية
+            </div>
+        </a>
+
+        <!-- 77 -->
+        <a href="surah-77.html" class="surah-item" data-name="المرسلات">
+            <div class="surah-info">
+                <div class="surah-number">77</div>
+                <div class="surah-name">سُورَةُ ٱلْمُرْسَلَاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 50 آية
+            </div>
+        </a>
+
+        <!-- 78 -->
+        <a href="surah-78.html" class="surah-item" data-name="النبأ">
+            <div class="surah-info">
+                <div class="surah-number">78</div>
+                <div class="surah-name">سُورَةُ ٱلنَّبَإِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 40 آية
+            </div>
+        </a>
+
+        <!-- 79 -->
+        <a href="surah-79.html" class="surah-item" data-name="النازعات">
+            <div class="surah-info">
+                <div class="surah-number">79</div>
+                <div class="surah-name">سُورَةُ ٱلنَّازِعَاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 46 آية
+            </div>
+        </a>
+
+        <!-- 80 -->
+        <a href="surah-80.html" class="surah-item" data-name="عبس">
+            <div class="surah-info">
+                <div class="surah-number">80</div>
+                <div class="surah-name">سُورَةُ عَبَسَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 42 آية
+            </div>
+        </a>
+
+        <!-- 81 -->
+        <a href="surah-81.html" class="surah-item" data-name="التكوير">
+            <div class="surah-info">
+                <div class="surah-number">81</div>
+                <div class="surah-name">سُورَةُ ٱلتَّكْوِيرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 29 آية
+            </div>
+        </a>
+
+        <!-- 82 -->
+        <a href="surah-82.html" class="surah-item" data-name="الإنفطار">
+            <div class="surah-info">
+                <div class="surah-number">82</div>
+                <div class="surah-name">سُورَةُ ٱلْإِنْفِطَارِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 19 آية
+            </div>
+        </a>
+
+        <!-- 83 -->
+        <a href="surah-83.html" class="surah-item" data-name="المطففين">
+            <div class="surah-info">
+                <div class="surah-number">83</div>
+                <div class="surah-name">سُورَةُ ٱلْمُطَفِّفِينَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 36 آية
+            </div>
+        </a>
+
+        <!-- 84 -->
+        <a href="surah-84.html" class="surah-item" data-name="الإنشقاق">
+            <div class="surah-info">
+                <div class="surah-number">84</div>
+                <div class="surah-name">سُورَةُ ٱلْإِنْشِقَاقِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 25 آية
+            </div>
+        </a>
+
+        <!-- 85 -->
+        <a href="surah-85.html" class="surah-item" data-name="البروج">
+            <div class="surah-info">
+                <div class="surah-number">85</div>
+                <div class="surah-name">سُورَةُ ٱلْبُرُوجِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 22 آية
+            </div>
+        </a>
+
+        <!-- 86 -->
+        <a href="surah-86.html" class="surah-item" data-name="الطارق">
+            <div class="surah-info">
+                <div class="surah-number">86</div>
+                <div class="surah-name">سُورَةُ ٱلطَّارِقِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 17 آية
+            </div>
+        </a>
+
+        <!-- 87 -->
+        <a href="surah-87.html" class="surah-item" data-name="الأعلى">
+            <div class="surah-info">
+                <div class="surah-number">87</div>
+                <div class="surah-name">سُورَةُ ٱلْأَعْلَىٰ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 19 آية
+            </div>
+        </a>
+
+        <!-- 88 -->
+        <a href="surah-88.html" class="surah-item" data-name="الغاشية">
+            <div class="surah-info">
+                <div class="surah-number">88</div>
+                <div class="surah-name">سُورَةُ ٱلْغَاشِيَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 26 آية
+            </div>
+        </a>
+
+        <!-- 89 -->
+        <a href="surah-89.html" class="surah-item" data-name="الفجر">
+            <div class="surah-info">
+                <div class="surah-number">89</div>
+                <div class="surah-name">سُورَةُ ٱلْفَجْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 30 آية
+            </div>
+        </a>
+
+        <!-- 90 -->
+        <a href="surah-90.html" class="surah-item" data-name="البلد">
+            <div class="surah-info">
+                <div class="surah-number">90</div>
+                <div class="surah-name">سُورَةُ ٱلْبَلَدِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 20 آية
+            </div>
+        </a>
+
+        <!-- 91 -->
+        <a href="surah-91.html" class="surah-item" data-name="الشمس">
+            <div class="surah-info">
+                <div class="surah-number">91</div>
+                <div class="surah-name">سُورَةُ ٱلشَّمْسِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 15 آية
+            </div>
+        </a>
+
+        <!-- 92 -->
+        <a href="surah-92.html" class="surah-item" data-name="الليل">
+            <div class="surah-info">
+                <div class="surah-number">92</div>
+                <div class="surah-name">سُورَةُ ٱلْلَّيْلِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 21 آية
+            </div>
+        </a>
+
+        <!-- 93 -->
+        <a href="surah-93.html" class="surah-item" data-name="الضحى">
+            <div class="surah-info">
+                <div class="surah-number">93</div>
+                <div class="surah-name">سُورَةُ ٱلضُّحَىٰ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 11 آية
+            </div>
+        </a>
+
+        <!-- 94 -->
+        <a href="surah-94.html" class="surah-item" data-name="الشرح">
+            <div class="surah-info">
+                <div class="surah-number">94</div>
+                <div class="surah-name">سُورَةُ ٱلشَّرْحِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 8 آيات
+            </div>
+        </a>
+
+        <!-- 95 -->
+        <a href="surah-95.html" class="surah-item" data-name="التين">
+            <div class="surah-info">
+                <div class="surah-number">95</div>
+                <div class="surah-name">سُورَةُ ٱلتِّينِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 8 آيات
+            </div>
+        </a>
+
+        <!-- 96 -->
+        <a href="surah-96.html" class="surah-item" data-name="العلق">
+            <div class="surah-info">
+                <div class="surah-number">96</div>
+                <div class="surah-name">سُورَةُ ٱلْعَلَقِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 19 آية
+            </div>
+        </a>
+
+        <!-- 97 -->
+        <a href="surah-97.html" class="surah-item" data-name="القدر">
+            <div class="surah-info">
+                <div class="surah-number">97</div>
+                <div class="surah-name">سُورَةُ ٱلْقَدْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 5 آيات
+            </div>
+        </a>
+
+        <!-- 98 -->
+        <a href="surah-98.html" class="surah-item" data-name="البينة">
+            <div class="surah-info">
+                <div class="surah-number">98</div>
+                <div class="surah-name">سُورَةُ ٱلْبَيِّنَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 8 آيات
+            </div>
+        </a>
+
+        <!-- 99 -->
+        <a href="surah-99.html" class="surah-item" data-name="الزلزلة">
+            <div class="surah-info">
+                <div class="surah-number">99</div>
+                <div class="surah-name">سُورَةُ ٱلزَّلْزَلَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 8 آيات
+            </div>
+        </a>
+
+        <!-- 100 -->
+        <a href="surah-100.html" class="surah-item" data-name="العاديات">
+            <div class="surah-info">
+                <div class="surah-number">100</div>
+                <div class="surah-name">سُورَةُ ٱلْعَادِيَاتِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 11 آية
+            </div>
+        </a>
+
+        <!-- 101 -->
+        <a href="surah-101.html" class="surah-item" data-name="القارعة">
+            <div class="surah-info">
+                <div class="surah-number">101</div>
+                <div class="surah-name">سُورَةُ ٱلْقَارِعَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 11 آية
+            </div>
+        </a>
+
+        <!-- 102 -->
+        <a href="surah-102.html" class="surah-item" data-name="التكاثر">
+            <div class="surah-info">
+                <div class="surah-number">102</div>
+                <div class="surah-name">سُورَةُ ٱلتَّكَاثُرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 8 آيات
+            </div>
+        </a>
+
+        <!-- 103 -->
+        <a href="surah-103.html" class="surah-item" data-name="العصر">
+            <div class="surah-info">
+                <div class="surah-number">103</div>
+                <div class="surah-name">سُورَةُ ٱلْعَصْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 3 آيات
+            </div>
+        </a>
+
+        <!-- 104 -->
+        <a href="surah-104.html" class="surah-item" data-name="الهمزة">
+            <div class="surah-info">
+                <div class="surah-number">104</div>
+                <div class="surah-name">سُورَةُ ٱلْهُمَزَةِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 9 آيات
+            </div>
+        </a>
+
+        <!-- 105 -->
+        <a href="surah-105.html" class="surah-item" data-name="الفيل">
+            <div class="surah-info">
+                <div class="surah-number">105</div>
+                <div class="surah-name">سُورَةُ ٱلْفِيلِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 5 آيات
+            </div>
+        </a>
+
+        <!-- 106 -->
+        <a href="surah-106.html" class="surah-item" data-name="قريش">
+            <div class="surah-info">
+                <div class="surah-number">106</div>
+                <div class="surah-name">سُورَةُ قُرَيْشٍ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 4 آيات
+            </div>
+        </a>
+
+        <!-- 107 -->
+        <a href="surah-107.html" class="surah-item" data-name="الماعون">
+            <div class="surah-info">
+                <div class="surah-number">107</div>
+                <div class="surah-name">سُورَةُ ٱلْمَاعُونِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 7 آيات
+            </div>
+        </a>
+
+        <!-- 108 -->
+        <a href="surah-108.html" class="surah-item" data-name="الكوثر">
+            <div class="surah-info">
+                <div class="surah-number">108</div>
+                <div class="surah-name">سُورَةُ ٱلْكَوْثَرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 3 آيات
+            </div>
+        </a>
+
+        <!-- 109 -->
+        <a href="surah-109.html" class="surah-item" data-name="الكافرون">
+            <div class="surah-info">
+                <div class="surah-number">109</div>
+                <div class="surah-name">سُورَةُ ٱلْكَافِرُونَ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 6 آيات
+            </div>
+        </a>
+
+        <!-- 110 -->
+        <a href="surah-110.html" class="surah-item" data-name="النصر">
+            <div class="surah-info">
+                <div class="surah-number">110</div>
+                <div class="surah-name">سُورَةُ ٱلنَّصْرِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مدنية</span> • 3 آيات
+            </div>
+        </a>
+
+        <!-- 111 -->
+        <a href="surah-111.html" class="surah-item" data-name="المسد">
+            <div class="surah-info">
+                <div class="surah-number">111</div>
+                <div class="surah-name">سُورَةُ ٱلْمَسَدِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 5 آيات
+            </div>
+        </a>
+
+        <!-- 112 -->
+        <a href="surah-112.html" class="surah-item" data-name="الناس">
+            <div class="surah-info">
+                <div class="surah-number">112</div>
+                <div class="surah-name">سُورَةُ ٱلْإِخْلَاصِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 4 آيات
+            </div>
+        </a>
+
+        <!-- 113 -->
+        <a href="surah-113.html" class="surah-item" data-name="الفلق">
+            <div class="surah-info">
+                <div class="surah-number">113</div>
+                <div class="surah-name">سُورَةُ ٱلْفَلَقِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 5 آيات
+            </div>
+        </a>
+
+        <!-- 114 -->
+        <a href="surah-114.html" class="surah-item" data-name="الناس">
+            <div class="surah-info">
+                <div class="surah-number">114</div>
+                <div class="surah-name">سُورَةُ ٱلنَّاسِ</div>
+            </div>
+            <div class="surah-meta">
+                <span class="surah-type">مكية</span> • 6 آيات
+            </div>
+        </a>
+
+    </div>
+
+    <!-- دعاء في أسفل الصفحة -->
+    <div class="page-footer-dua">
+        اللهم انفعنا بالقرآن العظيم واجعله لنا إماما ونورا وهدى ورحمة<br>
+        <span style="font-size: 0.85rem; opacity: 0.8; font-weight: 400; margin-top: 5px; display: block;">لا تنسونا من صالح دعائكم بظهر الغيب</span>
+    </div>
+
+    <!-- كود جافاسكريبت للبحث الذكي وتعديل الترتيب (جعل المطابقة في الأعلى وإخفاء البقية) -->
+    <script>
+        function searchSurah() {
+            let input = document.getElementById('searchInput').value.trim().toLowerCase();
+            let container = document.getElementById('surahList');
+            let items = Array.from(container.getElementsByClassName('surah-item'));
+
+            if (input === "") {
+                // إذا تم مسح خانة البحث، تعود السور لأماكنها الطبيعية وتظهر كلها
+                items.sort((a, b) => {
+                    let numA = parseInt(a.querySelector('.surah-number').innerText);
+                    let numB = parseInt(b.querySelector('.surah-number').innerText);
+                    return numA - numB;
+                });
+                items.forEach(item => {
+                    item.style.display = "flex";
+                    container.appendChild(item);
+                });
+                return;
+            }
+
+            let matchedItems = [];
+            let otherItems = [];
+
+            items.forEach(item => {
+                let surahName = item.getAttribute('data-name').toLowerCase();
+                if (surahName.includes(input)) {
+                    item.style.display = "flex";
+                    matchedItems.push(item); // السور المطابقة
+                } else {
+                    item.style.display = "none"; // إخفاء السور غير المطابقة
+                    otherItems.push(item);
+                }
+            });
+
+            // إعادة ترتيب الحاويات بحيث تظهر السور المطابقة في الأعلى
+            matchedItems.forEach(item => container.appendChild(item));
+            otherItems.forEach(item => container.appendChild(item));
+        }
+    </script>
+
+</body>
+</html>

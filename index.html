@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق اصطفاك - الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 90px;
+            overflow-x: hidden;
+        }
+
+        /* الهيدر والشعار */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1.2rem 1.5rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .app-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            border: 2px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background-color: var(--pure-white);
+        }
+
+        .app-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.2;
+            font-family: 'Amiri', serif;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* تنسيق الآية القرآنية المزخرفة */
+        .quran-verse-box {
+            margin: 0.6rem auto;
+            max-width: 90%;
+            font-family: 'Amiri', serif;
+        }
+
+        .quran-verse {
+            font-size: 1.05rem;
+            color: #F9F6EE;
+            line-height: 1.6;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .verse-decoration {
+            color: var(--gold);
+            font-size: 1.1rem;
+            padding: 0 4px;
+        }
+
+        .verse-source {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gold);
+            opacity: 0.9;
+            margin-top: 2px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+        }
+
+        .app-slogan {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 0.3rem;
+            font-weight: 300;
+        }
+
+        /* قسم مواقيت الصلاة */
+        .prayer-times-section {
+            margin-top: -15px;
+            padding: 0 1rem;
+        }
+
+        .prayer-box {
+            background-color: var(--pure-white);
+            color: var(--text-dark);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(56, 74, 52, 0.1);
+        }
+
+        .prayer-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--olive-green);
+        }
+
+        .prayer-info p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 0.2rem;
+        }
+
+        .location-btn {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .location-btn i {
+            font-size: 0.9rem;
+        }
+
+        .location-btn:hover {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            transform: translateY(-2px);
+        }
+
+        /* أقسام التطبيق (Grid) */
+        .sections-container {
+            padding: 1.5rem 1rem 1rem 1rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .view-all {
+            font-size: 0.9rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .view-all:hover {
+            opacity: 0.8;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: var(--pure-white);
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(56, 74, 52, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .card:active {
+            transform: scale(0.97);
+        }
+
+        .card-icon {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--olive-green);
+        }
+
+        .card p {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #E8EAE7;
+            color: var(--olive-green);
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* زر انضم إلى مجتمع إصطفاك */
+        .community-section {
+            padding: 0 1rem;
+            margin-top: 1rem;
+        }
+
+        .community-btn {
+            background: linear-gradient(135deg, var(--olive-green), #2A3725);
+            color: var(--pure-white);
+            width: 100%;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 20px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(56, 74, 52, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s, background 0.2s;
+            font-family: 'Amiri', serif;
+        }
+
+        .community-btn i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .community-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* نافذة منبثقة (Modal) للرابط */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-card {
+            background-color: var(--pure-white);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            position: relative;
+            animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--bg-offwhite);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-desc {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-link-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.9rem 1.2rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .social-link-item:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .social-link-item.facebook {
+            background-color: #1877F2;
+            color: #FFFFFF;
+        }
+
+        .social-link-item.telegram {
+            background-color: #229ED9;
+            color: #FFFFFF;
+        }
+
+        .social-link-item.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #FFFFFF;
+        }
+
+        .social-link-item i {
+            font-size: 1.3rem;
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            flex: 1;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover i {
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+
+        .nav-item.active .nav-icon-border {
+            color: var(--pure-white);
+            background-color: var(--olive-green);
+            padding: 0.6rem;
+            border-radius: 50%;
+            margin-top: -18px;
+            box-shadow: 0 4px 10px rgba(56, 74, 52, 0.3);
+        }
+        
+        .nav-item.active i {
+            margin-top: 1px;
+            color: var(--gold);
+        }
+
+        /* استجابة الشاشات الصغيرة */
+        @media (max-width: 360px) {
+            .app-title { font-size: 2rem; }
+            .grid-cards { grid-template-columns: 1fr; }
+            .prayer-box { flex-direction: column; gap: 1rem; text-align: center; }
+            .location-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر والشعار -->
+    <header class="app-header">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/1G0H3G3/as-logo.jpg" alt="شعار اصطفاك" class="app-logo">
+            <h1 class="app-title">إِصْطَفَاكَ</h1>
+            
+            <!-- الآية الكريمة المزخرفة -->
+            <div class="quran-verse-box">
+                <p class="quran-verse">
+                    <span class="verse-decoration">﴿</span> إِنَّ اللَّهَ اصْطَفَىٰ لَكُمُ الدِّينَ فَلَا تَمُوتُنَّ إِلَّا وَأَنتُم مُّسْلِمُونَ <span class="verse-decoration">﴾</span>
+                </p>
+                <span class="verse-source">(سورة البقرة: 132)</span>
+            </div>
+
+            <p class="app-slogan">رفيقك اليومي في العبادة والتعلم وتزكية النفس - مجاني بالكامل</p>
+        </div>
+    </header>
+
+    <!-- قسم مواقيت الصلاة -->
+    <section class="prayer-times-section">
+        <div class="prayer-box">
+            <div class="prayer-info">
+                <h3>مواقيت الصلاة</h3>
+                <p>حدد موقعك لحساب المواقيت بدقة</p>
+            </div>
+            <a href="prayer.html" class="location-btn">
+                <i class="fas fa-map-marker-alt"></i>
+                تحديد الموقع
+            </a>
+        </div>
+    </section>
+
+    <!-- زر انضم إلى مجتمع إصطفاك الجديد -->
+    <div class="community-section">
+        <button class="community-btn" onclick="openCommunityModal()">
+            <i class="fas fa-users"></i>
+            انضم إلى مجتمع إصطفاك
+        </button>
+    </div>
+
+    <!-- أقسام التطبيق -->
+    <section class="sections-container">
+        <div class="section-header">
+            <h2 class="section-title">أقسام التطبيق</h2>
+            <a href="all-sections.html" class="view-all">عرض الكل</a>
+        </div>
+
+        <div class="grid-cards">
+            <!-- بطاقة: الحفظ والمراجعة (تم توجيهها إلى memorization.html) -->
+            <a href="memorization.html" class="card">
+                <span class="card-tag">البداية المقترحة</span>
+                <i class="fas fa-book-reader card-icon"></i>
+                <h4>الحفظ والمراجعة الذكية</h4>
+                <p>خطط حفظ للقرآن والمتون مع خوارزمية التكرار المتباعد.</p>
+            </a>
+
+            <!-- بطاقة: حصن المسلم -->
+            <a href="fortress.html" class="card">
+                <i class="fas fa-pray card-icon"></i>
+                <h4>حصن المسلم والعداد</h4>
+                <p>أذكار مصنفة مع عداد تفاعلي واهتزاز خفيف.</p>
+            </a>
+
+            <!-- بطاقة: مخططات الختمة -->
+            <a href="khatma.html" class="card">
+                <i class="far fa-moon card-icon"></i>
+                <h4>مخططات الختمة</h4>
+                <p>ختمة في ٣ أيام أو أسبوع أو شهر مع ورد يومي محسوب.</p>
+            </a>
+
+            <!-- بطاقة: الصيام -->
+            <a href="fasting.html" class="card">
+                <i class="fas fa-mountain card-icon"></i>
+                <h4>الصيام والتنبيهات</h4>
+                <p>الاثنين والخميس، البيض، عرفة، عاشوراء، شوال وشعبان.</p>
+            </a>
+
+            <!-- بطاقة: المكتبة الشرعية -->
+            <a href="library.html" class="card">
+                <i class="fas fa-book card-icon"></i>
+                <h4>المكتبة الشرعية</h4>
+                <p>العقيدة، الحديث، السيرة، التجويد، الفقه والأصول.</p>
+            </a>
+
+            <!-- بطاقة: أفكاري وملاحظاتي -->
+            <a href="notes.html" class="card">
+                <i class="far fa-edit card-icon"></i>
+                <h4>أفكاري وملاحظاتي</h4>
+                <p>مساحتك الخاصة لتدوين الخواطر والمقترحات والروابط.</p>
+            </a>
+
+             <!-- بطاقة: قيام الليل -->
+             <a href="night-prayer.html" class="card">
+                <i class="far fa-moon card-icon"></i>
+                <h4>قيام الليل</h4>
+                <p>ورد التهجد والوتر وأوقات الاستغفار في الأسحار.</p>
+            </a>
+
+            <!-- بطاقة: الصوتيات والمنصات -->
+            <a href="minassat.html" class="card">
+                <i class="fas fa-headphones-alt card-icon"></i>
+                <h4>الصوتيات والمنصات</h4>
+                <p>مشغل للتلاوات والدروس ودليل المنصات الموثوقة.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- نافذة منبثقة (Modal) لمواقع التواصل -->
+    <div class="modal-overlay" id="communityModal" onclick="closeModalOutside(event)">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeCommunityModal()"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">مجتمع إصطفاك الإيماني</h3>
+            <p class="modal-desc">تابعنا عبر منصاتنا الرسمية للبقاء على اتصال دائم ومشاركة الأجر والتحديثات.</p>
+            
+            <div class="social-links-list">
+                <!-- رابط فيسبوك -->
+                <a href="https://www.facebook.com/profile.php?id=61593602687125" target="_blank" class="social-link-item facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>صفحتنا على فيسبوك</span>
+                </a>
+                
+                <!-- رابط تلجرام -->
+                <a href="https://t.me/istafakcom" target="_blank" class="social-link-item telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>قناتنا على تلجرام</span>
+                </a>
+                
+                <!-- رابط إنستغرام -->
+                <a href="https://instagram.com/رابط_حسابك" target="_blank" class="social-link-item instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>حسابنا على إنستغرام</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي (تم توجيه زر المراجعة إلى memorization.html) -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="nav-icon-border">
+                <i class="fas fa-home"></i>
+            </span>
+            الرئيسية
+        </a>
+        <a href="khatma.html" class="nav-item">
+            <i class="fas fa-infinity"></i>
+            الختمة
+        </a>
+        <a href="quran.html" class="nav-item">
+            <i class="fas fa-quran"></i>
+            القرآن الكريم
+        </a>
+        <a href="memorization.html" class="nav-item">
+            <i class="fas fa-sync-alt"></i>
+            المراجعة
+        </a>
+        <a href="about.html" class="nav-item">
+            <i class="fas fa-info-circle"></i>
+            حول التطبيق
+        </a>
+    </nav>
+
+    <script>
+        // دوال التحكم بالنافذة المنبثقة
+        function openCommunityModal() {
+            document.getElementById('communityModal').style.display = 'flex';
+        }
+
+        function closeCommunityModal() {
+            document.getElementById('communityModal').style.display = 'none';
+        }
+
+        function closeModalOutside(event) {
+            let modal = document.getElementById('communityModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

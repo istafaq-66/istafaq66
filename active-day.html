@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - اليوم النشط للصائم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 100px;
+        }
+
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-left a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .app-logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            padding: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* عنوان الصفحة */
+        .page-title-box {
+            text-align: center;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Amiri', serif;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* بطاقات الأقسام */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 74, 52, 0.08);
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            color: var(--gold);
+        }
+
+        /* حالة الصائم الكبرى */
+        .active-status-badge {
+            background: linear-gradient(135deg, var(--olive-green), #2A3725);
+            color: var(--pure-white);
+            border-radius: 18px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(56, 74, 52, 0.2);
+            text-align: center;
+        }
+
+        .active-status-badge h3 {
+            font-size: 1.4rem;
+            font-family: 'Amiri', serif;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .active-status-badge p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* قائمة أنواع الصيام النشطة اليوم */
+        .active-types-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .active-type-chip {
+            background-color: var(--card-bg);
+            border-right: 5px solid var(--gold);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--olive-green);
+        }
+
+        .active-type-chip span.tag {
+            font-size: 0.8rem;
+            background-color: var(--bg-offwhite);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .no-active-msg {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* قسم دعاء الصائم */
+        .dua-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .dua-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: var(--text-dark);
+            margin-top: 0.5rem;
+        }
+
+        /* شريط التنقل السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: -5px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="fasting.html" title="العودة لصفحة الصيام"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="menu-icon"><i class="fas fa-star" style="color: var(--gold);"></i></div>
+    </header>
+
+    <div class="container">
+
+        <!-- عنوان الصفحة -->
+        <div class="page-title-box">
+            <h2 class="page-title">
+                <i class="fas fa-sun"></i> لوحة اليوم النشط للصائم
+            </h2>
+        </div>
+
+        <!-- حالة الصائم اليومية المأخوذة من الذاكرة -->
+        <div class="active-status-badge" id="mainStatusBadge">
+            <h3 id="statusHeading">جاري التحقق من حالتك اليوم...</h3>
+            <p id="statusSubtext">نسأل الله أن يتقبل طاعتك وصيامك.</p>
+        </div>
+
+        <!-- الأيام وأنواع الصيام النشطة المختارة مسبقاً -->
+        <div class="card-title" style="justify-content: flex-start; margin-right: 5px;">
+            <i class="fas fa-check-circle"></i> أنواع الصيام المُفعلة لنشاطك:
+        </div>
+
+        <div id="activeTypesList" class="active-types-container">
+            <!-- يتم تعبئتها ديناميكياً بناءً على ما اختاره المستخدم في صفحة fasting.html -->
+        </div>
+
+        <!-- دعاء الصائم اليومي -->
+        <div class="dua-card">
+            <h3 class="card-title" style="margin-bottom: 0.5rem;"><i class="fas fa-hands-praying"></i> دعاء الصائم المستجاب</h3>
+            <p class="dua-text">
+                "ذَهَبَ الظَّمَأُ، وابتَبَّتِ العُرُوقُ، وثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ" <br>
+                اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وسِعَتْ كُلَّ شَيْءٍ أَنْ تَغْفِرَ لِي وتتقبل صيامي.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="active-day.html" class="nav-item active">
+            <i class="fas fa-star"></i>
+            اليوم النشط
+        </a>
+        <a href="calendar.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            الرزنامة
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            الرئيسية
+        </a>
+    </nav>
+
+    <script>
+        window.onload = function() {
+            loadActiveData();
+        };
+
+        function loadActiveData() {
+            // 1. التحقق من حالة صيام اليوم من الذاكرة (localStorage)
+            let isTodayFast = localStorage.getItem('ayoub_shop_today_fast') === 'true';
+            let heading = document.getElementById('statusHeading');
+            let subtext = document.getElementById('statusSubtext');
+            let badge = document.getElementById('mainStatusBadge');
+
+            if (isTodayFast) {
+                heading.innerText = "أنت صائم في هذا اليوم المبارك 🌙";
+                subtext.innerText = "لقد قمت بتسجيل صيامك اليوم، استمر في ذكر الله والدعاء.";
+                badge.style.background = "linear-gradient(135deg, #2E7D32, #1B5E20)";
+            } else {
+                heading.innerText = "لست مسجلاً صائماً اليوم ☀️";
+                subtext.innerText = "يمكنك النقر على زر 'علم الصيام' في صفحة الصيام لتسجيل يومك.";
+                badge.style.background = "linear-gradient(135deg, #384A34, #2A3725)";
+            }
+
+            // 2. فحص أنواع الصيام المُفعلة وعرضها في القائمة
+            const typeNames = {
+                monday: { title: "صيام الإثنين والخميس", desc: "سنة مؤكدة" },
+                beid: { title: "صيام الأيام البيض", desc: "13، 14، 15 هجري" },
+                qada: { title: "صيام القضاء", desc: "قضاء أيام رمضان" },
+                tatawo: { title: "صيام التطوع المطلق", desc: "تقرباً لله تعالى" }
+            };
+
+            let listContainer = document.getElementById('activeTypesList');
+            let html = "";
+            let activeCount = 0;
+
+            for (let key in typeNames) {
+                let status = localStorage.getItem('ayoub_shop_fast_' + key);
+                if (status === 'true') {
+                    activeCount++;
+                    html += `
+                        <div class="active-type-chip">
+                            <div>
+                                <i class="fas fa-moon" style="color: var(--gold); margin-left: 8px;"></i>
+                                ${typeNames[key].title}
+                            </div>
+                            <span class="tag">${typeNames[key].desc}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            if (activeCount === 0) {
+                listContainer.innerHTML = `
+                    <div class="no-active-msg">
+                        لم تقم بتفعيل أي نوع صيام مسبقاً. يمكنك تفعيل ما تحب من صفحة الصيام الرئيسية لتظهر هنا.
+                    </div>
+                `;
+            } else {
+                listContainer.innerHTML = html;
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - دعاء ختم القرآن الكريم الشامل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .dark-mode {
+            --olive-green: #1E261C;
+            --gold: #E5C158;
+            --pure-white: #1A2118;
+            --bg-offwhite: #121710;
+            --text-dark: #E4E8E3;
+            --text-gray: #A0A89F;
+            --card-bg: #1A2118;
+            --shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+
+        /* الهيدر العلوي مع سهم العودة */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-left a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.2s;
+        }
+
+        .header-left a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        /* حاوية المحتوى */
+        .container {
+            padding: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* عنوان الصفحة */
+        .page-header-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.2rem 0;
+            padding: 0.5rem 0;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .page-title i {
+            color: var(--gold);
+        }
+
+        /* لوحة التحكم */
+        .control-panel {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 0.8rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .control-item {
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: color 0.2s;
+        }
+
+        .control-item:last-child {
+            border-bottom: none;
+        }
+
+        .control-item:hover {
+            color: var(--olive-green);
+        }
+
+        .control-item i {
+            color: var(--olive-green);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* صندوق نص الدعاء الشامل */
+        .dua-text-box {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .dua-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            line-height: 2.9;
+            color: var(--text-dark);
+            font-weight: 700;
+            direction: rtl;
+        }
+
+        .dua-separator {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            display: block;
+        }
+
+        /* زر العودة لفهرس القرآن */
+        .back-box {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(56, 74, 52, 0.2);
+            border-radius: 12px;
+            padding: 1.1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .back-box a {
+            text-decoration: none;
+            color: var(--olive-green);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* زر الصعود لأعلى الصفحة */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 999;
+            border: none;
+            transition: transform 0.2s;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر مع سهم العودة للخلف -->
+    <header class="app-header">
+        <div class="header-left">
+            <a href="javascript:history.back()" title="الرجوع للوحة السابقة"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+        <div class="menu-icon"><i class="fas fa-hands-praying" style="color: var(--gold);"></i></div>
+    </header>
+
+    <div class="container">
+
+        <!-- العنوان -->
+        <div class="page-header-box">
+            <div class="page-title">
+                <i class="fas fa-book-open"></i> دعاء ختم القرآن الكريم الشامل
+            </div>
+        </div>
+
+        <!-- لوحة التحكم -->
+        <div class="control-panel">
+            <div class="control-item" onclick="zoomIn()">
+                <i class="fas fa-search-plus"></i> تكبير الخط
+            </div>
+            <div class="control-item" onclick="zoomOut()">
+                <i class="fas fa-search-minus"></i> تصغير الخط
+            </div>
+            <div class="control-item" onclick="toggleDarkMode()">
+                <i class="fas fa-moon" id="darkModeIcon"></i> <span id="darkModeText">الوضع الليلي</span>
+            </div>
+        </div>
+
+        <!-- نص دعاء الختم الموسع والشامل -->
+        <div class="dua-text-box">
+            <div class="dua-text" id="duaText">
+                اللَّهُمَّ ارْحَمْنِي بِالقُرْءَانِ وَاجْعَلهُ لِي إِمَاماً وَنُوراً وَهُدًى وَرَحْمَةً <br>
+                اللَّهُمَّ ذَكِّرْنِي مِنْهُ ما نَسِيتُ وَعَلِّمْنِي مِنْهُ ما جَهِلْتُ وَارْزُقْنِي تِلَاوَتَهُ آنَاءَ اللَّيْلِ وَأَطْرَافَ النَّهَارِ وَاجْعَلْهُ لِي حُجَّةً يَا رَبَّ العَالَمِينَ <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي، وَاجْعَلِ الحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ وَاجْعَلِ المَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ <br>
+                اللَّهُمَّ اجْعَلْ خَيْرَ عُمْرِي آخِرَهُ وَخَيْرَ عَمَلِي خَوَاتِمَهُ وَخَيْرَ أَيَّامِي يَوْمَ أَلْقَاكَ <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                اللَّهُمَّ إِنِّي أَسْأَلُكَ عِيشَةً نَقِيَّةً، وَمِتْتَةً سَوِيَّةً، وَمَرَدّاً غَيْرَ مُخْزٍ وَلَا فَاضِحٍ <br>
+                اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ المَسْأَلَةِ وَخَيْرَ الدُّعَاءِ وَخَيْرَ النَّجَاحِ وَخَيْرَ العَمَلِ وَخَيْرَ الثَّوَابِ وَخَيْرَ الحَيَاةِ وَخَيْرَ المَمَاتِ، وَثَبِّتْنِي وَثَقِّلْ مَوَازِينِي، وَحَقِّقْ إِيمَانِي، وَارْفَعْ دَرَجَاتِي، وَتَقَبَّلْ صَلَاتِي، وَاغْفِرْ خَطِيئَاتِي، وَأَسْأَلُكَ الدَّرَجَاتِ العُلَى مِنَ الجَنَّةِ <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                اللَّهُمَّ اقْسِمْ لَنَا مِنْ خَشْيَتِكَ مَا تَحُولُ بَيْنَنَا وَبَيْنَ مَعَاصِيكَ، وَمِنْ طَاعَتِكَ مَا تُبَلِّغُنَا بِهَا جَنَّتَكَ، وَمِنَ اليَقِينِ مَا تُهَوِّنُ بِهِ عَلَيْنَا مَصَائِبَ الدُّنْيَا، وَمَتِّعْنَا بِأَسْمَاعِنَا وَأَبْصَارِنَا وَقُوَّاتِنَا مَا أَحْيَيْتَنَا، وَاجْعَلْهُ الوَارِثَ مِنَّا، وَاجْعَلْ ثَأْرَنَا عَلَى مَنْ ظَلَمَنَا، وَانْصُرْنَا عَلَى مَنْ عَادَانَا، وَلَا تَجْعَلْ مُصِيبَتَنَا فِي دِينِنَا، وَلَا تَجْعَلِ الدُّنْيَا أَكْبَرَ هَمِّنَا وَلَا مَبْلَغَ عِلْمِنَا، وَلَا تُسَلِّطْ عَلَيْنَا مَنْ لَا يَرْحَمُنَا <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                اللَّهُمَّ لَا تَدَعْ لَنَا ذَنْباً إِلَّا غَفَرْتَهُ، وَلَا هَمَّاً إِلَّا فَرَّجْتَهُ، وَلَا كَرْباً إِلَّا نَفَّسْتَهُ، وَلَا دَيْناً إِلَّا قَضَيْتَهُ، وَلَا مَرِيضاً إِلَّا شَفَيْتَهُ، وَلَا مُبْتَلًى إِلَّا عَافَيْتَهُ، وَلَا مَيِّتاً إِلَّا رَحْمَتَهُ، وَلَا حَاجَةً مِنْ حَوَائِجِ الدُّنْيَا وَالآخِرَةِ لَكَ فِيهَا رِضًى وَلَنَا فِيهَا صَلَاحٌ إِلَّا قَضَيْتَهَا وَيَسَّرْتَهَا يَا أَرْحَمَ الرَّحِمِينَ <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                اللَّهُمَّ إِنَّا نَسْأَلُكَ مُوجِبَاتِ رَحْمَتِكَ، وَعَزَائِمَ مَغْفِرَتِكَ، والسَّلَامَةَ مِنْ كُلِّ إِثْمٍ، وَالغَنِيمَةَ مِنْ كُلِّ بِرٍّ، وَالفَوْزَ بِالجَنَّةِ، وَالنَّجَاةَ مِنَ النَّارِ <br>
+                اللَّهُمَّ اغْفِرْ لِجَمِيعِ مَوْتَى المُسْلِمِينَ الَّذِينَ شَهِدُوا لَكَ بِوَحْدَانِيَّتِكَ وَلِنَبِيِّكَ بِالرِّسَالَةِ وَمَاتُوا عَلَى ذَلِكَ، وَارْحَمْهُمْ عَذَابَ القَبْرِ وَفِتْنَتَهُ <br>
+                
+                <span class="dua-separator">❖ ❖ ❖</span>
+                
+                رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ، وَصَلَّى اللَّهُ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلَّمَ تَسْلِيماً كَثِيراً
+            </div>
+        </div>
+
+        <!-- زر العودة لفهرس القرآن -->
+        <div class="back-box">
+            <a href="quran.html">
+                <i class="fas fa-quran"></i> العودة إلى فهرس القرآن الكريم
+            </a>
+        </div>
+
+    </div>
+
+    <!-- زر الصعود لأعلى الصفحة -->
+    <button class="scroll-top-btn" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // دالة الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            let isDark = document.body.classList.contains('dark-mode');
+            let icon = document.getElementById('darkModeIcon');
+            let text = document.getElementById('darkModeText');
+            
+            if(isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                text.innerText = 'الوضع النهاري';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                text.innerText = 'الوضع الليلي';
+            }
+        }
+
+        // دالة تكبير وتصغير الخط
+        let currentFontSize = 1.6;
+        function zoomIn() {
+            if(currentFontSize < 2.4) {
+                currentFontSize += 0.2;
+                document.getElementById('duaText').style.fontSize = currentFontSize + 'rem';
+            }
+        }
+
+        function zoomOut() {
+            if(currentFontSize > 1.2) {
+                currentFontSize -= 0.2;
+                document.getElementById('duaText').style.fontSize = currentFontSize + 'rem';
+            }
+        }
+
+        // دالة الصعود لأعلى الصفحة
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق اصطفاك - سورة الفاتحة (رواية ورش)</title>
+    <!-- استدعاء خطوط مخصصة تشبه خط المصحف (Amiri و Lateef) -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lateef&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --olive-green: #384A34;
+            --gold: #D4AF37;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* الهيدر */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .app-header a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .app-header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* محتوى السورة */
+        .quran-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .surah-card {
+            background: var(--pure-white);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .surah-title {
+            font-family: 'Amiri', serif; /* خط المصحف للعنوان */
+            font-size: 1.5rem;
+            color: var(--olive-green);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--bg-offwhite);
+            padding-bottom: 0.8rem;
+        }
+
+        /* تخصيص نص الآيات ليكون تماماً مثل خط المصحف */
+        .ayah-text {
+            font-family: 'Amiri', serif; /* استخدام خط الأميري الشبيه بخط المصحف */
+            font-size: 1.8rem;
+            line-height: 2.8;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .riwaya-tag {
+            margin-top: 1.5rem;
+            display: inline-block;
+            background-color: #E8EAE7;
+            color: var(--olive-green);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر مع زر العودة -->
+    <header class="app-header">
+        <a href="index.html"><i class="fas fa-arrow-right"></i></a>
+        <h1>سورة الفاتحة</h1>
+        <i class="fas fa-book-open" style="color: var(--gold); font-size: 1.3rem;"></i>
+    </header>
+
+    <!-- عرض السورة -->
+    <div class="quran-container">
+        <div class="surah-card">
+            <div class="surah-title">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="ayah-text">
+                ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَالَمِينَ ۝ 
+                ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ 
+                مَالِكِ يَوْمِ ٱلدِّينِ ۝ 
+                إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ 
+                ٱهْدِنَا ٱلصِّرَاطَ ٱلْمُسْتَقِيمَ ۝ 
+                صِرَاطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّالِّينَ ۝
+            </div>
+            <div class="riwaya-tag">رِوَايَةُ وَرْشٍ عَنْ نَافِعٍ</div>
+        </div>
+    </div>
+
+</body>
+</html>
