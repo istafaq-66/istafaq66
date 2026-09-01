@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - قنوات تلجرام المتون العلمية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+        
+        .telegram-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .telegram-card:hover {
+            transform: translateY(-5px);
+            border-color: #229ED9;
+            box-shadow: 0 12px 35px rgba(34, 158, 217, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- الهيدر العلوي مع زر العودة وزر الرئيسية (بدون أي أزرار في الأسفل) -->
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-3xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-gold-400">قنوات تلجرام المتون</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
+
+        <!-- لافتة ترحيبية بالقسم -->
+        <div class="rounded-3xl bg-gradient-to-br from-olive-600 to-olive-500 p-6 text-white shadow-card border border-gold-400/30 animate-fade">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#229ED9] text-white shadow-gold text-xl">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold font-serif text-gold-300">مكتبة قنوات التلجرام للمتون العلمية</h2>
+                    <p class="text-xs text-olive-100 opacity-90">ملفات صوتية، مذكرات، وكتب متنقلة لتحميل متون طالب العلم</p>
+                </div>
+            </div>
+            <p class="text-sm leading-relaxed text-cream/90 font-medium">
+                قنوات تليجرام مباركة موثوقة متخصصة في نشر المتون العلمية، الكتب المقررة، ومؤلفات كبار العلماء والفضلاء.
+            </p>
+        </div>
+
+        <!-- شبكة قنوات تلجرام -->
+        <div class="grid grid-cols-1 gap-4">
+
+            <!-- 1. مجموعة متون العلم الشرعي -->
+            <div class="telegram-card rounded-3xl bg-white p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade">
+                <div class="flex items-start sm:items-center gap-4">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-[#229ED9] text-2xl flex-shrink-0 border border-sky-200">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#229ED9] uppercase tracking-wider">قناة متخصصة</span>
+                        <h3 class="text-lg font-bold text-olive-600 font-serif">مجموعة متون العلم الشرعي</h3>
+                        <p class="text-xs text-olive-400 mt-1 leading-relaxed">
+                            مجموعة مباركة تعنى بنشر متون العلم الشرعي وفوائده وتسهيل حفظها لطلبة العلم.
+                        </p>
+                    </div>
+                </div>
+                <a href="https://t.me/talab_alilm1" target="_blank" class="flex items-center gap-2 rounded-xl bg-[#229ED9] px-5 py-3 text-xs font-bold text-white shadow-soft hover:bg-[#1d89bd] transition-all w-full sm:w-auto justify-center flex-shrink-0">
+                    <span>الانضمام للقناة</span>
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+            </div>
+
+            <!-- 2. متون طالب العلم -->
+            <div class="telegram-card rounded-3xl bg-white p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade" style="animation-delay: 0.1s;">
+                <div class="flex items-start sm:items-center gap-4">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-[#229ED9] text-2xl flex-shrink-0 border border-sky-200">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#229ED9] uppercase tracking-wider">كتب ومذكرات المتون</span>
+                        <h3 class="text-lg font-bold text-olive-600 font-serif">متون طالب العلم</h3>
+                        <p class="text-xs text-olive-400 mt-1 leading-relaxed">
+                            قناة توفر كتب المتون العلمية بصيغة PDF ومقاطع صوتية مساعدة للحفظ والمراجعة.
+                        </p>
+                    </div>
+                </div>
+                <a href="https://t.me/mutunbooks" target="_blank" class="flex items-center gap-2 rounded-xl bg-[#229ED9] px-5 py-3 text-xs font-bold text-white shadow-soft hover:bg-[#1d89bd] transition-all w-full sm:w-auto justify-center flex-shrink-0">
+                    <span>الانضمام للقناة</span>
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+            </div>
+
+            <!-- 3. مؤلفات الشيخ عبد المحسن القاسم -->
+            <div class="telegram-card rounded-3xl bg-white p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade" style="animation-delay: 0.2s;">
+                <div class="flex items-start sm:items-center gap-4">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-[#229ED9] text-2xl flex-shrink-0 border border-sky-200">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#229ED9] uppercase tracking-wider">إمام وخطيب المسجد النبوي</span>
+                        <h3 class="text-lg font-bold text-olive-600 font-serif">مؤلفات الشيخ عبد المحسن القاسم</h3>
+                        <p class="text-xs text-olive-400 mt-1 leading-relaxed">
+                            القناة الرسمية لنشر مؤلفات، متون، وتحقيقات فضيلة الشيخ الدكتور عبد المحسن بن محمد القاسم حفظه الله.
+                        </p>
+                    </div>
+                </div>
+                <a href="https://t.me/bokalqasim" target="_blank" class="flex items-center gap-2 rounded-xl bg-[#229ED9] px-5 py-3 text-xs font-bold text-white shadow-soft hover:bg-[#1d89bd] transition-all w-full sm:w-auto justify-center flex-shrink-0">
+                    <span>الانضمام للقناة</span>
+                    <i class="fab fa-telegram-plane text-[11px]"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
