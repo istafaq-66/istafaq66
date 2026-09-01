@@ -2,87 +2,326 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصات تعليمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --olive-green: #384A34;
-            --gold: #D4AF37;
-            --pure-white: #FFFFFF;
-            --bg-offwhite: #F4F6F3;
-            --text-dark: #2C352A;
-            --text-gray: #666666;
-            --shadow: 0 8px 16px rgba(0,0,0,0.05);
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - الصوتيات والمنصات الشرعية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg-offwhite); color: var(--text-dark); padding: 1.5rem; }
-        .section-header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .section-header-title h2 { color: var(--olive-green); font-size: 1.3rem; }
-        .section-header-title span { color: var(--gold); font-size: 0.9rem; font-weight: 600; }
-        .list-container { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto; }
-        .link-card { background-color: var(--pure-white); border-radius: 15px; padding: 1.2rem; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease; border: 1px solid rgba(0,0,0,0.02); }
-        .link-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(56, 74, 52, 0.1); }
-        .link-info { display: flex; align-items: center; gap: 1rem; }
-        .link-info i { font-size: 1.5rem; color: var(--gold); background: var(--bg-offwhite); padding: 0.8rem; border-radius: 12px; }
-        .link-text h5 { font-size: 1.05rem; font-weight: 700; color: var(--olive-green); margin-bottom: 0.2rem; }
-        .link-text p { font-size: 0.85rem; color: var(--text-gray); }
-        .external-icon { color: var(--text-gray); font-size: 0.9rem; }
+    </script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
     </style>
 </head>
-<body>
+<body class="min-h-screen pb-10">
 
-    <div class="section-header-title" style="margin-top: 1rem;">
-        <h2 data-i18n="platformsTitle">منصات تعليمية</h2>
-        <span>روابط مباشرة</span>
-    </div>
+    <!-- الهيدر العلوي مع زر العودة للصفحة السابقة -->
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-3xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-gold-400">الصوتيات والمنصات</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home"></i>
+            </a>
+        </div>
+    </header>
 
-    <div class="list-container">
-        <a href="https://sharh.qm.edu.sa/" target="_blank" class="link-card">
-            <div class="link-info">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="link-text">
-                    <h5>منصة متون طالب العلم</h5>
-                    <p>شروح وتأصيل علمي متكامل</p>
+    <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
+
+        <!-- الصنف الأول: زاد النفس وتزكية القلوب (البودكاست) -->
+        <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
+                    <i class="fa-solid fa-headphones-alt"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-olive-600 font-serif">زاد النفس وتزكية القلوب</h2>
+                    <p class="text-xs text-olive-300">حلقات صوتية وبودكاست مؤثرة لأعمال القلوب والتدبر</p>
                 </div>
             </div>
-            <i class="fas fa-external-link-alt external-icon"></i>
-        </a>
 
-        <a href="https://hdith.com/" target="_blank" class="link-card">
-            <div class="link-info">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="link-text">
-                    <h5>منصة حديث</h5>
-                    <p>موسوعة الأحاديث النبوية والتحقق منها</p>
+            <div class="space-y-4">
+                <div class="rounded-2xl bg-cream p-4 border border-olive-100">
+                    <h3 class="text-sm font-bold text-olive-600 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-quran text-gold-500"></i> بودكاست عن القرآن الكريم
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <a href="https://youtu.be/urvOjmxsTuM?si=XFfvAKa7lFAK6H7x" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>حلقة تدبر آيات القرآن</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/dt-ufuwfUrQ?si=00ahY8SadzzB7_er" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>مجالس القرآن والروحانيات</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/5CJMGB3sH6o?si=UJNBEpGI29Njlo4w" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>خواطر قرآنية مؤثرة</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/jKIooY_R-wk?si=Z1c2DGmzP4orr7Rr" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>أنوار القرآن الكريم</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/mOE7tlV5ZBA?si=een_WovATGGvUjZb" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>رحلة مع آية</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/EEbLSgGV1VU?si=ygIzYhKfT7orIZGq" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>تأملات في سور المفصل</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/t_O4fJozLdU?si=p3UWBdzhvNClaV2J" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>حياة القلوب بالقرآن</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/TGUsvlJIXXw?si=kLuWADIwO_yCMHoz" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>مفاتيح التدبر</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-cream p-4 border border-olive-100">
+                    <h3 class="text-sm font-bold text-olive-600 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-landmark text-gold-500"></i> بودكاست عن السيرة النبوية
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <a href="https://youtube.com/playlist?list=PLATApN30c4aLXpHzO1GkEb9H0CeXaJFy9&si=Iud8NrS4oacpdMx_" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>السيرة النبوية العطرة</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/playlist?list=PLE1FSq8Eic0sFSdTPi9QEqm-MjpK7Sr_O&si=c_MbWAGFRubJ_0ER" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>دروس من هدي المصطفى</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/playlist?list=PLbTaPRF6tsYY&si=dQ4-ZbjrT28eAC3i" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>أيام النبوة والشمائل</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-cream p-4 border border-olive-100">
+                    <h3 class="text-sm font-bold text-olive-600 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-gold-500"></i> بودكاست عن طلب العلم الشرعي
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <a href="https://youtube.com/playlist?list=PLF8wQ8_AW0Lz3NeBfu6RU2T9UQP7F_LlC&si=bEBIhgH0wnKOkWBO" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>منهجية طالب العلم</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/playlist?list=PLl9thoP_s9vUrzYCBpJ0-Jh7RmKpJgOK9&si=kRNd39CbQw5K0Ukp" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>شروح المتون العلمية</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/AQleLOB1MV0?si=08zMM2Qami3qhTPz" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>وصايا لطالب العلم</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/playlist?list=PLwGGPf452JoJTe4enes123hjYQbdTlE-Z&si=PAmsUh2_dLv1zOWT" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>مفاتيح الفقه والعقيدة</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-cream p-4 border border-olive-100">
+                    <h3 class="text-sm font-bold text-olive-600 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-podcast text-gold-500"></i> قنوات وبودكاست متنوعة
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <a href="https://youtube.com/@noorcast-deen?si=r6wskvsCeJKwk8oH" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>قناة نوركاست (NoorCast)</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtu.be/7VxCTTEP1bM?si=kAyH05UFy7VitN8N" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>حلقات إيمانية مختارة</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/@atha-ar?si=y026F0irrnoxgOIo" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>قناة أثر (Atha)</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/@mesk-alkhetam?si=1TY5Fl95jpUVY-ay" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all">
+                            <span>قناة مسك الختام</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                        <a href="https://youtube.com/@thabat_cast?si=L8J01isDXYJQVJxq" target="_blank" class="flex items-center justify-between rounded-xl bg-white p-3 text-xs font-semibold text-olive-600 shadow-soft hover:bg-olive-50 transition-all sm:col-span-2">
+                            <span>بودكاست ثبات (Thabat Cast)</span> <i class="fab fa-youtube text-red-500"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <i class="fas fa-external-link-alt external-icon"></i>
-        </a>
+        </section>
 
-        <a href="https://zad-academy.com/" target="_blank" class="link-card">
-            <div class="link-info">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="link-text">
-                    <h5>أكاديمية زاد</h5>
-                    <p>برنامج إعدادي لترسيخ العلم الشرعي</p>
+        <!-- الصنف الثاني: أبرز المنصات التعليمية والمواقع -->
+        <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-olive-600 text-white shadow-soft text-lg">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-olive-600 font-serif">أبرز المنصات التعليمية والمواقع</h2>
+                    <p class="text-xs text-olive-300">موسوعات علمية وروابط مباشرة لطلبة العلم الشرعي</p>
                 </div>
             </div>
-            <i class="fas fa-external-link-alt external-icon"></i>
-        </a>
 
-        <a href="https://dorar.net/?hl=ar-EG/" target="_blank" class="link-card">
-            <div class="link-info">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="link-text">
-                    <h5>منصة الدرر السنية</h5>
-                    <p>المرجع الشامل والأبرز للبحث في السنة النبوية، العقيدة، الفقه، والتاريخ الإسلامي</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="encyclopedias.html" class="rounded-2xl bg-cream p-4 border border-olive-100 flex items-center justify-between hover:bg-olive-50 hover:border-gold-400 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-olive-600 shadow-soft group-hover:bg-olive-600 group-hover:text-white transition-all text-lg">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">الموسوعات الحديثة والفقهية</h3>
+                            <span class="text-[11px] text-olive-400">كتب وشروح معتمدة</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-left text-xs text-gold-600"></i>
+                </a>
+
+                <a href="direct-links.html" class="rounded-2xl bg-cream p-4 border border-olive-100 flex items-center justify-between hover:bg-olive-50 hover:border-gold-400 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-gold-600 shadow-soft group-hover:bg-gold-500 group-hover:text-white transition-all text-lg">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">روابط مباشرة</h3>
+                            <span class="text-[11px] text-olive-400">منصات تعليمية ومتون</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-left text-xs text-gold-600"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- الصنف الثالث: التلاوات الخاشعة برواية ورش -->
+        <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-olive-500 text-white shadow-soft text-lg">
+                    <i class="fa-solid fa-quran"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-olive-600 font-serif">التلاوات الخاشعة برواية ورش</h2>
+                    <p class="text-xs text-olive-300">أعذب الأصوات وأجمل التلاوات برواية ورش عن نافع</p>
                 </div>
             </div>
-            <i class="fas fa-external-link-alt external-icon"></i>
-        </a>
-    </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a href="https://youtu.be/eA1B8TJRWeE?si=X_HWRMLQYwb1lLId" target="_blank" class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100 hover:bg-olive-50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="h-9 w-9 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center font-bold text-sm font-serif">ي</div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">القارئ يونس اسويلص</h3>
+                            <span class="text-[11px] text-olive-400">تلاوة خاشعة برواية ورش</span>
+                        </div>
+                    </div>
+                    <i class="fab fa-youtube text-red-500 text-lg"></i>
+                </a>
+
+                <a href="https://youtube.com/@kazabriofficiel?si=cMfYi4b-K0thVXQo" target="_blank" class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100 hover:bg-olive-50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="h-9 w-9 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center font-bold text-sm font-serif">ع</div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">القارئ عمر القزابري</h3>
+                            <span class="text-[11px] text-olive-400">القناة الرسمية</span>
+                        </div>
+                    </div>
+                    <i class="fab fa-youtube text-red-500 text-lg"></i>
+                </a>
+
+                <a href="https://youtube.com/@quran.maarouf?si=b-_4iufT4c6PWrDc" target="_blank" class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100 hover:bg-olive-50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="h-9 w-9 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center font-bold text-sm font-serif">م</div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">عبد المغيث معروف</h3>
+                            <span class="text-[11px] text-olive-400">تلاوة مباركة برواية ورش</span>
+                        </div>
+                    </div>
+                    <i class="fab fa-youtube text-red-500 text-lg"></i>
+                </a>
+
+                <a href="https://youtube.com/channel/UClexboAVs2IfhHGQpF1U6VA?si=N0vtjhu-0HD2X68L" target="_blank" class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100 hover:bg-olive-50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="h-9 w-9 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center font-bold text-sm font-serif">ب</div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">بلال عينياوي</h3>
+                            <span class="text-[11px] text-olive-400">تلاوات عطرة ونادرة</span>
+                        </div>
+                    </div>
+                    <i class="fab fa-youtube text-red-500 text-lg"></i>
+                </a>
+
+                <a href="https://youtube.com/@ayoubmohammad.a?si=u2ZtjbFI9_v4wLAG" target="_blank" class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100 hover:bg-olive-50 transition-all sm:col-span-2">
+                    <div class="flex items-center gap-3">
+                        <div class="h-9 w-9 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center font-bold text-sm font-serif">ع</div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">الشيخ العيون الكوشي</h3>
+                            <span class="text-[11px] text-olive-400">أجمل الختمات والتلاوات الخاشعة</span>
+                        </div>
+                    </div>
+                    <i class="fab fa-youtube text-red-500 text-lg"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- الصنف الجديد: إذاعات القرآن الكريم -->
+        <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center gap-3 mb-4 border-b border-olive-100 pb-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
+                    <i class="fa-solid fa-tower-broadcast"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-olive-600 font-serif">إذاعات القرآن الكريم والبث الحي</h2>
+                    <p class="text-xs text-olive-300">استمع إلى الإذاعات القرآنية على مدار الساعة</p>
+                </div>
+            </div>
+
+            <p class="text-xs text-olive-500 mb-4 leading-relaxed">
+                تابع بث إذاعات القرآن الكريم من مختلف العواصم والبلدان الإسلامية بتلاوات عطرة ومستمرة طوال اليوم.
+            </p>
+
+            <a href="radio.html" class="flex w-full items-center justify-center gap-2 rounded-2xl bg-olive-600 py-3.5 text-sm font-bold text-white shadow-card hover:bg-olive-700 transition-all">
+                <span>فتح إذاعات القرآن الكريم</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </section>
+
+    </main>
 
 </body>
 </html>
