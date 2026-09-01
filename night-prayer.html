@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - قيام الليل والتهجد</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="min-h-screen pb-24">
+
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-2xl items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>الرئيسية</span>
+            </a>
+            <h1 class="text-xl font-bold font-serif text-gold-400">قيام الليل والتهجد</h1>
+            <div class="w-10"></div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-2xl px-4 pt-6 space-y-5">
+
+        <div class="rounded-3xl bg-gradient-to-br from-olive-600 to-olive-500 p-6 text-white shadow-card border border-gold-400/30 animate-fade">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-xl">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold font-serif text-gold-300">رفيق قيام الليل</h2>
+                    <p class="text-xs text-olive-100 opacity-90">شرف المؤمن قيامه بالليل وخلوته بربه</p>
+                </div>
+            </div>
+            <p class="text-sm leading-relaxed text-cream/90 font-medium">
+                يصحبك قسم "قيام الليل" رفيقاً عملياً يشجع المسلم على صيانة هذه العبادة العظيمة والمواظبة عليها في جوف الليل حيث تنزل الرحمات.
+            </p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 relative overflow-hidden animate-fade">
+            <div class="absolute top-0 left-0 w-2 h-full bg-gold-400"></div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-50 text-gold-600 text-lg">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <h3 class="text-base font-bold text-olive-600 font-serif">خواطر إيمانية وهدايات</h3>
+            </div>
+            <div class="rounded-2xl border border-dashed border-gold-300 bg-gold-50/50 p-5 text-center min-h-[90px] flex items-center justify-center">
+                <p id="qawaterText" class="text-base font-serif font-bold text-olive-700 leading-relaxed transition-opacity duration-300">
+                    "هل من داعٍ فأستجيب له؟ هل من مستغفر فأغفر له؟"
+                </p>
+            </div>
+            <p class="text-xs text-olive-300 text-center mt-3">رسائل قلبية ودعوات مباركة تحث على اللجوء إلى الله في جوف الليل.</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 relative overflow-hidden animate-fade">
+            <div class="absolute top-0 left-0 w-2 h-full bg-olive-500"></div>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-olive-50 text-olive-500 text-lg">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-olive-600 font-serif">منبه ومؤقت السحور</h3>
+                        <p class="text-xs text-olive-300">الثلث الأخير من الليل ووقت السحور المبارك</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between rounded-2xl bg-cream p-4 border border-olive-100">
+                <div>
+                    <span class="block text-xs text-olive-400 font-medium">وقت السحور الموصى به:</span>
+                    <span class="text-base font-bold text-olive-600 font-serif">بداية الثلث الأخير: 02:30 ص</span>
+                </div>
+                <button onclick="toggleAlarm()" id="alarmBtn" class="rounded-xl bg-gold-400 px-4 py-2.5 text-xs font-bold text-white shadow-gold hover:bg-gold-500 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="alarmBtnText">تفعيل منبه السحور</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 relative overflow-hidden animate-fade">
+            <div class="absolute top-0 left-0 w-2 h-full bg-gold-400"></div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-50 text-gold-600 text-lg">
+                    <i class="fa-solid fa-person-praying"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-olive-600 font-serif">سجل ركعات الليل اليومية</h3>
+                    <p class="text-xs text-olive-300">تتبع عدد ركعات التهجد والوتر بسهولة</p>
+                </div>
+            </div>
+
+            <div class="bg-cream rounded-2xl p-5 border border-olive-100 space-y-4 text-center">
+                <div>
+                    <span id="rakatCount" class="block text-5xl font-extrabold text-olive-600 font-serif mb-1">0</span>
+                    <span class="text-xs font-bold text-olive-400">ركعة أتممتها هذه الليلة</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2.5 pt-2">
+                    <button onclick="addRakat(2)" class="rounded-2xl bg-olive-500 py-3 text-sm font-bold text-white shadow-soft hover:bg-olive-600 active:scale-95 transition-all">
+                        <i class="fa-solid fa-plus ml-1"></i> ركعتان
+                    </button>
+                    <button onclick="addRakat(1)" class="rounded-2xl bg-gold-400 py-3 text-sm font-bold text-white shadow-gold hover:bg-gold-500 active:scale-95 transition-all">
+                        <i class="fa-solid fa-plus ml-1"></i> ركعة وتر
+                    </button>
+                    <button onclick="resetRakat()" class="rounded-2xl bg-red-50 py-3 text-xs font-bold text-red-500 border border-red-200 hover:bg-red-100 active:scale-95 transition-all">
+                        <i class="fa-solid fa-rotate-right ml-1"></i> إعادة الصفر
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 relative overflow-hidden animate-fade">
+            <div class="absolute top-0 left-0 w-2 h-full bg-olive-600"></div>
+            <div class="flex items-center gap-3 mb-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-olive-50 text-olive-600 text-lg">
+                    <i class="fa-solid fa-hands-praying"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-olive-600 font-serif">حصن الدعاء في الأسحار</h3>
+                    <p class="text-xs text-olive-300">أدعية جوامع الكلم، والأدعية النبوية في السجود والوتر</p>
+                </div>
+            </div>
+            <p class="text-xs text-olive-500 mb-4 leading-relaxed">
+                اطلع على أصح الأدعية المأثورة للتلذذ بمناجاة الله في خلوة الليل وساعات الاستجابة.
+            </p>
+            <a href="night-duaa.html" class="flex w-full items-center justify-center gap-2 rounded-2xl bg-olive-600 py-3.5 text-sm font-bold text-white shadow-card hover:bg-olive-700 transition-all">
+                <span>فتح حصن الأدعية والمناجاة</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+
+    </main>
+
+    <nav class="bottom-nav fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md flex justify-around py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-40 rounded-t-[30px]">
+        <a href="index.html" class="nav-item flex flex-col items-center gap-1 text-xs font-bold text-olive-300">
+            <i class="fas fa-home text-lg"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="khatma.html" class="nav-item flex flex-col items-center gap-1 text-xs font-bold text-olive-300">
+            <i class="fas fa-infinity text-lg"></i>
+            <span>الختمة</span>
+        </a>
+        <a href="quran.html" class="nav-item flex flex-col items-center gap-1 text-xs font-bold text-olive-300">
+            <i class="fas fa-quran text-lg"></i>
+            <span>القرآن</span>
+        </a>
+        <a href="memorization.html" class="nav-item flex flex-col items-center gap-1 text-xs font-bold text-olive-300">
+            <i class="fas fa-sync-alt text-lg"></i>
+            <span>المراجعة</span>
+        </a>
+        <a href="night-prayer.html" class="nav-item flex flex-col items-center gap-1 text-xs font-bold text-olive-600">
+            <i class="fas fa-star-and-crescent text-lg"></i>
+            <span>قيام الليل</span>
+        </a>
+    </nav>
+
+    <script>
+        // أكثر من 50 خاطرة ودعاء إيماني تتغير كل 3 ثوانٍ
+        const qawaterList = [
+            "\"هل من داعٍ فأستجيب له؟ هل من مستغفر فأغفر له؟\"",
+            "خلوة الليل تصفو بها النفوس وتتنزل فيها الرحمات العطرة.",
+            "ركعتان في جوف الليل خير من الدنيا وما فيها، فاغتنم السحر.",
+            "أقرب ما يكون العبد من ربّه في جوف الليل الآخر، فانطرح بين يديه.",
+            "اللهم إني أسالك إيماناً دائماً، وقلباً خاشعاً، وعِلماً نافعاً.",
+            "ربنا أفرغ علينا صبراً وتوفنا مسلمين.",
+            "اللهم اجعل في قلبي نوراً، وفي سمعي نوراً، وفي بصري نوراً.",
+            "يا مقلب القلوب ثبت قلبي على دينك.",
+            "اللهم أعنا على ذكرك وشكرك وحسن عبادتك.",
+            "ربنا هب لنا من أزواجنا وذرياتنا قرة أعين واجعلنا للمتقين إماماً.",
+            "اللهم اغفر لي خطيئتي وجهلي وإسرافي في أمري وما أنت أعلم به مني.",
+            "اللهم إني أسألك الهدى والتسداد والعفاف والغنى.",
+            "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار.",
+            "اللهم إنك عفو تحب العفو فاعف عني.",
+            "يا حي يا قيوم برحمتك أستغيث، أصلح لي شأني كله ولا تكلني إلى نفسي طرفة عين.",
+            "اللهم اهدني فيمن هديت، وعافني فيمن عافيت، وتولني فيمن توليت.",
+            "رب اشرح لي صدري ويسر لي أمري.",
+            "حسبنا الله ونعم الوكيل، نعم المولى ونعم النصير.",
+            "لا إله إلا أنت سبحانك إني كنت من الظالمين.",
+            "اللهم صل وسلم على نبينا محمد وعلى آله وصحبه أجمعين.",
+            "اللهم ارزقني حبك وحب من يحبك وكل عمل يقربني إلى حبك.",
+            "ربنا لا تزغ قلوبنا بعد إذ هديتنا وهب لنا من لدنك رحمة إنك أنت الوهاب.",
+            "اللهم اكفني بحلالك عن حرامك وأغنني بفضلك عمن سواك.",
+            "اللهم طهر قلبي من النفاق وعملي من الرياء ولساني من الكذب.",
+            "اللهم إني أعوذ بك من العجز والكسل والجبن والبخل.",
+            "اللهم اجعلني لك شاكراً، لك ذاكراً، لك راهباً، لك مطيعاً.",
+            "ربنا تقبل منا إنك أنت السميع العليم وتب علينا إنك أنت التواب الرحيم.",
+            "اللهم إني أسألك الجنة وما قرب إليها من قول أو عمل.",
+            "اللهم أحينا على الإسلام وأمتنا على الإيمان.",
+            "يا رب ارزقني الإخلاص في القول والعمل.",
+            "اللهم نور مرقدي وانس وحشتي وارحم غربتي.",
+            "اللهم اجعل خير أعماري خواتيمها وخير أعمالي أواخرها.",
+            "ربي اجعلني مقيم الصلاة ومن ذريتي ربنا وتقبل دعاء.",
+            "اللهم ارزقني رزقاً حلالاً طيباً مباركاً فيه.",
+            "اللهم أصلح لي ديني الذي هو عصمة أمري.",
+            "اللهم أصلح لي دنياي التي فيها معاشي.",
+            "اللهم أصلح لي آخرتي التي فيها معادتي.",
+            "اللهم إني أعوذ بك من شر ما عملت ومن شر ما لم أعمل.",
+            "يا رب اجعلني من عبادك الصالحين المقربين.",
+            "اللهم ارزقني التوبة النصوحة قبل الموت.",
+            "اللهم إني أسألك عيشة هنية وميتة سوية ومرتقاً غير مخزي ولا فاضح.",
+            "اللهم إنا نسألك من خير ما سألك منه نبيك محمد صلى الله عليه وسلم.",
+            "اللهم إنا نعوذ بك من شر ما استعاذ منه نبيك محمد صلى الله عليه وسلم.",
+            "اللهم اجعل القرآن العظيم ربيع قلوبنا ونور صدورنا.",
+            "ربنا اغفر لنا ولوالدينا وللمؤمنين يوم يقوم الحساب.",
+            "اللهم لا تدع لنا ذنباً إلا غفرته ولا همّاً إلا فرجته.",
+            "اللهم إني أسألك الثبات في الأمر والعزيمة على الرشد.",
+            "اللهم ارزقنا لبر والدينا وصلة أرحامنا.",
+            "اللهم اجعلنا ممن يستمعون القول فيتبعون أحسنه.",
+            "اللهم استرني فوق الأرض وتحت الأرض ويوم العرض عليك.",
+            "يا رب ارزقني اليمنى التي لا شقاء بعدها."
+        ];
+
+        let qIndex = 0;
+        setInterval(() => {
+            qIndex = (qIndex + 1) % qawaterList.length;
+            const el = document.getElementById('qawaterText');
+            if(el) {
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.innerText = qawaterList[qIndex];
+                    el.style.opacity = 1;
+                }, 300);
+            }
+        }, 3500); // يتغير كل 3.5 ثانية
+
+        // 2. تفعيل منبه السحور
+        let isAlarmActive = false;
+        function toggleAlarm() {
+            isAlarmActive = !isAlarmActive;
+            const btnText = document.getElementById('alarmBtnText');
+            const btn = document.getElementById('alarmBtn');
+            if (isAlarmActive) {
+                btnText.innerText = "المنبه مَفْعَّل (02:30 ص)";
+                btn.classList.remove('bg-gold-400', 'hover:bg-gold-500');
+                btn.classList.add('bg-olive-600');
+                alert("تم تفعيل منبه وقت السحور بنجاح. تقبل الله قيامك.");
+            } else {
+                btnText.innerText = "تفعيل منبه السحور";
+                btn.classList.remove('bg-olive-600');
+                btn.classList.add('bg-gold-400', 'hover:bg-gold-500');
+                alert("تم إيقاف المنبه.");
+            }
+        }
+
+        // 3. عداد ركعات التهجد مع LocalStorage
+        let rakat = parseInt(localStorage.getItem('istafak_rakat_count')) || 0;
+        document.getElementById('rakatCount').innerText = rakat;
+
+        function addRakat(num) {
+            rakat += num;
+            document.getElementById('rakatCount').innerText = rakat;
+            localStorage.setItem('istafak_rakat_count', rakat);
+        }
+
+        function resetRakat() {
+            if(confirm("هل تريد تصفير عداد الركعات؟")) {
+                rakat = 0;
+                document.getElementById('rakatCount').innerText = rakat;
+                localStorage.setItem('istafak_rakat_count', rakat);
+            }
+        }
+    </script>
+</body>
+</html>
