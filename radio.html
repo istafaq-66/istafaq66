@@ -2,184 +2,122 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الإذاعات الحية - البث المباشر</title>
-    <!-- استيراد خط تجويد أو خط عربي عصري من جوجل -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - إذاعات القرآن الكريم والبث الحي</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* تنسيق الهيدر البسيط */
-        header {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .live-indicator {
-            background-color: #ef4444;
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            animation: pulse 2s infinite;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background-color: white;
-            border-radius: 50%;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* المحتوى الرئيسي ومركز البث */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .broadcast-container {
-            width: 100%;
-            max-width: 1100px;
-            background: #1e293b;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* نسبة أبعاد الفيديو القياسية 16:9 */
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .broadcast-info {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .broadcast-title h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f8fafc;
-        }
-
-        .broadcast-title p {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-
-        /* تنسيق الفوتر */
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #1e293b;
-            color: #64748b;
-            font-size: 13px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* التجاوب مع الشاشات الصغيرة */
-        @media (max-width: 768px) {
-            header {
-                padding: 10px 15px;
-            }
-            .broadcast-container {
-                border-radius: 10px;
-            }
-        }
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
     </style>
 </head>
-<body>
+<body class="min-h-screen pb-12">
 
-    <!-- رأس الصفحة -->
-    <header>
-        <div class="logo-area">
-            <h2>شبكة الإذاعات الحية</h2>
-        </div>
-        <div class="live-indicator">
-            <span class="live-dot"></span>
-            مباشر الآن
+    <!-- الهيدر العلوي مع زر العودة -->
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-3xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-gold-400">إذاعات القرآن الكريم والبث الحي</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home"></i>
+            </a>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي (الفيديو فقط) -->
-    <main>
-        <div class="broadcast-container">
-            <div class="video-wrapper">
-                <!-- تم استخراج معرف الفيديو PLkCnLrKN8Q ووضع رابط التضمين الصحيح -->
-                <iframe src="https://www.youtube.com/embed/PLkCnLrKN8Q?autoplay=1&mute=0" 
-                        title="البث المباشر للإذاعة" 
+    <!-- المحتوى الرئيسي (الفيديو في الأعلى مباشرة) -->
+    <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
+
+        <!-- حاوية الفيديو المباشر -->
+        <div class="rounded-3xl bg-white p-4 sm:p-6 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center justify-between mb-4 border-b border-olive-100 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
+                        <i class="fa-solid fa-tower-broadcast"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-olive-600 font-serif">بث مباشر من المسجد الحرام</h2>
+                        <p class="text-xs text-olive-300">قناة القرآن الكريم - Makkah Live</p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600 border border-red-200">
+                    <span class="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+                    مباشر الآن
+                </span>
+            </div>
+
+            <!-- إطار الفيديو المباشر المتجاوب -->
+            <div class="relative w-full overflow-hidden rounded-2xl shadow-soft border border-olive-100" style="padding-top: 56.25%;">
+                <iframe class="absolute top-0 left-0 w-full h-full border-0" 
+                        src="https://www.youtube.com/embed/PLkCnLrKN8Q?autoplay=1&mute=0" 
+                        title="البث المباشر لقناة القرآن الكريم" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen>
                 </iframe>
             </div>
-            <div class="broadcast-info">
-                <div class="broadcast-title">
-                    <h1>البث المباشر الرسمي</h1>
-                    <p>استمع إلى أحدث البرامج والفقرات الإذاعية بجودة عالية.</p>
-                </div>
+
+            <div class="mt-4 text-center">
+                <p class="text-xs sm:text-sm text-olive-500 font-medium leading-relaxed">
+                    استمع إلى تلاوات عطرة ونقل حي لشعائر الصلوات والقرآن الكريم طوال اليوم من رحاب المسجد الحرام.
+                </p>
             </div>
         </div>
-    </main>
 
-    <!-- تذييل الصفحة -->
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026</p>
-    </footer>
+    </main>
 
 </body>
 </html>
