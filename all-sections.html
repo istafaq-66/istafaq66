@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق اصطفاك - جميع الأقسام</title>
+    <!-- استدعاء الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات اللونية الأساسية */
+        :root {
+            --olive-green: #384A34;
+            --olive-light: #4A5F45;
+            --gold: #D4AF37;
+            --gold-light: #F5E9C0;
+            --pure-white: #FFFFFF;
+            --bg-offwhite: #F4F6F3;
+            --text-dark: #2C352A;
+            --text-gray: #666666;
+            --shadow-soft: 0 10px 25px rgba(56, 74, 52, 0.08);
+            --shadow-float: 0 15px 35px rgba(212, 175, 55, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--text-dark);
+            padding-bottom: 110px; /* مساحة لشريط التنقل السفلي */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- الهيدر العلوي --- */
+        .app-header {
+            background-color: var(--olive-green);
+            color: var(--pure-white);
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right a {
+            color: var(--pure-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .header-right a:hover {
+            transform: translateX(3px);
+            color: var(--gold);
+        }
+
+        .app-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Amiri', serif;
+        }
+
+        /* --- عنوان الصفحة --- */
+        .page-header-box {
+            padding: 1.5rem 1.2rem 0.5rem 1.2rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--olive-green);
+            font-family: 'Amiri', serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 5px;
+        }
+
+        .page-desc {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* --- شبكة الأقسام --- */
+        .sections-container {
+            padding: 1.5rem 1.2rem;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+
+        .card {
+            background-color: var(--pure-white);
+            border-radius: 22px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* تأثير الظهور (Scroll Reveal) */
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(56, 74, 52, 0.12);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--gold);
+            background: var(--bg-offwhite);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .card:hover .card-icon {
+            background: var(--gold);
+            color: var(--pure-white);
+            transform: rotate(-10deg);
+        }
+
+        .card h4 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--olive-green);
+        }
+
+        .card p {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* --- رسالة التحديثات القادمة --- */
+        .future-updates-banner {
+            margin: 2rem 1.2rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.15));
+            border: 2px dashed var(--gold);
+            border-radius: 24px;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            /* تأثير الظهور */
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .future-updates-banner.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .future-updates-banner i.main-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            animation: bounceSoft 3s infinite;
+        }
+
+        .future-updates-banner h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--olive-green);
+            margin-bottom: 8px;
+            font-family: 'Amiri', serif;
+        }
+
+        .future-updates-banner p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        /* --- شريط التنقل السفلي --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.6rem 0 0.8rem 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+            z-index: 1000;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #A0A89F;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            flex: 1;
+            font-weight: 700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-item.active {
+            color: var(--olive-green);
+        }
+
+        /* --- Keyframes --- */
+        @keyframes bounceSoft {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* استجابة الشاشات الصغيرة جداً */
+        @media (max-width: 360px) {
+            .grid-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-right">
+            <a href="index.html" title="العودة للرئيسية"><i class="fas fa-arrow-right"></i></a>
+            <div class="app-logo-text">إِصْطَفَاكَ</div>
+        </div>
+    </header>
+
+    <!-- عنوان الصفحة -->
+    <div class="page-header-box">
+        <h1 class="page-title"><i class="fas fa-th-large"></i> دليل أقسام التطبيق</h1>
+        <p class="page-desc">تصفح جميع الخدمات والبرامج المتاحة في تطبيقك الشامل.</p>
+    </div>
+
+    <!-- شبكة الأقسام -->
+    <main class="sections-container">
+        <div class="grid-cards" id="cards-container">
+            
+            <a href="memorization.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
+                <h4>الحفظ والمراجعة الذكية</h4>
+                <p>خطط حفظ للقرآن والمتون مع خوارزمية التكرار المتباعد.</p>
+            </a>
+
+            <a href="fortress.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-pray"></i></div>
+                <h4>حصن المسلم والعداد</h4>
+                <p>أذكار مصنفة مع عداد تفاعلي واهتزاز خفيف.</p>
+            </a>
+
+            <a href="khatma.html" class="card scroll-anim">
+                <div class="card-icon"><i class="far fa-moon"></i></div>
+                <h4>مخططات الختمة</h4>
+                <p>ختمة في ٣ أيام أو أسبوع أو شهر مع ورد يومي محسوب.</p>
+            </a>
+
+            <a href="fasting.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-mountain"></i></div>
+                <h4>الصيام والتنبيهات</h4>
+                <p>الاثنين والخميس، البيض، عرفة، عاشوراء، شوال وشعبان.</p>
+            </a>
+
+            <a href="library.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-book"></i></div>
+                <h4>المكتبة الشرعية</h4>
+                <p>العقيدة، الحديث، السيرة، التجويد، الفقه والأصول.</p>
+            </a>
+
+            <a href="notes.html" class="card scroll-anim">
+                <div class="card-icon"><i class="far fa-edit"></i></div>
+                <h4>أفكاري وملاحظاتي</h4>
+                <p>مساحتك الخاصة لتدوين الخواطر والمقترحات والروابط.</p>
+            </a>
+
+             <a href="night-prayer.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-star-and-crescent"></i></div>
+                <h4>قيام الليل</h4>
+                <p>ورد التهجد والوتر وأوقات الاستغفار في الأسحار.</p>
+            </a>
+
+            <a href="minassat.html" class="card scroll-anim">
+                <div class="card-icon"><i class="fas fa-headphones-alt"></i></div>
+                <h4>الصوتيات والمنصات</h4>
+                <p>مشغل للتلاوات والدروس ودليل المنصات الموثوقة.</p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- رسالة التحديثات المستقبلية -->
+    <div class="future-updates-banner scroll-anim">
+        <i class="fas fa-seedling main-icon"></i>
+        <h3>ترقبوا المزيد من الخير...</h3>
+        <p>
+            نسعى دائماً لتطوير التطبيق والارتقاء به لخدمتكم؛ سيتم إضافة المزيد من الأقسام المساعدة، والملحقات النافعة، والمفاجآت في التحديثات القادمة بإذن الله تعالى. 🌿
+        </p>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="khatma.html" class="nav-item">
+            <i class="fas fa-infinity"></i>
+            <span>الختمة</span>
+        </a>
+        <a href="quran.html" class="nav-item">
+            <i class="fas fa-quran"></i>
+            <span>القرآن</span>
+        </a>
+        <a href="memorization.html" class="nav-item">
+            <i class="fas fa-sync-alt"></i>
+            <span>المراجعة</span>
+        </a>
+        <a href="all-sections.html" class="nav-item active">
+            <i class="fas fa-th-large"></i>
+            <span>الأقسام</span>
+        </a>
+    </nav>
+
+    <!-- سكريبت مراقب التمرير (Scroll Animation) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const elementsToAnimate = document.querySelectorAll('.scroll-anim');
+            
+            const observerOptions = {
+                root: null,
+                threshold: 0.1, // تظهر البطاقة عندما يظهر جزء منها فقط
+                rootMargin: "0px 0px -20px 0px"
+            };
+
+            const elementObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // إضافة تأخير بسيط لإعطاء تأثير الدخول المتسلسل
+                        setTimeout(() => {
+                            entry.target.classList.add('show');
+                        }, index * 80); 
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            elementsToAnimate.forEach(el => {
+                elementObserver.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
