@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدعية قيام الليل - منصة إِصْطَفَاكَ</title>
+    <style>
+        :root {
+            --bg-color: #314436; /* درجة الزيتوني الداكن الخاصة بالتطبيق */
+            --card-bg: #FFFFFF; /* أبيض للبطاقات */
+            --text-light: #FFFFFF; /* نص أبيض للخلفية العامة */
+            --text-dark: #2A3B31; /* نص داكن للبطاقات البيضاء */
+            --accent-gold: #C2A03F; /* اللون الاصفر/الذهبي الخاص بالأزرار والعناصر */
+            --accent-gold-hover: #A88832;
+            --text-muted: #666666;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            transition: font-size 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* شريط التنقل العلوي */
+        .top-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-btn {
+            background-color: var(--card-bg);
+            color: var(--text-dark);
+            border: 1px solid rgba(194, 160, 63, 0.3);
+            border-radius: 12px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-btn:hover {
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* شريط الأدوات التفاعلي (التحكم بحجم الخط ووضع القراءة التركيزية) */
+        .tools-bar {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(194, 160, 63, 0.2);
+            border-radius: 16px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tools-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-btn {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-gold);
+            color: #fff;
+        }
+
+        .tools-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* قائمة الأدعية */
+        .duaa-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .duaa-card {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border-radius: 20px;
+            padding: 24px 28px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(194, 160, 63, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .duaa-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-gold);
+        }
+
+        .duaa-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .duaa-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .duaa-text {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            text-align: justify;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+        }
+
+        .duaa-source {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: left;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 10px;
+        }
+
+        /* زر النسخ والتفاعل */
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .copy-btn {
+            background: rgba(194, 160, 63, 0.1);
+            color: var(--accent-gold);
+            border: 1px solid rgba(194, 160, 63, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-gold);
+            color: #fff;
+        }
+
+        /* إشعار النسخ الناجح */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--accent-gold);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .tools-bar {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .duaa-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- شريط التنقل العلوي -->
+        <div class="top-nav">
+            <a href="index.html" class="nav-btn">
+                <span>الرئيسية</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </a>
+            <button onclick="history.back()" class="nav-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <span>السابق</span>
+            </button>
+        </div>
+
+        <header>
+            <h1>أدعية قيام الليل والتهجد</h1>
+            <p>وردت عن النبي محمد صلى الله عليه وسلم أدعية كثيرة ومباركة في قيام الليل، وكان يدعو بها في تهجده، ومن أصحها وأثبتها:</p>
+        </header>
+
+        <!-- شريط تفاعلي للتحكم بحجم الخط -->
+        <div class="tools-bar">
+            <span class="tools-label">✨ التحكم بحجم الخط للقراءة المريحة:</span>
+            <div class="tools-group">
+                <button class="tool-btn" onclick="changeFontSize(1)">تكبير +</button>
+                <button class="tool-btn" onclick="resetFontSize()">إعادة ضبط</button>
+                <button class="tool-btn" onclick="changeFontSize(-1)">تصغير -</button>
+            </div>
+        </div>
+
+        <!-- بطاقات الأدعية -->
+        <div class="duaa-list" id="duaaContainer">
+
+            <!-- دعاء 1 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 دعاء الاستفتاح العظيم (دعاء قيام الليل في الصحيحين)</div>
+                <div class="duaa-text">
+                    كان النبي صلى الله عليه وسلم إذا قام من الليل يتهجد افتتح صلاته بقوله:<br>
+                    «اللهمَّ لك الحمدُ، أنت قيمُ السموات والأرضِ ومن فيهن، ولك الحمدُ، أنت نورُ السموات والأرضِ ومن فيهن، ولك الحمدُ، أنت ملكُ السموات والأرضِ ومن فيهن، ولك الحمدُ، أنت الحقُّ، ووعدُك الحقُّ، ولقاؤُك حقُّ، وقولُك حقُّ، والجنةُ حقُّ، والنارُ حقُّ، والنبيُّون حقُّ، ومحمدٌ صلى الله عليه وسلم حقُّ، والساعةُ حقُّ. اللهمَّ لك أسلمتُ، وبك آمنتُ، وعليك توكلتُ، وإليك أنبتُ، وبك خاصمتُ، وإليك حاكمتُ، فاغفر لي ما قدمتُ وما أخرتُ، وما أسررتُ وما أعلنتُ، أنت المقدمُ وأنت المؤخرُ، لا إله إلا أنت -أو: لا إله غيرُك-».
+                </div>
+                <div class="duaa-source">(رواه البخاري ومسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+            <!-- دعاء 2 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 دعاء الاستفتاح الشامل لجملة من الحقائق الإيمانية</div>
+                <div class="duaa-text">
+                    «اللهمَّ رَبَّ جبرائيلَ وميكائيلَ وإسرافيلَ، فاطرَ السمواتِ والأرضِ، عالِمَ الغيبِ والشَّهادةِ، أنت تحكم بين عبادِك فيما كانوا فيه يختلفون، اهْدِني لما اختلف فيه من الحقِّ بإذنِك، إنك تهدي من تشاء إلى صراط مستقيم».
+                </div>
+                <div class="duaa-source">(رواه مسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+            <!-- دعاء 3 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 دعاء الاستغفار والتذلل الشامل (دعاء ابن عباس رضي الله عنهما)</div>
+                <div class="duaa-text">
+                    «اللهمَّ لك أسلمتُ، وبك آمنتُ، وعليك توكلتُ، وإليك أنبتُ، وبك خاصمتُ، اللهمَّ إني أعوذ بعزَّتِك، لا إله إلا أنت، أن تُضلَّني، أنت الحيُّ الذي لا يموت، والجنُّ والإنس يموتون».
+                </div>
+                <div class="duaa-source">(رواه البخاري ومسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+            <!-- دعاء 4 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 دعاء الاستعاذة الجامعة</div>
+                <div class="duaa-text">
+                    «اللهمَّ إني أعوذ برضاك من سخطك، وبمعافاتِك من عقوبتِك، وأعوذ بك منك، لا أُحصي ثناءً عليك، أنت كما أثنيت على نفسِك».
+                </div>
+                <div class="duaa-source">(رواه مسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+            <!-- دعاء 5 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 دعاء جوامع الخير في الدنيا والآخرة (دعاء القنوت أو السجود)</div>
+                <div class="duaa-text">
+                    «اللهمَّ اصلح لي ديني الذي هو عصمةُ أمري، وأصلح لي دنياي التي فيها معاشي، وأصلح لي آخرتي التي فيها معادي، واجعل الحياةَ زيادةً لي في كل خيرٍ، واجعل الموتَ راحةً لي من كل شرٍّ».
+                </div>
+                <div class="duaa-source">(رواه مسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+            <!-- دعاء 6 -->
+            <div class="duaa-card">
+                <div class="duaa-title">📌 الدعاء الشامل لخيري الدنيا والآخرة</div>
+                <div class="duaa-text">
+                    «اللهمَّ إني أسألُك الهدى والتُّقى والعفافَ والغنى».
+                </div>
+                <div class="duaa-source">(رواه مسلم)</div>
+                <div class="card-actions">
+                    <button class="copy-btn" onclick="copyDuaa(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        نسخ الدعاء
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- عنصر التنبيه (Toast) -->
+    <div id="toast" class="toast">تم نسخ الدعاء بنجاح ✨</div>
+
+    <script>
+        // وظيفة نسخ النص
+        function copyDuaa(button) {
+            const card = button.closest('.duaa-card');
+            const textElement = card.querySelector('.duaa-text');
+            const sourceElement = card.querySelector('.duaa-source');
+            
+            const textToCopy = textElement.innerText + "\n" + sourceElement.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // وظائف التحكم بحجم الخط
+        let currentSize = 1.1; // القيمة الأساسية للنصrem
+        function changeFontSize(direction) {
+            currentSize += direction * 0.05;
+            if (currentSize < 0.95) currentSize = 0.95;
+            if (currentSize > 1.35) currentSize = 1.35;
+            
+            const texts = document.querySelectorAll('.duaa-text');
+            texts.forEach(el => {
+                el.style.fontSize = currentSize + 'rem';
+            });
+        }
+
+        function resetFontSize() {
+            currentSize = 1.1;
+            const texts = document.querySelectorAll('.duaa-text');
+            texts.forEach(el => {
+                el.style.fontSize = currentSize + 'rem';
+            });
+        }
+    </script>
+</body>
+</html>
