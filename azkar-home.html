@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق إصطفاك - أذكار المنزل</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+        
+        .azkar-text {
+            font-size: 1.15rem;
+            line-height: 2.2;
+            transition: font-size 0.2s ease;
+        }
+
+        .interactive-counter {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interactive-counter:active {
+            transform: scale(0.93);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <!-- الهيدر العلوي -->
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-3xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-gold-400">أذكار المنزل</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home text-gold-400"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 pt-6 space-y-5">
+
+        <!-- شريط التحكم بحجم الخط -->
+        <div class="flex items-center justify-between rounded-2xl bg-white p-4 shadow-card border border-olive-100 animate-fade">
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-olive-600">حجم الخط:</span>
+                <button onclick="changeFontSize(1)" class="flex h-9 w-9 items-center justify-center rounded-xl bg-cream text-olive-600 font-bold hover:bg-olive-500 hover:text-white transition-all border border-olive-100" title="تكبير الخط">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                </button>
+                <button onclick="changeFontSize(-1)" class="flex h-9 w-9 items-center justify-center rounded-xl bg-cream text-olive-600 font-bold hover:bg-olive-500 hover:text-white transition-all border border-olive-100" title="تصغير الخط">
+                    <i class="fa-solid fa-minus text-xs"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-olive-500 font-semibold">
+                <i class="fa-solid fa-book-open text-gold-500"></i>
+                <span>حصن المسلم</span>
+            </div>
+        </div>
+
+        <!-- قائمة الأذكار -->
+        <div id="azkar-container" class="space-y-4">
+
+            <!-- الذكر 1: دعاء خروج من المنزل -->
+            <div class="space-y-1">
+                <div class="flex items-center gap-2 px-2 text-xs font-bold text-gold-600">
+                    <i class="fa-solid fa-circle-dot text-[8px]"></i>
+                    <span>المناسبة: عند الخروج من المنزل (يقوله المسلم ليُهدي ويكفى ويوقى)</span>
+                </div>
+                <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade space-y-4 transition-all">
+                    <div class="flex items-center justify-between border-b border-olive-100 pb-3">
+                        <span class="rounded-full bg-gold-50 px-3 py-1 text-xs font-bold text-gold-600 border border-gold-200">التكرار: عند الخروج</span>
+                        <button onclick="copySpecificText(this)" class="flex items-center gap-1.5 rounded-xl bg-cream px-3 py-1.5 text-xs font-bold text-olive-600 hover:bg-olive-500 hover:text-white transition-all border border-olive-100">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الذكر</span>
+                        </button>
+                    </div>
+                    <p class="azkar-text font-serif text-olive-700 text-justify">
+                        «بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ».
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-cream text-xs text-olive-400">
+                        <span>«يُقال له حينئذٍ: كُفِيتَ وَوُقِيتَ وَهُدِيتَ، وتتجنب عنه الشياطين» (رواه أبو داود والترمذي).</span>
+                        <button onclick="handleCounterClick(this, 1)" class="interactive-counter flex items-center gap-2 rounded-2xl bg-olive-50 px-4 py-2 font-bold text-olive-700 border border-olive-200 hover:bg-olive-500 hover:text-white transition-all">
+                            <i class="fa-solid fa-circle-notch text-gold-500"></i>
+                            <span>الباقي: <strong class="count-val">1</strong></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الذكر 2: دعاء دخول المنزل -->
+            <div class="space-y-1">
+                <div class="flex items-center gap-2 px-2 text-xs font-bold text-gold-600">
+                    <i class="fa-solid fa-circle-dot text-[8px]"></i>
+                    <span>المناسبة: عند دخول المنزل (يُشرع ذكر الله وسلامه والتسمية)</span>
+                </div>
+                <div class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade space-y-4 transition-all" style="animation-delay: 0.05s;">
+                    <div class="flex items-center justify-between border-b border-olive-100 pb-3">
+                        <span class="rounded-full bg-gold-50 px-3 py-1 text-xs font-bold text-gold-600 border border-gold-200">التكرار: عند الدخول</span>
+                        <button onclick="copySpecificText(this)" class="flex items-center gap-1.5 rounded-xl bg-cream px-3 py-1.5 text-xs font-bold text-olive-600 hover:bg-olive-500 hover:text-white transition-all border border-olive-100">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>نسخ الذكر</span>
+                        </button>
+                    </div>
+                    <p class="azkar-text font-serif text-olive-700 text-justify">
+                        «بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا، ثم ليُسْلِمْ على أهله».
+                    </p>
+                    <div class="flex items-center justify-between pt-2 border-t border-cream text-xs text-olive-400">
+                        <span>«يقول الشيطان لأصحابه: لا مبيت لكم ولا عشاء» (رواه أبو داود ومسلم).</span>
+                        <button onclick="handleCounterClick(this, 1)" class="interactive-counter flex items-center gap-2 rounded-2xl bg-olive-50 px-4 py-2 font-bold text-olive-700 border border-olive-200 hover:bg-olive-500 hover:text-white transition-all">
+                            <i class="fa-solid fa-circle-notch text-gold-500"></i>
+                            <span>الباقي: <strong class="count-val">1</strong></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- سكريبتات التحكم بالنسخ، العداد الذكي، وتغيير الخط -->
+    <script>
+        // 1. وظيفة النسخ المحدثة
+        function copySpecificText(button) {
+            const card = button.closest('.rounded-3xl');
+            const textElement = card.querySelector('.azkar-text');
+            
+            let textToCopy = textElement.innerText || textElement.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopySuccess(button);
+                }).catch(err => {
+                    fallbackCopyText(textToCopy, button);
+                });
+            } else {
+                fallbackCopyText(textToCopy, button);
+            }
+        }
+
+        function fallbackCopyText(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess(button);
+            } catch (err) {
+                alert("تعذر النسخ تلقائياً.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess(button) {
+            let originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fa-solid fa-check text-green-600"></i> <span class="text-green-600 font-bold">تم النسخ بنجاح</span>';
+            button.classList.add('bg-green-50', 'border-green-300');
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.classList.remove('bg-green-50', 'border-green-300');
+            }, 2000);
+        }
+
+        // 2. العداد التفاعلي الذكي
+        function handleCounterClick(button, maxCount) {
+            let countStrong = button.querySelector('.count-val');
+            let icon = button.querySelector('i');
+            let currentVal = countStrong.textContent;
+
+            if (currentVal === '✓') return;
+
+            let numericVal = parseInt(currentVal);
+
+            if (numericVal > 1) {
+                numericVal--;
+                countStrong.textContent = numericVal;
+                button.classList.add('scale-95', 'bg-gold-50', 'border-gold-300');
+                setTimeout(() => button.classList.remove('scale-95', 'bg-gold-50', 'border-gold-300'), 150);
+            } else {
+                countStrong.textContent = '✓';
+                icon.className = 'fa-solid fa-circle-check text-green-600';
+                button.classList.remove('bg-olive-50', 'border-olive-200');
+                button.classList.add('bg-green-100', 'border-green-400', 'text-green-800', 'cursor-default');
+                
+                const card = button.closest('.rounded-3xl');
+                card.style.borderColor = '#D4AF37';
+                card.style.backgroundColor = '#FBF6E3';
+            }
+        }
+
+        // 3. تكبير وتصغير الخط
+        let currentFontSize = 1.15;
+        function changeFontSize(direction) {
+            currentFontSize += direction * 0.1;
+            if (currentFontSize < 0.9) currentFontSize = 0.9;
+            if (currentFontSize > 1.6) currentFontSize = 1.6;
+
+            const textElements = document.querySelectorAll('.azkar-text');
+            textElements.forEach(el => {
+                el.style.fontSize = currentFontSize + 'rem';
+            });
+        }
+    </script>
+
+</body>
+</html>
