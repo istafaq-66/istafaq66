@@ -3,279 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>اصطفاك - حصن المسلم والأذكار</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>تطبيق إصطفاك - حصن المسلم والأذكار</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 8px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --olive-green: #384A34;
-            --gold: #D4AF37;
-            --pure-white: #FFFFFF;
-            --bg-offwhite: #F4F6F3;
-            --text-dark: #2C352A;
-            --text-gray: #666666;
-            --shadow: 0 8px 16px rgba(0,0,0,0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-offwhite);
-            color: var(--text-dark);
-            padding-bottom: 90px;
-        }
-
-        /* الهيدر */
-        .app-header {
-            background-color: var(--olive-green);
-            color: var(--pure-white);
-            padding: 2rem 1.5rem;
-            text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .app-header a {
-            color: var(--pure-white);
-            font-size: 1.2rem;
-            text-decoration: none;
-        }
-
-        .app-header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-        }
-
-        /* زر الانتقال للعداد */
-        .counter-float-btn {
-            background-color: var(--gold);
-            color: var(--text-dark);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s ease;
-            margin: 1.5rem 1rem 0.5rem 1rem;
-            justify-content: center;
-        }
-
-        .counter-float-btn:hover {
-            background-color: var(--olive-green);
-            color: var(--pure-white);
-        }
-
-        /* المحتوى والأقسام */
-        .container {
-            padding: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .category-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--olive-green);
-            margin: 1.5rem 0 0.8rem 0;
-            border-right: 4px solid var(--gold);
-            padding-right: 8px;
-        }
-
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+        
+        /* تصميم البطاقات المربعة الاحترافية بلون زيتوني وأيقونات ذهبية */
         .azkar-card {
-            background-color: var(--pure-white);
-            border-radius: 15px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: transform 0.2s;
+            background-color: #33442E;
+            border-radius: 24px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: #D4AF37;
+            box-shadow: 0 10px 25px rgba(51, 68, 46, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
         .azkar-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-6px) scale(1.02);
+            border-color: #D4AF37;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
+            background-color: #2A3725;
         }
 
-        .azkar-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-dark);
-            margin-bottom: 0.8rem;
-            text-align: justify;
+        .azkar-card i {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
 
-        .azkar-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-gray);
-            border-top: 1px solid #eee;
-            padding-top: 0.6rem;
+        .azkar-card:hover i {
+            transform: scale(1.15) rotate(5deg);
         }
 
-        .badge {
-            background-color: #E8EAE7;
-            color: var(--olive-green);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .count-badge {
-            background-color: var(--gold);
-            color: var(--text-dark);
-            padding: 3px 10px;
-            border-radius: 12px;
+        .azkar-card span {
+            font-size: 1.1rem;
             font-weight: 700;
+            color: #FFFFFF;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen pb-16">
 
-    <!-- الهيدر -->
-    <header class="app-header">
-        <a href="index.html"><i class="fas fa-arrow-right"></i></a>
-        <h1>حصن المسلم الشامل</h1>
-        <i class="fas fa-pray" style="color: var(--gold); font-size: 1.5rem;"></i>
+    <!-- الهيدر العلوي مع زر العودة وزر الرئيسية -->
+    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+        <div class="mx-auto flex max-w-3xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>العودة</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-gold-400">حصن المسلم والأذكار</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium transition-all hover:bg-white/20">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home text-gold-400"></i>
+            </a>
+        </div>
     </header>
 
-    <!-- زر الانتقال للعداد -->
-    <div class="container">
-        <a href="counter.html" class="counter-float-btn">
-            <i class="fas fa-redo-alt"></i> الانتقال إلى صفحة العداد التفاعلي
-        </a>
+    <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
 
-        <!-- أذكار الصباح -->
-        <div class="category-title">أذكار الصباح</div>
-        
-        <div class="azkar-card">
-            <div class="azkar-text">"أَحْمَدُ اللَّهَ تَعَالَى.. أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ..."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار الصباح</span>
-                <span class="count-badge">التكرار: مرة واحدة</span>
-            </div>
+        <!-- زر العداد التفاعلي الموجود في أعلى الصفحة -->
+        <div class="animate-fade">
+            <a href="counter.html" class="flex items-center justify-between rounded-2xl bg-white p-5 shadow-card border border-olive-100 hover:border-gold-400 transition-all group">
+                <div class="flex items-center gap-4">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-50 text-gold-600 text-xl shadow-soft border border-gold-200 group-hover:bg-olive-500 group-hover:text-gold-400 transition-all">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-olive-600 font-serif">العداد التفاعلي المتقدم</h2>
+                        <p class="text-xs text-olive-400 mt-0.5">عداد الأذكار والتسبيح مع الاهتزاز والتنبيهات</p>
+                    </div>
+                </div>
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-cream text-olive-400 group-hover:bg-olive-500 group-hover:text-white transition-all">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </div>
+            </a>
         </div>
 
-        <div class="azkar-card">
-            <div class="azkar-text">"اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار الصباح</span>
-                <span class="count-badge">التكرار: مرة واحدة</span>
-            </div>
+        <!-- عنوان القسم -->
+        <div class="text-center animate-fade" style="animation-delay: 0.1s;">
+            <h2 class="text-xl font-bold font-serif text-olive-600">أذكار المسلم اليومية</h2>
+            <p class="text-xs text-olive-400 mt-1">اختر القسم المناسب لعرض الأذكار والأدعية</p>
         </div>
 
-        <div class="azkar-card">
-            <div class="azkar-text">"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار الصباح</span>
-                <span class="count-badge">التكرار: 3 مرات</span>
-            </div>
+        <!-- شبكة الأذكار الثنائية المربعة (Grid) -->
+        <div class="grid grid-cols-2 gap-4 animate-fade" style="animation-delay: 0.2s;">
+
+            <!-- أذكار الصباح -->
+            <a href="azkar-morning.html" class="azkar-card">
+                <i class="fa-solid fa-sun text-gold-400"></i>
+                <span>أذكار الصباح</span>
+            </a>
+
+            <!-- أذكار المساء -->
+            <a href="azkar-evening.html" class="azkar-card">
+                <i class="fa-solid fa-moon text-gold-400"></i>
+                <span>أذكار المساء</span>
+            </a>
+
+            <!-- أذكار بعد الصلاة -->
+            <a href="azkar-after-prayer.html" class="azkar-card">
+                <i class="fa-solid fa-person-praying text-gold-400"></i>
+                <span>أذكار بعد الصلاة</span>
+            </a>
+
+            <!-- أذكار النوم -->
+            <a href="azkar-sleep.html" class="azkar-card">
+                <i class="fa-solid fa-bed text-gold-400"></i>
+                <span>أذكار النوم</span>
+            </a>
+
+            <!-- أذكار الطعام -->
+            <a href="azkar-food.html" class="azkar-card">
+                <i class="fa-solid fa-utensils text-gold-400"></i>
+                <span>أذكار الطعام</span>
+            </a>
+
+            <!-- أذكار الخلاء -->
+            <a href="azkar-restroom.html" class="azkar-card">
+                <i class="fa-solid fa-door-closed text-gold-400"></i>
+                <span>أذكار الخلاء</span>
+            </a>
+
+            <!-- أذكار الحج والعمرة -->
+            <a href="azkar-hajj.html" class="azkar-card">
+                <i class="fa-solid fa-kaaba text-gold-400"></i>
+                <span>أذكار الحج والعمرة</span>
+            </a>
+
+            <!-- أذكار متفرقة -->
+            <a href="azkar-misc.html" class="azkar-card">
+                <i class="fa-solid fa-book-open text-gold-400"></i>
+                <span>أذكار متفرقة</span>
+            </a>
+
+            <!-- دعاء ختم القرآن -->
+            <a href="dua-khatm.html" class="azkar-card">
+                <i class="fa-solid fa-book-quran text-gold-400"></i>
+                <span>دعاء ختم القرآن</span>
+            </a>
+
+            <!-- أدعية للميت -->
+            <a href="dua-mayyit.html" class="azkar-card">
+                <i class="fa-solid fa-hands-praying text-gold-400"></i>
+                <span>أدعية للميت</span>
+            </a>
+
+            <!-- أذكار الأذان -->
+            <a href="azkar-azan.html" class="azkar-card">
+                <i class="fa-solid fa-bullhorn text-gold-400"></i>
+                <span>أذكار الأذان</span>
+            </a>
+
+            <!-- أذكار المسجد -->
+            <a href="azkar-mosque.html" class="azkar-card">
+                <i class="fa-solid fa-mosque text-gold-400"></i>
+                <span>أذكار المسجد</span>
+            </a>
+
+            <!-- أذكار الوضوء -->
+            <a href="azkar-ablution.html" class="azkar-card">
+                <i class="fa-solid fa-droplet text-gold-400"></i>
+                <span>أذكار الوضوء</span>
+            </a>
+
+            <!-- أذكار المنزل -->
+            <a href="azkar-home.html" class="azkar-card">
+                <i class="fa-solid fa-house text-gold-400"></i>
+                <span>أذكار المنزل</span>
+            </a>
+
         </div>
 
-        <!-- أذكار المساء -->
-        <div class="category-title">أذكار المساء</div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ..."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار المساء</span>
-                <span class="count-badge">التكرار: مرة واحدة</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"اللَّهُمَّ أَمْسَيْنَا بِكَ وَأَمْسَيْنَا بِنِعْمَةِ وَعَافِيَةٍ وَسِتْرٍ، فَأَتْمِمْ عَلَيْنَا نِعْمَتَكَ وَعَافِيَتَكَ وَسِتْرَكَ فِي الدُّنْيَا وَالْآخِرَةِ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار المساء</span>
-                <span class="count-badge">التكرار: 4 مرات</span>
-            </div>
-        </div>
-
-        <!-- أذكار بعد الصلاة المفروضة -->
-        <div class="category-title">أذكار الصلاة والصلوات الخمس</div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"أَسْتَغْفِرُ اللَّهَ (ثلاثاً)، اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار الصلاة</span>
-                <span class="count-badge">التكرار: بعد كل صلاة</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ..."</div>
-            <div class="azkar-footer">
-                <span class="badge">أذكار الصلاة</span>
-                <span class="count-badge">التكرار: مرة أو 10 مرات</span>
-            </div>
-        </div>
-
-        <!-- الأذكار المتفرقة (أكثر من 100 ذكر ودعاء شاملة الأبواب الأخرى) -->
-        <div class="category-title">أدعية من القرآن والسنة (أدعية جامعة)</div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحاً تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أدعية قرآنية</span>
-                <span class="count-badge">دعاء جامع</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ."</div>
-            <div class="azkar-footer">
-                <span class="badge">أدعية جامعة</span>
-                <span class="count-badge">متكرر</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنْ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنْ الْبُخْلِ وَالْجُبْنِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ."</div>
-            <div class="azkar-footer">
-                <span class="badge">الهم والحزن</span>
-                <span class="count-badge">عند الحاجة</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"اللَّهُمَّ رَحْمَتَكَ أَرْجُو، فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أَنْتَ."</div>
-            <div class="azkar-footer">
-                <span class="badge">دعي الكرب</span>
-                <span class="count-badge">عند الحاجة</span>
-            </div>
-        </div>
-
-        <div class="azkar-card">
-            <div class="azkar-text">"لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ."</div>
-            <div class="azkar-footer">
-                <span class="badge">دعاء ذي النون</span>
-                <span class="count-badge">عند الكرب</span>
-            </div>
-        </div>
-
-        <!-- ملاحظة تنظيمية لبقية الأدعية لتكتمل الأبواب -->
-        <div class="azkar-card" style="background: var(--olive-green); color: var(--pure-white); text-align: center;">
-            <div style="font-size: 1.1krem; font-weight: 700; margin-bottom: 0.5rem; color: var(--gold);">موسوعة حصن المسلم الكاملة</div>
-            <p style="font-size: 0.85rem; opacity: 0.9;">تتضمن هذه الصفحة الأبواب الأساسية (أذكار الصباح، المساء، النوم، الاستيقاظ، السفر، المرض، الرقية الشرعية، الهم والكرب، دخول المسجد والخلاء)، ويمكنك تمديدها لتشمل أكثر من 100 دعاء ووارد من كتاب حصن المسلم برفعها داخل مجلد الموقع.</p>
-        </div>
-
-    </div>
+    </main>
 
 </body>
 </html>
+
