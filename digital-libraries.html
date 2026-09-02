@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبات الرقمية - منصة إِصْطَفَاكَ</title>
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F7F8F6',
+                        olive: {
+                            50: '#E8EDE5',
+                            100: '#D2DBCC',
+                            200: '#A7B69E',
+                            300: '#7C9070',
+                            400: '#566B4A',
+                            500: '#33442E',
+                            600: '#2A3725',
+                            700: '#222B1E',
+                            800: '#1A2117',
+                            900: '#121610',
+                        },
+                        gold: {
+                            50: '#FBF6E3',
+                            100: '#F5E9C0',
+                            200: '#EBD489',
+                            300: '#E0BF5A',
+                            400: '#D4AF37',
+                            500: '#B8962C',
+                            600: '#9A7C24',
+                            700: '#74611B',
+                            800: '#4E4113',
+                            900: '#2E270C',
+                        },
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 20px rgba(51, 68, 46, 0.08)',
+                        card: '0 10px 30px rgba(51, 68, 46, 0.12)',
+                        gold: '0 4px 20px rgba(212, 175, 55, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f8f6; color: #33442e; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-down { animation: fadeInDown 0.6s ease-out forwards; }
+        .animate-fade-up { animation: fadeInUp 0.6s ease-out forwards; }
+        
+        .library-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .library-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(51, 68, 46, 0.15);
+            border-color: #D4AF37;
+        }
+        .visit-btn {
+            transition: all 0.3s ease;
+            background-color: #D4AF37;
+            color: #222B1E;
+        }
+        .visit-btn:hover {
+            background-color: #33442E;
+            color: #F5E9C0;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <!-- الهيدر العلوي -->
+    <header class="sticky top-0 z-30 bg-[#3A4E35] text-white shadow-lg rounded-b-[30px] px-6 py-4 border-b-2 border-[#D4AF37]">
+        <div class="mx-auto flex max-w-4xl items-center justify-between">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>السابق</span>
+            </button>
+            <h1 class="text-xl font-bold font-serif text-[#F5E9C0]">المكتبات الرقمية</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
+                <span>الرئيسية</span>
+                <i class="fa-solid fa-home"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-4xl px-4 pt-8 space-y-8">
+
+        <!-- العنوان الرئيسي -->
+        <div class="text-center space-y-2 animate-fade-down">
+            <h2 class="text-2xl sm:text-3xl font-bold font-serif text-olive-700">أبرز المكتبات الرقمية والمواقع الموثوقة</h2>
+            <p class="text-sm sm:text-base text-olive-500">روابط مباشرة للوصول إلى أهم المكتبات الإسلامية الشاملة لتحميل الكتب والبحوث</p>
+        </div>
+
+        <!-- قائمة المكتبات -->
+        <div class="grid grid-cols-1 gap-5 animate-fade-up">
+
+            <!-- 1. المكتبة الشاملة -->
+            <div class="library-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-olive-700 font-serif">المكتبة الشاملة</h3>
+                        <p class="text-xs text-olive-400">المرجع الأكبر للكتب والبحوث الشرعية والتراثية</p>
+                    </div>
+                </div>
+                <a href="https://shamela.ws" target="_blank" class="visit-btn w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>تصفح المكتبة</span>
+                </a>
+            </div>
+
+            <!-- 2. صيد الفوائد -->
+            <div class="library-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-olive-700 font-serif">صيد الفوائد</h3>
+                        <p class="text-xs text-olive-400">موقع إسلامي جامع للوحات والمقالات والكتب النافعة</p>
+                    </div>
+                </div>
+                <a href="https://www.saaid.net" target="_blank" class="visit-btn w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>تصفح الموقع</span>
+                </a>
+            </div>
+
+            <!-- 3. مكتبة المشكاة الإسلامية -->
+            <div class="library-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-olive-700 font-serif">مكتبة المشكاة الإسلامية</h3>
+                        <p class="text-xs text-olive-400">مكتبة متخصصة في تحميل الكتب الشرعية والمصادر</p>
+                    </div>
+                </div>
+                <a href="https://www.almeshkat.net" target="_blank" class="visit-btn w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>تصفح المكتبة</span>
+                </a>
+            </div>
+
+            <!-- 4. مكتبة نور -->
+            <div class="library-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-olive-700 font-serif">مكتبة نور</h3>
+                        <p class="text-xs text-olive-400">تحميل وقراءة الكتب بمختلف التصنيفات العلمية</p>
+                    </div>
+                </div>
+                <a href="https://www.noor-book.com" target="_blank" class="visit-btn w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>تصفح المكتبة</span>
+                </a>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
