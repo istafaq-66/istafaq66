@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تطبيق إصطفاك - إذاعات القرآن الكريم والبث الحي</title>
-    <!-- Tailwind CSS -->
+    <title>تطبيق إصطفاك - إذاعات القرآن الكريم والقنوات الدينية</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -64,25 +61,22 @@
 </head>
 <body class="min-h-screen pb-12">
 
-    <!-- الهيدر العلوي مع زر العودة -->
-    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+    <header class="sticky top-0 z-30 bg-[#3A4E35] text-white shadow-card rounded-b-[30px] px-6 py-4 border-b-2 border-[#D4AF37]">
         <div class="mx-auto flex max-w-3xl items-center justify-between">
-            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
                 <i class="fa-solid fa-arrow-right"></i>
-                <span>العودة</span>
+                <span>السابق</span>
             </button>
-            <h1 class="text-xl font-bold font-serif text-gold-400">إذاعات القرآن الكريم والبث الحي</h1>
-            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+            <h1 class="text-xl font-bold font-serif text-[#F5E9C0]">القنوات الدينية والبث الحي</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
                 <span>الرئيسية</span>
                 <i class="fa-solid fa-home"></i>
             </a>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي (الفيديو في الأعلى مباشرة) -->
     <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
 
-        <!-- حاوية الفيديو المباشر -->
         <div class="rounded-3xl bg-white p-4 sm:p-6 shadow-card border border-olive-100 animate-fade">
             <div class="flex items-center justify-between mb-4 border-b border-olive-100 pb-3">
                 <div class="flex items-center gap-3">
@@ -96,14 +90,13 @@
                 </div>
                 <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600 border border-red-200">
                     <span class="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
-                    مباشر الآن
+                    بث حي
                 </span>
             </div>
 
-            <!-- إطار الفيديو المباشر المتجاوب -->
             <div class="relative w-full overflow-hidden rounded-2xl shadow-soft border border-olive-100" style="padding-top: 56.25%;">
                 <iframe class="absolute top-0 left-0 w-full h-full border-0" 
-                        src="https://www.youtube.com/embed/PLkCnLrKN8Q?autoplay=1&mute=0" 
+                        src="https://www.youtube.com/embed/PLkCnLrKN8Q?autoplay=0&mute=0" 
                         title="البث المباشر لقناة القرآن الكريم" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen>
@@ -112,7 +105,40 @@
 
             <div class="mt-4 text-center">
                 <p class="text-xs sm:text-sm text-olive-500 font-medium leading-relaxed">
-                    استمع إلى تلاوات عطرة ونقل حي لشعائر الصلوات والقرآن الكريم طوال اليوم من رحاب المسجد الحرام.
+                    انقر على زر التشغيل للاستماع إلى تلاوات عطرة ونقل حي لشعائر الصلوات طوال اليوم.
+                </p>
+            </div>
+        </div>
+
+        <div class="rounded-3xl bg-white p-4 sm:p-6 shadow-card border border-olive-100 animate-fade" style="animation-delay: 0.1s;">
+            <div class="flex items-center justify-between mb-4 border-b border-olive-100 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
+                        <i class="fa-solid fa-mosque"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-olive-600 font-serif">بث مباشر من المسجد النبوي</h2>
+                        <p class="text-xs text-olive-300">قناة السنة النبوية - Madinah Live</p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600 border border-red-200">
+                    <span class="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+                    بث حي
+                </span>
+            </div>
+
+            <div class="relative w-full overflow-hidden rounded-2xl shadow-soft border border-olive-100" style="padding-top: 56.25%;">
+                <iframe class="absolute top-0 left-0 w-full h-full border-0" 
+                        src="https://www.youtube.com/embed/018l4uYk4gU?autoplay=0&mute=0" 
+                        title="البث المباشر لقناة السنة النبوية" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="mt-4 text-center">
+                <p class="text-xs sm:text-sm text-olive-500 font-medium leading-relaxed">
+                    بث مباشر من رحاب المسجد النبوي الشريف لنقل الصلوات ودروس العلم الشرعي.
                 </p>
             </div>
         </div>
