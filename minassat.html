@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تطبيق إصطفاك - الصوتيات والمنصات الشرعية</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -64,15 +61,14 @@
 </head>
 <body class="min-h-screen pb-10">
 
-    <!-- الهيدر العلوي مع زر العودة للصفحة السابقة -->
-    <header class="sticky top-0 z-30 bg-olive-500 text-white shadow-card rounded-b-[30px] px-6 py-4">
+    <header class="sticky top-0 z-30 bg-[#3A4E35] text-white shadow-card rounded-b-[30px] px-6 py-4 border-b-2 border-[#D4AF37]">
         <div class="mx-auto flex max-w-3xl items-center justify-between">
-            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+            <button onclick="history.back()" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
                 <i class="fa-solid fa-arrow-right"></i>
-                <span>العودة</span>
+                <span>السابق</span>
             </button>
-            <h1 class="text-xl font-bold font-serif text-gold-400">الصوتيات والمنصات</h1>
-            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-medium transition-all hover:bg-white/20">
+            <h1 class="text-xl font-bold font-serif text-[#F5E9C0]">الصوتيات والمنصات</h1>
+            <a href="index.html" class="flex items-center gap-2 rounded-xl bg-[#D4AF37] text-[#222B1E] px-4 py-2 text-sm font-bold transition-all hover:bg-white hover:text-[#33442E] shadow-md">
                 <span>الرئيسية</span>
                 <i class="fa-solid fa-home"></i>
             </a>
@@ -81,7 +77,6 @@
 
     <main class="mx-auto max-w-3xl px-4 pt-6 space-y-6">
 
-        <!-- الصنف الأول: زاد النفس وتزكية القلوب (البودكاست) -->
         <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
             <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
@@ -188,7 +183,6 @@
             </div>
         </section>
 
-        <!-- الصنف الثاني: أبرز المنصات التعليمية والمواقع -->
         <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
             <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-olive-600 text-white shadow-soft text-lg">
@@ -200,7 +194,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <a href="encyclopedias.html" class="rounded-2xl bg-cream p-4 border border-olive-100 flex items-center justify-between hover:bg-olive-50 hover:border-gold-400 transition-all group">
                     <div class="flex items-center gap-3">
                         <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-olive-600 shadow-soft group-hover:bg-olive-600 group-hover:text-white transition-all text-lg">
@@ -226,10 +220,22 @@
                     </div>
                     <i class="fa-solid fa-arrow-left text-xs text-gold-600"></i>
                 </a>
+
+                <a href="audio-sources.html" class="rounded-2xl bg-cream p-4 border border-olive-100 flex items-center justify-between hover:bg-olive-50 hover:border-gold-400 transition-all group sm:col-span-3">
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gold-500 text-white shadow-soft group-hover:bg-olive-600 transition-all text-lg">
+                            <i class="fa-solid fa-headphones"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-olive-600 font-serif">منصات وقنوات الكتب الصوتية الخارجية</h3>
+                            <span class="text-[11px] text-olive-400">مواقع وقنوات تلجرام تقدم مكتبات صوتية</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-left text-xs text-gold-600"></i>
+                </a>
             </div>
         </section>
 
-        <!-- الصنف الثالث: التلاوات الخاشعة برواية ورش -->
         <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
             <div class="flex items-center gap-3 mb-5 border-b border-olive-100 pb-3">
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-olive-500 text-white shadow-soft text-lg">
@@ -299,7 +305,6 @@
             </div>
         </section>
 
-        <!-- الصنف الجديد: إذاعات القرآن الكريم -->
         <section class="rounded-3xl bg-white p-6 shadow-card border border-olive-100 animate-fade">
             <div class="flex items-center gap-3 mb-4 border-b border-olive-100 pb-3">
                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-400 text-white shadow-gold text-lg">
@@ -325,3 +330,4 @@
 
 </body>
 </html>
+
