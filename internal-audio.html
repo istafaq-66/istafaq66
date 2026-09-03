@@ -71,11 +71,6 @@
             box-shadow: 0 15px 35px rgba(51, 68, 46, 0.15);
             border-color: #D4AF37;
         }
-
-        /* تخصيص شريط الصوت ليطابق الهوية الذهبية */
-        input[type="range"] {
-            accent-color: #D4AF37;
-        }
     </style>
 </head>
 <body class="min-h-screen pb-16">
@@ -100,440 +95,376 @@
         <!-- العنوان الرئيسي -->
         <div class="text-center space-y-2 animate-fade-down">
             <h2 class="text-2xl sm:text-3xl font-bold font-serif text-olive-700">المكتبة الصوتية الخاصة بالمنصة</h2>
-            <p class="text-sm sm:text-base text-olive-500">استمع إلى التلاوات والدروس المباشرة داخل الصفحة، مع التحكم بالسرعة والتحميل</p>
+            <p class="text-sm sm:text-base text-olive-500">استمع إلى التلاوات والدروس المباشرة داخل الصفحة بكل سهولة</p>
         </div>
 
-        <!-- قائمة الصوتيات الاحترافية (17 عنصراً) -->
+        <!-- قائمة الصوتيات الاحترافية (مع زر إستماع مخصص ومخفي للمشغل الافتراضي) -->
         <div class="grid grid-cols-1 gap-5 animate-fade-up">
 
             <!-- عنصر 1 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأصول الثلاثة - المجلس الأول</h3>
-                            <span class="text-xs text-olive-400">متون العقيدة الإسلامية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/GVAnEZ9vrhH1ZGZvCSi0" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأصول الثلاثة - المجلس الأول</h3>
+                        <span class="text-xs text-olive-400">متون العقيدة الإسلامية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/GVAnEZ9vrhH1ZGZvCSi0" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <!-- عنصر الصوت المخفي -->
+                <audio id="audio-1" src="https://server6.mp3quran.net/akdr/001.mp3" preload="none"></audio>
+                <!-- زر إستماع مخصص -->
+                <button onclick="togglePlay('audio-1', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 2 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأصول الثلاثة - المجلس الثاني</h3>
-                            <span class="text-xs text-olive-400">متون العقيدة الإسلامية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/QbrQNDisFGqsXy3rGhqO" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأصول الثلاثة - المجلس الثاني</h3>
+                        <span class="text-xs text-olive-400">متون العقيدة الإسلامية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/QbrQNDisFGqsXy3rGhqO" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-2" src="https://server6.mp3quran.net/akdr/002.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-2', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 3 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح القواعد الأربع المباركة</h3>
-                            <span class="text-xs text-olive-400">كتب التوحيد والعقيدة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/CEdTWkzAY9AJZQNdCbdq" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح القواعد الأربع المباركة</h3>
+                        <span class="text-xs text-olive-400">كتب التوحيد والعقيدة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/CEdTWkzAY9AJZQNdCbdq" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-3" src="https://server6.mp3quran.net/akdr/003.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-3', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 4 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب نواقض الإسلام</h3>
-                            <span class="text-xs text-olive-400">دروس في التوحيد</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/w4lq4A06UdY5zlD5z8ib" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب نواقض الإسلام</h3>
+                        <span class="text-xs text-olive-400">دروس في التوحيد</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/w4lq4A06UdY5zlD5z8ib" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-4" src="https://server6.mp3quran.net/akdr/004.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-4', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 5 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب التوحيد - الدرس الأول</h3>
-                            <span class="text-xs text-olive-400">العقيدة الصحيحة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/lvBopT7ceai3WeCrxBHo" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب التوحيد - الدرس الأول</h3>
+                        <span class="text-xs text-olive-400">العقيدة الصحيحة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/lvBopT7ceai3WeCrxBHo" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-5" src="https://server6.mp3quran.net/akdr/005.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-5', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 6 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب التوحيد - الدرس الثاني</h3>
-                            <span class="text-xs text-olive-400">العقيدة الصحيحة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/H3U0D1oPID1HxIoAmjOI" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح كتاب التوحيد - الدرس الثاني</h3>
+                        <span class="text-xs text-olive-400">العقيدة الصحيحة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/H3U0D1oPID1HxIoAmjOI" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-6" src="https://server6.mp3quran.net/akdr/006.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-6', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 7 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">دروس في العقيدة الواسطية</h3>
-                            <span class="text-xs text-olive-400">شيخ الإسلام ابن تيمية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/BZVvTiSOZ8B32chAAoAc" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">دروس في العقيدة الواسطية</h3>
+                        <span class="text-xs text-olive-400">شيخ الإسلام ابن تيمية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/BZVvTiSOZ8B32chAAoAc" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-7" src="https://server6.mp3quran.net/akdr/007.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-7', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 8 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح العقيدة الطحاوية - الجزء الأول</h3>
-                            <span class="text-xs text-olive-400">العقيدة السلفية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/9B8ZTCVJgWmpTEbMjz1L" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح العقيدة الطحاوية - الجزء الأول</h3>
+                        <span class="text-xs text-olive-400">العقيدة السلفية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/9B8ZTCVJgWmpTEbMjz1L" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-8" src="https://server6.mp3quran.net/akdr/008.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-8', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 9 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح العقيدة الطحاوية - الجزء الثاني</h3>
-                            <span class="text-xs text-olive-400">العقيدة السلفية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/j1lpsh7zwtDA9aiDczoT" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح العقيدة الطحاوية - الجزء الثاني</h3>
+                        <span class="text-xs text-olive-400">العقيدة السلفية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/j1lpsh7zwtDA9aiDczoT" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-9" src="https://server6.mp3quran.net/akdr/009.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-9', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 10 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">مجالس السيرة النبوية العطرة</h3>
-                            <span class="text-xs text-olive-400">دروس من هدي المصطفى صلى الله عليه وسلم</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/01fzSjbYTQg5JoEiveYj" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">مجالس السيرة النبوية العطرة</h3>
+                        <span class="text-xs text-olive-400">دروس من هدي المصطفى صلى الله عليه وسلم</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/01fzSjbYTQg5JoEiveYj" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-10" src="https://server6.mp3quran.net/akdr/010.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-10', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 11 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح متن الآجرومية في النحو</h3>
-                            <span class="text-xs text-olive-400">علوم اللغة العربية لطلبة العلم</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/tXltDYLRUgjNRCBFuire" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح متن الآجرومية في النحو</h3>
+                        <span class="text-xs text-olive-400">علوم اللغة العربية لطلبة العلم</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/tXltDYLRUgjNRCBFuire" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-11" src="https://server6.mp3quran.net/akdr/011.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-11', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 12 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح منظومة البيقوني في مصطلح الحديث</h3>
-                            <span class="text-xs text-olive-400">علوم الحديث الشريف</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/6xh9GA1XeGTQIUuILA4V" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح منظومة البيقوني في مصطلح الحديث</h3>
+                        <span class="text-xs text-olive-400">علوم الحديث الشريف</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/6xh9GA1XeGTQIUuILA4V" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-12" src="https://server6.mp3quran.net/akdr/012.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-12', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 13 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">أحكام الطهارة والصلوات - فقه العبادات</h3>
-                            <span class="text-xs text-olive-400">دروس فقهية ميسرة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/YHeamGRuWqDYP9VIsFBb" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">أحكام الطهارة والصلوات - فقه العبادات</h3>
+                        <span class="text-xs text-olive-400">دروس فقهية ميسرة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/YHeamGRuWqDYP9VIsFBb" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-13" src="https://server6.mp3quran.net/akdr/013.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-13', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 14 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأربعين النووية - المجلس الأول</h3>
-                            <span class="text-xs text-olive-400">الأحاديث النبوية الشريفة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/bxogYaQOVea1Q58gKjTv" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأربعين النووية - المجلس الأول</h3>
+                        <span class="text-xs text-olive-400">الأحاديث النبوية الشريفة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/bxogYaQOVea1Q58gKjTv" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-14" src="https://server6.mp3quran.net/akdr/014.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-14', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 15 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأربعين النووية - المجلس الثاني</h3>
-                            <span class="text-xs text-olive-400">الأحاديث النبوية الشريفة</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/0sNHfTkSxBvfslXeggHp" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">شرح الأربعين النووية - المجلس الثاني</h3>
+                        <span class="text-xs text-olive-400">الأحاديث النبوية الشريفة</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/0sNHfTkSxBvfslXeggHp" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-15" src="https://server6.mp3quran.net/akdr/015.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-15', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 16 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">مجالس تدبر القرآن الكريم وتزكية النفوس</h3>
-                            <span class="text-xs text-olive-400">تلاوة وتدبر إيماني</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/ry6780byaznXHdsbKWEY" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">مجالس تدبر القرآن الكريم وتزكية النفوس</h3>
+                        <span class="text-xs text-olive-400">تلاوة وتدبر إيماني</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/ry6780byaznXHdsbKWEY" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-16" src="https://server6.mp3quran.net/akdr/016.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-16', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
             <!-- عنصر 17 -->
-            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl border border-gold-200 flex-shrink-0">
-                            <i class="fa-solid fa-headphones-simple"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">وصايا لطالب العلم الشرعي والمراجعة</h3>
-                            <span class="text-xs text-olive-400">نصائح وإرشادات علمية</span>
-                        </div>
+            <div class="audio-player-card bg-white rounded-3xl p-6 shadow-card border border-olive-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl border border-gold-200 flex-shrink-0">
+                        <i class="fa-solid fa-headphones-simple"></i>
                     </div>
-                    <a href="https://jumpshare.com/share/JZndY2PGQhUvLWK5Vdj0" download class="flex items-center gap-1.5 bg-gold-500 hover:bg-[#33442E] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-soft flex-shrink-0">
-                        <i class="fa-solid fa-download"></i>
-                        <span class="hidden sm:inline">تحميل MP3</span>
-                    </a>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-olive-700 font-serif">وصايا لطالب العلم الشرعي والمراجعة</h3>
+                        <span class="text-xs text-olive-400">نصائح وإرشادات علمية</span>
+                    </div>
                 </div>
-                <div class="bg-cream p-4 rounded-2xl border border-olive-100 flex flex-col gap-3">
-                    <audio class="w-full" preload="none" controls>
-                        <source src="https://jumpshare.com/share/JZndY2PGQhUvLWK5Vdj0" type="audio/mp3">
-                        متصفحك لا يدعم تشغيل الملفات الصوتية.
-                    </audio>
-                </div>
+                <audio id="audio-17" src="https://server6.mp3quran.net/akdr/017.mp3" preload="none"></audio>
+                <button onclick="togglePlay('audio-17', this)" class="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-[#33442E] text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft flex-shrink-0">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <span class="btn-text">إستماع</span>
+                </button>
             </div>
 
         </div>
 
     </main>
 
+    <!-- سكود البرمجة لجعل زر الاستماع يتحكم بالتشغيل والإيقاف بسلاسة -->
+    <script>
+        let currentAudio = null;
+        let currentButton = null;
+
+        function togglePlay(audioId, btn) {
+            const audio = document.getElementById(audioId);
+            const icon = btn.querySelector('.play-icon');
+            const text = btn.querySelector('.btn-text');
+
+            // إذا كان هناك صوت آخر قيد التشغيل، قم بإيقافه وإعادة تعيين زره
+            if (currentAudio && currentAudio !== audio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                if (currentButton) {
+                    currentButton.querySelector('.play-icon').className = "fa-solid fa-play play-icon";
+                    currentButton.querySelector('.btn-text').innerText = "إستماع";
+                    currentButton.classList.remove('bg-[#33442E]');
+                    currentButton.classList.add('bg-gold-500');
+                }
+            }
+
+            if (audio.paused) {
+                audio.play();
+                icon.className = "fa-solid fa-pause play-icon";
+                text.innerText = "إيقاف";
+                btn.classList.remove('bg-gold-500');
+                btn.classList.add('bg-[#33442E]');
+                currentAudio = audio;
+                currentButton = btn;
+            } else {
+                audio.pause();
+                icon.className = "fa-solid fa-play play-icon";
+                text.innerText = "إستماع";
+                btn.classList.remove('bg-[#33442E]');
+                btn.classList.add('bg-gold-500');
+                currentAudio = null;
+                currentButton = null;
+            }
+
+            // عند انتهاء المقطع الصوتي تلقائياً
+            audio.onended = function() {
+                icon.className = "fa-solid fa-play play-icon";
+                text.innerText = "إستماع";
+                btn.classList.remove('bg-[#33442E]');
+                btn.classList.add('bg-gold-500');
+                currentAudio = null;
+                currentButton = null;
+            };
+        }
+    </script>
+
 </body>
 </html>
+
